@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#2C1A0B">
+<title>Чистые данные · Codebook &amp; Survey Tidier</title>
+<meta name="description" content="Бесплатный браузерный инструмент: загрузите CSV/Excel (в т.ч. выгрузку Google/Яндекс Форм) и получите кодбук, чистый датасет и синтаксис SPSS. Всё считается в браузере, данные никуда не уходят.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<!-- TODO: заменить PLACEHOLDER-URL на реальный адрес сайта перед публикацией -->
+<link rel="canonical" href="https://PLACEHOLDER-URL/">
+<meta property="og:url" content="https://PLACEHOLDER-URL/">
+<meta property="og:site_name" content="Codebook & Survey Tidier">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Codebook & Survey Tidier — чистые данные для гуманитария">
+<meta property="og:description" content="Бесплатный браузерный инструмент: CSV/Excel → кодбук, чистый датасет и синтаксис SPSS. Данные не покидают браузер.">
+<meta property="og:image" content="https://PLACEHOLDER-URL/assets/hero.png">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Codebook & Survey Tidier — чистые данные для гуманитария">
+<meta name="twitter:description" content="Бесплатный браузерный инструмент: CSV/Excel → кодбук, чистый датасет и синтаксис SPSS. Данные не покидают браузер.">
+<meta name="twitter:image" content="https://PLACEHOLDER-URL/assets/hero.png">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  :root{
+    --ink:#2b2620; --muted:#7a7163; --faint:#93897a;
+    --accent:#9c7a3c; --accent-deep:#6b5228; --accent-soft:rgba(156,122,60,.12);
+    --line:rgba(120,100,70,.18); --line-light:rgba(120,100,70,.10);
+    --warn:#8a3a3a; --warn-bg:rgba(138,58,58,.06); --warn-border:rgba(138,58,58,.25);
+    --hero-bg:#2C1A0B; --gold-bright:#e3b969;
+    --radius:14px; --radius-lg:18px;
+    --serif:Cambria,Georgia,'Times New Roman',serif;
+    --mono:ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace;
+    --shadow:0 8px 32px rgba(120,90,40,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;font-family:var(--serif);color:var(--ink);line-height:1.6;
+    background:#f7f2e7;
+    background-image:
+      radial-gradient(ellipse 900px 700px at 10% -5%, rgba(255,247,225,.9), transparent 60%),
+      radial-gradient(ellipse 800px 800px at 100% 30%, rgba(255,250,235,.7), transparent 55%),
+      radial-gradient(ellipse 900px 900px at 30% 110%, rgba(250,240,215,.6), transparent 60%);
+    background-attachment:fixed;
+  }
+  a{color:var(--accent-deep)}
+  a:hover{color:var(--accent)}
+  ::selection{background:rgba(156,122,60,.22)}
+  img{max-width:100%}
+
+  /* ─── доступность ─── */
+  .skip-link{position:absolute;top:-100px;left:16px;z-index:9999;padding:10px 18px;border-radius:8px;background:var(--accent);color:#fbf8f2;font-weight:700;font-size:13px;text-decoration:none;transition:top .15s}
+  .skip-link:focus{top:8px}
+  a:focus-visible,button:focus-visible,[tabindex]:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  /* ─── боковые гравюры (декор, скрыты на мобильных) ─── */
+  #engrave-left,#engrave-right{position:fixed;top:clamp(90px,15vw,180px);height:calc(100vh - clamp(90px,15vw,180px));min-height:600px;width:420px;max-width:560px;pointer-events:none;z-index:0;overflow:hidden;display:flex;align-items:center;transition:transform .35s ease-out}
+  #engrave-left{left:0}
+  #engrave-right{right:0;justify-content:flex-end}
+  #engrave-left img,#engrave-right img{height:100%;max-height:1600px;width:auto;object-fit:contain;opacity:.6}
+  #engrave-left img{object-position:left center;-webkit-mask-image:linear-gradient(to right, black 45%, transparent 92%);mask-image:linear-gradient(to right, black 45%, transparent 92%)}
+  #engrave-right img{object-position:right center;-webkit-mask-image:linear-gradient(to left, black 45%, transparent 92%);mask-image:linear-gradient(to left, black 45%, transparent 92%)}
+  @media(max-width:900px){#engrave-left,#engrave-right{display:none}}
+  @media(prefers-reduced-motion:reduce){#engrave-left,#engrave-right{transition:none}}
+
+  /* ─── hero-панель ─── */
+  .hero-band{position:relative;width:100%;height:clamp(90px,15vw,180px);background:var(--hero-bg);display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 6px 24px rgba(40,25,10,.18)}
+  .hero-band img{display:block;height:100%;width:auto;object-fit:contain}
+  .lang-switch{position:absolute;right:14px;top:50%;transform:translateY(-50%);display:flex;gap:2px;background:rgba(0,0,0,.18);border-radius:999px;padding:3px}
+  .lang-switch button{background:transparent;border:none;cursor:pointer;font:700 12px/1 var(--mono);letter-spacing:.05em;color:rgba(227,185,105,.45);padding:8px 12px;min-width:44px;min-height:36px;border-radius:999px;transition:color .15s,background .15s}
+  .lang-switch button.on{color:var(--gold-bright);background:rgba(227,185,105,.14)}
+  .lang-switch button:hover{color:var(--gold-bright)}
+  @media(max-width:600px){.lang-switch{right:8px;padding:2px}.lang-switch button{padding:7px 9px;font-size:11px}}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:36px 22px 90px;position:relative;z-index:1}
+
+  header{margin-bottom:8px}
+  header .lead{font-weight:700;font-size:clamp(36px,3.6vw,26px);line-height:1.32;margin:0 0 20px;letter-spacing:-.01em}
+  header .sub{margin:0;color:var(--muted);font-size:17px;line-height:1.6;max-width:640px}
+
+  /* ─── что делает инструмент ─── */
+  .features{margin-top:36px}
+  .feature-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:18px}
+  .feature-list li{position:relative;padding-left:22px;font-size:16px;line-height:1.6;color:var(--ink)}
+  .feature-list li::before{content:'';position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  .feature-list li b{font-weight:700}
+
+  /* ─── приватность (плашка) ─── */
+  .privacy-note{margin-top:28px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:12px;padding:16px 20px;font-size:16px;line-height:1.6;color:var(--ink)}
+
+  /* ─── бонус и курс ─── */
+  .bonus-line{margin-top:24px;font-size:16px;line-height:1.6;color:var(--ink)}
+  .bonus-line a{font-weight:700}
+  .course-line{margin-top:10px;font-size:15.5px;line-height:1.6;color:var(--muted)}
+
+  .card{background:rgba(255,255,255,.5);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(255,255,255,.65);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:26px;margin-top:20px}
+  .card:first-of-type{margin-top:28px}
+
+  .drop{border:1.5px dashed rgba(156,122,60,.5);border-radius:var(--radius);padding:42px 20px;text-align:center;cursor:pointer;transition:.15s;background:rgba(255,255,255,.35)}
+  .drop.drag{border-color:var(--accent);background:var(--accent-soft)}
+  .drop b{color:var(--accent-deep);font-size:15.5px}
+  .drop small{display:block;color:var(--muted);margin-top:7px;font-size:13px}
+
+  .modes{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .mode{flex:1;min-width:220px;border:1px solid var(--line);border-radius:12px;padding:14px 16px;cursor:pointer;background:rgba(255,255,255,.4);transition:transform .15s,box-shadow .15s,border-color .15s,background .15s;min-height:44px}
+  .mode:hover{transform:translateY(-2px)}
+  .mode.active{border-color:var(--accent);background:var(--accent-soft)}
+  .mode b{display:block;font-size:14.5px}
+  .mode small{color:var(--muted);font-size:13px}
+
+  .note{font-size:13px;color:var(--muted);margin-top:12px;margin-bottom:0}
+  .hint{background:var(--warn-bg);border:1px solid var(--warn-border);color:var(--warn);border-radius:10px;padding:10px 13px;font-size:13.5px;margin-top:12px}
+
+  .changed{background:var(--accent-soft);border:1px solid rgba(156,122,60,.25);border-radius:12px;padding:14px 16px;font-size:14.5px}
+  .changed b{color:var(--accent-deep)}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-top:14px}
+  .kpi{background:rgba(255,255,255,.4);border:1px solid var(--line);border-radius:12px;padding:14px;transition:transform .15s}
+  .kpi:hover{transform:translateY(-2px)}
+  .kpi .n{font-size:25px;font-weight:700} .kpi .l{font-size:12.5px;color:var(--muted)} .kpi.warn .n{color:var(--warn)}
+
+  .msrow{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+  .msrow:last-child{border-bottom:0}
+  .msrow input{margin-top:4px;accent-color:var(--accent);width:18px;height:18px}
+  .msrow .q{font-weight:600}
+  .msrow .h{color:var(--muted);font-size:13px}
+
+  .tabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+  .tab{padding:10px 14px;cursor:pointer;color:var(--muted);font-weight:600;font-size:14px;border-bottom:2px solid transparent;margin-bottom:-1px;min-height:44px;display:flex;align-items:center}
+  .tab.active{color:var(--accent-deep);border-bottom-color:var(--accent)}
+  .panel{display:none;padding-top:16px} .panel.active{display:block}
+
+  table{border-collapse:collapse;width:100%;font-size:14px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;white-space:nowrap}
+  code{font-family:var(--mono);background:var(--line-light);border-radius:5px;padding:1px 5px;font-size:13px}
+  .tag{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--line-light);color:var(--muted)}
+
+  .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+  .btn{border:1px solid var(--accent);background:var(--accent);color:#fbf8f2;border-radius:999px;padding:11px 18px;font-weight:600;cursor:pointer;font-size:14px;transition:transform .15s;min-height:44px}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.sec{background:rgba(255,255,255,.4);color:var(--accent-deep)}
+  .muted{color:var(--muted)}
+  .scroll{overflow:auto;max-height:460px;border:1px solid var(--line);border-radius:10px}
+  .hidden{display:none}
+  h3{margin:0 0 6px;font-size:18px}
+
+  .teaser{margin-top:22px;background:linear-gradient(135deg,rgba(43,38,32,.92),rgba(60,50,38,.92));backdrop-filter:blur(10px);border-radius:var(--radius-lg);padding:26px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;box-shadow:0 12px 34px rgba(60,45,20,.22)}
+  .teaser .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#d4b878;font-weight:600;margin-bottom:8px}
+  .teaser .title{font-weight:700;font-size:19px;color:#f7f2e7;margin-bottom:4px}
+  .teaser .sub{font-size:13.5px;color:#b7ac98}
+  .teaser a{flex-shrink:0;background:#f7f2e7;color:#2b2620;border-radius:999px;padding:11px 22px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap;transition:transform .15s;min-height:44px;display:inline-flex;align-items:center}
+  .teaser a:hover{transform:translateY(-2px)}
+
+  .hr{height:1px;background:var(--line);margin:56px 0 0}
+
+  /* ─── шпаргалка (сворачивается по умолчанию) ─── */
+  #cheatsheet{margin-top:40px;position:relative;background:rgba(255,255,255,.55);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);border:1px solid rgba(255,255,255,.7);border-radius:22px;padding:48px 44px;box-shadow:0 16px 44px rgba(120,90,40,.14);transition:transform .25s,box-shadow .25s}
+  #cheatsheet:hover{transform:translateY(-3px);box-shadow:0 22px 54px rgba(120,90,40,.18)}
+  .corner{position:absolute;width:13px;height:13px;border-color:#b8933a;border-style:solid;border-width:0}
+  .corner.tl{top:16px;left:16px;border-top-width:1.5px;border-left-width:1.5px}
+  .corner.tr{top:16px;right:16px;border-top-width:1.5px;border-right-width:1.5px}
+  .corner.bl{bottom:16px;left:16px;border-bottom-width:1.5px;border-left-width:1.5px}
+  .corner.br{bottom:16px;right:16px;border-bottom-width:1.5px;border-right-width:1.5px}
+  .cheat-head{text-align:center;margin-bottom:28px}
+  .cheat-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-deep);font-weight:600;margin-bottom:14px}
+  .cheat-head h2{font-weight:700;font-size:30px;margin:0 0 8px}
+  .cheat-head .subtitle{font-style:italic;font-size:16px;color:var(--muted);margin:0 0 14px}
+  .cheat-head .byline{font-size:13px;color:var(--faint);margin:0}
+  #cheatsheet.collapsed .cheat-body,#cheatsheet.collapsed .cheat-head .subtitle,#cheatsheet.collapsed .cheat-head .byline{display:none}
+  .cheat-reveal{display:none;text-align:center;margin-top:6px}
+  #cheatsheet.collapsed .cheat-reveal{display:block}
+  .cheat-reveal button{background:var(--accent);color:#fbf8f2;border:none;border-radius:999px;padding:12px 26px;font-weight:600;font-size:14px;cursor:pointer;min-height:44px}
+  .qnum{font-size:22px;color:var(--accent);flex-shrink:0;line-height:1.3}
+  .qrow{display:flex;gap:12px;align-items:flex-start;margin-bottom:22px}
+  .qrow .qtitle{font-weight:700;font-size:15.5px;margin-bottom:8px}
+  .cheat-table{overflow:auto;border:1px solid var(--line);border-radius:10px}
+  .cheat-table table{font-size:14px}
+  .cheat-note{font-size:12.5px;color:var(--faint);margin:8px 0 0}
+  .warnbox{border:1px solid var(--warn-border);background:var(--warn-bg);border-radius:12px;padding:18px 20px;margin-bottom:26px}
+  .warnbox .lbl{font-weight:700;color:var(--warn);margin-bottom:10px;letter-spacing:.02em;text-transform:uppercase;font-size:12px}
+  .warnbox div{font-size:14.5px;margin-bottom:8px}
+  .course-cta{border-top:1px solid var(--line);padding:20px 4px 0;margin-top:6px}
+  .course-cta p{font-size:14.5px;margin:0 0 8px}
+  .share-note{font-size:12.5px;color:var(--faint);text-align:center;font-style:italic;margin:20px 0 0}
+
+  /* ─── подвал ─── */
+  .site-footer{background:var(--hero-bg);margin-top:60px;padding:34px 22px}
+  .footer-inner{max-width:1040px;margin:0 auto;display:flex;gap:20px;justify-content:space-between;align-items:flex-end;flex-wrap:wrap}
+  .footer-left p{margin:0 0 6px;font-size:13.5px;color:rgba(227,185,105,.55)}
+  .footer-left a{color:var(--gold-bright);text-decoration:none;font-weight:600}
+  .footer-left a:hover{text-decoration:underline}
+  .footer-right{display:flex;gap:18px;flex-wrap:wrap}
+  .footer-right a{color:var(--gold-bright);text-decoration:none;font-size:13.5px;font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+  .footer-right a:hover{text-decoration:underline}
+
+  #back-to-top{position:fixed;right:20px;bottom:24px;z-index:200;width:44px;height:44px;border-radius:50%;background:rgba(43,38,32,.85);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);color:#f7f2e7;font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s,transform .18s;box-shadow:0 2px 12px rgba(20,15,5,.3)}
+  #back-to-top.visible{opacity:1;pointer-events:auto}
+  #back-to-top:hover{transform:translateY(-2px)}
+
+  @media(max-width:640px){
+    .wrap{padding:24px 16px 70px}
+    header .lead{font-size:22px}
+    .card{padding:18px}
+    #cheatsheet{padding:28px 20px}
+    .cheat-head h2{font-size:24px}
+    .footer-inner{flex-direction:column;align-items:flex-start;gap:14px}
+    .teaser{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link" data-i18n="skipLink">Перейти к содержимому</a>
+
+<div id="engrave-left" aria-hidden="true"><img src="Библиотека исследователя/assets/engraving-left.png" alt=""></div>
+<div id="engrave-right" aria-hidden="true"><img src="Библиотека исследователя/assets/engraving-right.png" alt=""></div>
+
+<div class="hero-band">
+  <img src="Библиотека исследователя/assets/hero.png" alt="Codebook &amp; Survey Tidier">
+  <div class="lang-switch" role="group" aria-label="Язык / Language">
+    <button type="button" class="on" id="lang-ru" aria-pressed="true">RU</button>
+    <button type="button" id="lang-en" aria-pressed="false">EN</button>
+  </div>
+</div>
+
+<div class="wrap" id="main">
+  <header>
+    <h1 class="lead" data-i18n="lead">От сырой выгрузки анкет – к чистым данным и готовому кодбуку. Без ручной рутины.</h1>
+    <p class="sub" data-i18n="sub">Инструмент для историков, социологов, филологов и всех, кто работает с анкетами. Чистит выгрузки Google&nbsp;/&nbsp;Яндекс&nbsp;/&nbsp;MS&nbsp;Forms, строит кодбук и готовит файлы для SPSS и jamovi.</p>
+  </header>
+
+  <div class="card">
+    <div id="drop" class="drop" tabindex="0" role="button">
+      <span data-i18n="dropIntro"><b>Перетащите файл сюда</b> или нажмите, чтобы выбрать</span>
+      <small data-i18n="dropSmall">CSV или Excel (.xlsx). Например – выгрузка ответов из Google&nbsp;/&nbsp;Яндекс Форм</small>
+      <input id="file" type="file" accept=".csv,.tsv,.txt,.xlsx,.xls" class="hidden">
+    </div>
+    <div class="modes">
+      <div class="mode active" data-mode="codebook" id="m-codebook" tabindex="0" role="button" aria-pressed="true"><b data-i18n="modeCodebookTitle">Обычный режим (кодбук)</b><small data-i18n="modeCodebookDesc">Документирует таблицу; данные НЕ меняются</small></div>
+      <div class="mode" data-mode="survey" id="m-survey" tabindex="0" role="button" aria-pressed="false"><b data-i18n="modeSurveyTitle">Режим опроса</b><small data-i18n="modeSurveyDesc">Чистит заголовки-вопросы, разносит множественный выбор, делает сводку</small></div>
+    </div>
+    <p class="note" id="status"></p>
+    <div id="hint"></div>
+  </div>
+
+  <div id="msPanel" class="card hidden">
+    <h3 data-i18n="msPanelTitle">Множественный выбор – подтвердите, что разнести на колонки 0/1</h3>
+    <p class="note" data-i18n="msPanelNote">Мы отметили только уверенные случаи. Снимите галочку, если это единый ответ (например «Страны ЕС, США или Канада»), а не несколько выборов.</p>
+    <div id="msList"></div>
+  </div>
+
+  <div id="results" class="hidden">
+    <div class="card">
+      <div id="changed" class="changed"></div>
+      <div class="kpis" id="kpis"></div>
+    </div>
+    <div class="card">
+      <div class="tabs" id="tabs"></div>
+      <div id="panels"></div>
+      <div class="btns" style="margin-top:18px" id="downloads"></div>
+      <p class="note" id="dlnote"></p>
+    </div>
+
+    <div class="teaser">
+      <div>
+        <div class="eyebrow" data-i18n="teaserEyebrow">Из библиотеки исследователя</div>
+        <div class="title" data-i18n="teaserTitle">Шпаргалка: как выбрать статистический тест</div>
+        <div class="sub" data-i18n="teaserSub">Три вопроса – и вы найдёте нужный метод. Один печатный лист, без воды.</div>
+      </div>
+      <a href="#cheatsheet" id="teaserLink" data-i18n="teaserLinkText">Читать шпаргалку →</a>
+    </div>
+  </div>
+
+  <section class="features">
+    <ul class="feature-list">
+      <li data-i18n="feature1"><b>Наводит порядок в данных.</b> Приводит путаные заголовки-вопросы к аккуратным именам переменных, находит ошибки и пропуски.</li>
+      <li data-i18n="feature2"><b>Разносит множественный выбор.</b> Вопросы «отметьте всё подходящее» автоматически превращает в переменные 0/1, готовые к анализу.</li>
+      <li data-i18n="feature3"><b>Строит кодбук.</b> Документирует все переменные – тип, метки, пропуски, – чтобы через год вы помнили, что означает каждый столбец.</li>
+      <li data-i18n="feature4"><b>Готовит к анализу.</b> На выходе – чистый CSV и готовый синтаксис для SPSS; данные сразу открываются в jamovi.</li>
+    </ul>
+  </section>
+
+  <div class="privacy-note" data-i18n="privacyNote">🔒 Всё считается в вашем браузере. Файлы никуда не загружаются – ни на сервер, ни автору. Закрыли вкладку – данные исчезли.</div>
+
+  <p class="bonus-line"><span data-i18n="bonusText">Бесплатно к инструменту – шпаргалка «Какой статистический тест выбрать»: три вопроса, и вы находите нужный метод.</span> <a href="#cheatsheet" id="cheatMiniLink" data-i18n="linkReadMore">Читать →</a></p>
+
+  <p class="course-line" data-i18n="courseLine">Хотите научиться анализировать такие данные? Курс «Основы статистики для историка» – скоро.</p>
+
+  <div class="hr"></div>
+
+  <div id="cheatsheet" class="collapsed">
+    <span class="corner tl" aria-hidden="true"></span><span class="corner tr" aria-hidden="true"></span>
+    <span class="corner bl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
+
+    <div class="cheat-head">
+      <div class="cheat-eyebrow" data-i18n="cheatEyebrow">Из библиотеки исследователя</div>
+      <h2 data-i18n="cheatH2">Какой статистический тест выбрать?</h2>
+      <p class="subtitle" data-i18n="cheatSubtitle">Шпаргалка для гуманитария на 1 страницу</p>
+      <p class="byline" data-i18n="cheatByline1">Бесплатно от Анны Агафоновой, к.и.н. · urbantransmission.org</p>
+      <p class="byline" data-i18n="cheatByline2">Сохраните себе – пригодится на защите и в рецензии.</p>
+      <div class="cheat-reveal">
+        <button type="button" id="cheatRevealBtn" data-i18n="cheatRevealBtn">Показать шпаргалку целиком ↓</button>
+      </div>
+    </div>
+
+    <div class="cheat-body">
+      <div class="hr" style="margin:0 0 26px"></div>
+      <p style="font-size:17px;font-weight:700;text-align:center;margin:0 0 26px" data-i18n="cheatIntro">Ответьте на 3 вопроса – и найдёте свой метод.</p>
+
+      <div class="qrow">
+        <span class="qnum">①</span>
+        <div>
+          <div class="qtitle" data-i18n="q1Title">Что вы хотите сделать?</div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:14.5px">
+            <div data-i18n="q1a"><b>Сравнить группы</b> (мужчины/женщины, до/после) → блок ②</div>
+            <div data-i18n="q1b"><b>Найти связь</b> двух признаков → блок ③</div>
+            <div data-i18n="q1c"><b>Предсказать исход</b> (есть/нет, сколько) → блок ④</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="qrow">
+        <span class="qnum">②</span>
+        <div style="flex:1;min-width:0">
+          <div class="qtitle" data-i18n="q2Title">Сравниваете группы. Какая переменная?</div>
+          <div class="cheat-table">
+            <table>
+              <thead><tr data-i18n="q2Headers"><th>Переменная</th><th>Сколько групп</th><th>Метод</th></tr></thead>
+              <tbody>
+                <tr data-i18n="q2Row1"><td>Число (баллы, рост)</td><td>2 независимые</td><td>t-критерий / <b>Манна–Уитни</b>¹</td></tr>
+                <tr data-i18n="q2Row2"><td>Число</td><td>2 связанные (до/после)</td><td>парный t / Уилкоксон¹</td></tr>
+                <tr data-i18n="q2Row3"><td>Число</td><td>3 и больше</td><td>ANOVA / <b>Краскел–Уоллис</b>¹</td></tr>
+                <tr data-i18n="q2Row4"><td>Категория (да/нет)</td><td>любые</td><td><b>χ² (хи-квадрат)</b></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="cheat-note" data-i18n="q2Note">¹ непараметрический вариант: берите его, если данных мало или они «кривые».</p>
+        </div>
+      </div>
+
+      <div class="qrow">
+        <span class="qnum">③</span>
+        <div>
+          <div class="qtitle" data-i18n="q3Title">Ищете связь</div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:14.5px">
+            <div data-i18n="q3a">Число × Число → корреляция <b>Пирсона</b> (или Спирмена, если данные неровные)</div>
+            <div data-i18n="q3b">Категория × Категория → <b>χ²</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="qrow" style="margin-bottom:30px">
+        <span class="qnum">④</span>
+        <div>
+          <div class="qtitle" data-i18n="q4Title">Предсказываете</div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:14.5px">
+            <div data-i18n="q4a">Исход — число → линейная регрессия</div>
+            <div data-i18n="q4b">Исход — да/нет → <b>логистическая регрессия</b> (покажет «во сколько раз меняются шансы»)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hr" style="margin:0 0 26px"></div>
+
+      <div class="warnbox">
+        <div class="lbl" data-i18n="warnLabel">Три ошибки, которые видит каждый рецензент</div>
+        <div data-i18n="warn1"><b>1. «Есть корреляция → есть причина».</b> Нет. Связь ≠ причина.</div>
+        <div data-i18n="warn2"><b>2. Только p, без размера эффекта.</b> p говорит «есть ли», размер эффекта — «насколько большое». Нужны оба.</div>
+        <div data-i18n="warn3"><b>3. Громкие выводы на 15 анкетах.</b> Маленькая выборка → осторожные формулировки.</div>
+      </div>
+
+      <div class="course-cta">
+        <p data-i18n="courseCta"><b>Хотите разобраться глубже?</b> Курс «Основы статистики для историка» — скоро на Stepik. Пошагово: как выбрать метод под свои данные, прочитать вывод SPSS и сформулировать результат для статьи.</p>
+      </div>
+
+      <p class="share-note" data-i18n="shareNote">Можно свободно делиться этим файлом с коллегами и студентами.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <p data-i18n="footerCopyright">© 2026 Анна Агафонова, к.и.н. · <a href="https://urbantransmission.org" target="_blank" rel="noopener noreferrer">urbantransmission.org</a></p>
+      <p data-i18n="footerWorks">Работает офлайн, данные остаются у вас.</p>
+    </div>
+    <div class="footer-right">
+      <a href="codebook-personal-data.html" data-i18n="footerPrivacy">Политика ПД</a>
+      <a href="codebook-terms.html" data-i18n="footerTerms">Условия использования</a>
+    </div>
+  </div>
+</footer>
+
+<button id="back-to-top">↑</button>
+
+<script>
+/* ================= СЛОВАРЬ ИНТЕРФЕЙСА (RU/EN) ================= */
+var I18N={
+  ru:{
+    skipLink:'Перейти к содержимому',
+    pageTitle:'Чистые данные · Codebook & Survey Tidier',
+    lead:'От сырой выгрузки анкет – к чистым данным и готовому кодбуку. Без ручной рутины.',
+    sub:'Инструмент для историков, социологов, филологов и всех, кто работает с анкетами. Чистит выгрузки Google&nbsp;/&nbsp;Яндекс&nbsp;/&nbsp;MS&nbsp;Forms, строит кодбук и готовит файлы для SPSS и jamovi.',
+    dropIntro:'<b>Перетащите файл сюда</b> или нажмите, чтобы выбрать',
+    dropSmall:'CSV или Excel (.xlsx). Например – выгрузка ответов из Google&nbsp;/&nbsp;Яндекс Форм',
+    dropAriaLabel:'Загрузить файл: перетащите сюда или нажмите Enter, чтобы выбрать',
+    modeCodebookTitle:'Обычный режим (кодбук)', modeCodebookDesc:'Документирует таблицу; данные НЕ меняются',
+    modeSurveyTitle:'Режим опроса', modeSurveyDesc:'Чистит заголовки-вопросы, разносит множественный выбор, делает сводку',
+    msPanelTitle:'Множественный выбор – подтвердите, что разнести на колонки 0/1',
+    msPanelNote:'Мы отметили только уверенные случаи. Снимите галочку, если это единый ответ (например «Страны ЕС, США или Канада»), а не несколько выборов.',
+    msTagConfident:'уверенно', msTagUncertain:'под вопросом',
+    msVariants:function(n,list){return n+' вариантов: '+list;},
+    teaserEyebrow:'Из библиотеки исследователя', teaserTitle:'Шпаргалка: как выбрать статистический тест',
+    teaserSub:'Три вопроса – и вы найдёте нужный метод. Один печатный лист, без воды.', teaserLinkText:'Читать шпаргалку →',
+    feature1:'<b>Наводит порядок в данных.</b> Приводит путаные заголовки-вопросы к аккуратным именам переменных, находит ошибки и пропуски.',
+    feature2:'<b>Разносит множественный выбор.</b> Вопросы «отметьте всё подходящее» автоматически превращает в переменные 0/1, готовые к анализу.',
+    feature3:'<b>Строит кодбук.</b> Документирует все переменные – тип, метки, пропуски, – чтобы через год вы помнили, что означает каждый столбец.',
+    feature4:'<b>Готовит к анализу.</b> На выходе – чистый CSV и готовый синтаксис для SPSS; данные сразу открываются в jamovi.',
+    privacyNote:'🔒 Всё считается в вашем браузере. Файлы никуда не загружаются – ни на сервер, ни автору. Закрыли вкладку – данные исчезли.',
+    bonusText:'Бесплатно к инструменту – шпаргалка «Какой статистический тест выбрать»: три вопроса, и вы находите нужный метод.',
+    linkReadMore:'Читать →',
+    courseLine:'Хотите научиться анализировать такие данные? Курс «Основы статистики для историка» – скоро.',
+    cheatEyebrow:'Из библиотеки исследователя', cheatH2:'Какой статистический тест выбрать?',
+    cheatSubtitle:'Шпаргалка для гуманитария на 1 страницу',
+    cheatByline1:'Бесплатно от Анны Агафоновой, к.и.н. · urbantransmission.org',
+    cheatByline2:'Сохраните себе – пригодится на защите и в рецензии.',
+    cheatRevealBtn:'Показать шпаргалку целиком ↓',
+    cheatIntro:'Ответьте на 3 вопроса – и найдёте свой метод.',
+    q1Title:'Что вы хотите сделать?',
+    q1a:'<b>Сравнить группы</b> (мужчины/женщины, до/после) → блок ②',
+    q1b:'<b>Найти связь</b> двух признаков → блок ③',
+    q1c:'<b>Предсказать исход</b> (есть/нет, сколько) → блок ④',
+    q2Title:'Сравниваете группы. Какая переменная?',
+    q2Headers:'<th>Переменная</th><th>Сколько групп</th><th>Метод</th>',
+    q2Row1:'<td>Число (баллы, рост)</td><td>2 независимые</td><td>t-критерий / <b>Манна–Уитни</b>¹</td>',
+    q2Row2:'<td>Число</td><td>2 связанные (до/после)</td><td>парный t / Уилкоксон¹</td>',
+    q2Row3:'<td>Число</td><td>3 и больше</td><td>ANOVA / <b>Краскел–Уоллис</b>¹</td>',
+    q2Row4:'<td>Категория (да/нет)</td><td>любые</td><td><b>χ² (хи-квадрат)</b></td>',
+    q2Note:'¹ непараметрический вариант: берите его, если данных мало или они «кривые».',
+    q3Title:'Ищете связь',
+    q3a:'Число × Число → корреляция <b>Пирсона</b> (или Спирмена, если данные неровные)',
+    q3b:'Категория × Категория → <b>χ²</b>',
+    q4Title:'Предсказываете',
+    q4a:'Исход — число → линейная регрессия',
+    q4b:'Исход — да/нет → <b>логистическая регрессия</b> (покажет «во сколько раз меняются шансы»)',
+    warnLabel:'Три ошибки, которые видит каждый рецензент',
+    warn1:'<b>1. «Есть корреляция → есть причина».</b> Нет. Связь ≠ причина.',
+    warn2:'<b>2. Только p, без размера эффекта.</b> p говорит «есть ли», размер эффекта — «насколько большое». Нужны оба.',
+    warn3:'<b>3. Громкие выводы на 15 анкетах.</b> Маленькая выборка → осторожные формулировки.',
+    courseCta:'<b>Хотите разобраться глубже?</b> Курс «Основы статистики для историка» — скоро на Stepik. Пошагово: как выбрать метод под свои данные, прочитать вывод SPSS и сформулировать результат для статьи.',
+    shareNote:'Можно свободно делиться этим файлом с коллегами и студентами.',
+    footerCopyright:'© 2026 Анна Агафонова, к.и.н. · <a href="https://urbantransmission.org" target="_blank" rel="noopener noreferrer">urbantransmission.org</a>',
+    footerWorks:'Работает офлайн, данные остаются у вас.',
+    footerPrivacy:'Политика ПД', footerTerms:'Условия использования', backToTop:'Наверх',
+    statusReading:function(f){return 'Читаю '+f+' …';},
+    statusLoaded:function(n,m,f){return 'Загружено: '+n+' строк, '+m+' столбцов ('+f+')';},
+    statusNoData:'В файле нет данных.',
+    statusExcelError:function(msg){return 'Ошибка чтения Excel: '+msg;},
+    hintSurvey:'Похоже на выгрузку опроса. Попробуйте <b>Режим опроса</b> — он почистит заголовки и разнесёт множественный выбор.',
+    guardUnknownExt:function(ext){return 'Не удалось распознать формат файла «.'+ext+'». Поддерживаются CSV, TSV, TXT и Excel (.xlsx/.xls).';},
+    guardZipMagic:'Файл начинается как архив (zip), а не как обычный CSV/TSV. Если это выгрузка из jamovi (.omv) или переименованный xlsx — экспортируйте данные в CSV и попробуйте снова.',
+    blocked:{
+      omv:'Это проектный файл jamovi (.omv), а не таблица. В jamovi выберите Export → CSV и загрузите CSV.',
+      sav:'Это файл SPSS (.sav), а не обычная таблица. В SPSS: File → Export → CSV и загрузите CSV.',
+      zip:'Это архив (.zip), а не таблица с данными.',
+      rar:'Это архив (.rar), а не таблица с данными.',
+      '7z':'Это архив (.7z), а не таблица с данными.',
+      dta:'Это файл Stata (.dta). Экспортируйте данные в CSV и загрузите CSV.',
+      sqlite:'Это файл базы данных, а не таблица.',
+      db:'Это файл базы данных, а не таблица.',
+      accdb:'Это файл базы данных Access, а не таблица.',
+      pdf:'Это PDF, а не таблица с данными.',
+      docx:'Это документ Word, а не таблица с данными.',
+      pptx:'Это презентация, а не таблица с данными.'
+    },
+    changedSurvey:function(renamed,mlogLen,extra,issuesLen,before,after){return '<b>Что сделано:</b> приведены к коротким именам '+renamed+' столбц.; разнесено вопросов множественного выбора: '+mlogLen+extra+'; найдено проблем: '+issuesLen+'. Итог: было '+before+' → стало '+after+' столбцов.';},
+    changedCodebook:function(varCount,issuesLen){return '<b>Что сделано:</b> построен кодбук по '+varCount+' переменным; найдено проблем: '+issuesLen+'. <span class="muted">В этом режиме данные не меняются — ценность в файле Codebook.md и отчёте о проблемах.</span>';},
+    columnsWord:'колонок',
+    kpiObservations:'Наблюдений', kpiVariables:'Переменных', kpiIssues:'Проблем', kpiParsed:'Разобрано вопросов',
+    tabCodebook:'Кодбук', tabIssues:function(n){return 'Проблемы ('+n+')';}, tabSummary:'Сводка', tabVariables:'Переменные', tabData:'Данные',
+    cbHeaders:['#','Переменная','Метка/вопрос','Тип','Valid','Пропуски','Уник.','Диапазон / частые'],
+    issHeaders:['Переменная','Проблема','Описание','Предложение'], issEmpty:'Проблем не обнаружено ✅',
+    mapHeaders:['Переменная','Исходный вопрос'], prevNote:'Первые 30 строк.',
+    dlnoteSurvey:'Чистый CSV импортируйте в SPSS, затем запустите .sps — он проставит метки переменных и значений.',
+    dlnoteCodebook:'В этом режиме «data_copy.csv» — копия исходных данных без изменений; главный результат — Codebook.md (или Codebook.rtf, если удобнее открыть в Word).',
+    issues:{
+      reasonNonAscii:'не-ASCII в имени', reasonSpaces:'пробелы', reasonUpper:'верхний регистр', reasonDigitStart:'начинается с цифры', reasonTooLong:'длина > 31 (SPSS)',
+      kVarName:'имя переменной',
+      kMixedLabel:'смешение языков в метке', dMixed:'и кириллица, и латиница', pLabelSuggest:'label_ru / label_en',
+      kManyMissing:'много пропусков', dPctMissing:function(p){return p+'% пропущено';}, pVerifyDoc:'проверить/задокументировать',
+      kConstant:'константа', dSingleValue:'единственное значение', pRemoveOrDoc:'удалить или задокументировать',
+      kMagicNum:'возможные «магические» пропуски', dValues:function(list){return 'значения '+list;}, pCheckNoData:'проверить, не «нет данных» ли',
+      kMagicStr:'текстовые маркеры пропуска', pStandardize:'унифицировать как пропуск'
+    }
+  },
+  en:{
+    skipLink:'Skip to content',
+    pageTitle:'Clean data · Codebook & Survey Tidier',
+    lead:'From raw survey exports to clean data and a ready codebook. No manual busywork.',
+    sub:'A tool for historians, sociologists, philologists, and anyone working with survey data. Cleans up Google&nbsp;/&nbsp;Yandex&nbsp;/&nbsp;MS&nbsp;Forms exports, builds a codebook, and prepares files for SPSS and jamovi.',
+    dropIntro:'<b>Drop a file here</b> or click to choose one',
+    dropSmall:'CSV or Excel (.xlsx). For example — a response export from Google&nbsp;/&nbsp;Yandex Forms',
+    dropAriaLabel:'Upload a file: drag and drop, or press Enter to choose one',
+    modeCodebookTitle:'Standard mode (codebook)', modeCodebookDesc:'Documents the table; data is NOT changed',
+    modeSurveyTitle:'Survey mode', modeSurveyDesc:'Cleans question headers, splits multiple-choice answers, builds a summary',
+    msPanelTitle:'Multiple choice — confirm which columns to split into 0/1',
+    msPanelNote:'We flagged only confident cases. Uncheck a box if it is actually a single answer (e.g. "EU countries, US, or Canada"), not multiple choices.',
+    msTagConfident:'confident', msTagUncertain:'uncertain',
+    msVariants:function(n,list){return n+' options: '+list;},
+    teaserEyebrow:'From the Researcher\'s Library', teaserTitle:'Cheat sheet: which statistical test to choose',
+    teaserSub:'Three questions — and you\'ll find the right method. One printable page, no fluff.', teaserLinkText:'Read the cheat sheet →',
+    feature1:'<b>Cleans up your data.</b> Turns messy question headers into tidy variable names, finds errors and missing values.',
+    feature2:'<b>Splits multiple choice.</b> Automatically converts "select all that apply" questions into ready-to-analyze 0/1 variables.',
+    feature3:'<b>Builds a codebook.</b> Documents every variable — type, labels, missing values — so a year from now you\'ll still remember what each column means.',
+    feature4:'<b>Prepares data for analysis.</b> Output: a clean CSV and ready-made SPSS syntax; the data opens straight in jamovi.',
+    privacyNote:'🔒 Everything runs in your browser. Files are never uploaded — not to a server, not to the author. Close the tab and the data is gone.',
+    bonusText:'Free with the tool — a cheat sheet on "Which statistical test to choose": three questions, and you find the right method.',
+    linkReadMore:'Read →',
+    courseLine:'Want to learn how to analyze data like this? The course "Statistics Fundamentals for Historians" — coming soon.',
+    cheatEyebrow:'From the Researcher\'s Library', cheatH2:'Which statistical test should you use?',
+    cheatSubtitle:'A one-page cheat sheet for humanities researchers',
+    cheatByline1:'Free, by Anna Agafonova, PhD · urbantransmission.org',
+    cheatByline2:'Save it — you\'ll want it at your defense or when reviewing a paper.',
+    cheatRevealBtn:'Show the full cheat sheet ↓',
+    cheatIntro:'Answer 3 questions — and find your method.',
+    q1Title:'What do you want to do?',
+    q1a:'<b>Compare groups</b> (men/women, before/after) → block ②',
+    q1b:'<b>Find a relationship</b> between two variables → block ③',
+    q1c:'<b>Predict an outcome</b> (yes/no, how much) → block ④',
+    q2Title:'Comparing groups. What kind of variable?',
+    q2Headers:'<th>Variable</th><th>How many groups</th><th>Method</th>',
+    q2Row1:'<td>Number (score, height)</td><td>2 independent</td><td>t-test / <b>Mann–Whitney</b>¹</td>',
+    q2Row2:'<td>Number</td><td>2 related (before/after)</td><td>paired t-test / Wilcoxon¹</td>',
+    q2Row3:'<td>Number</td><td>3 or more</td><td>ANOVA / <b>Kruskal–Wallis</b>¹</td>',
+    q2Row4:'<td>Category (yes/no)</td><td>any</td><td><b>χ² (chi-square)</b></td>',
+    q2Note:'¹ non-parametric version: use it if you have little data or it\'s "messy."',
+    q3Title:'Looking for a relationship',
+    q3a:'Number × Number → <b>Pearson</b> correlation (or Spearman, if the data is uneven)',
+    q3b:'Category × Category → <b>χ²</b>',
+    q4Title:'Predicting',
+    q4a:'Outcome is a number → linear regression',
+    q4b:'Outcome is yes/no → <b>logistic regression</b> (shows "how many times the odds change")',
+    warnLabel:'Three mistakes every reviewer notices',
+    warn1:'<b>1. "There\'s a correlation → there\'s a cause."</b> No. Correlation ≠ causation.',
+    warn2:'<b>2. Only p, no effect size.</b> p tells you whether there\'s an effect, effect size tells you how big. You need both.',
+    warn3:'<b>3. Bold conclusions from 15 responses.</b> A small sample calls for cautious wording.',
+    courseCta:'<b>Want to go deeper?</b> The course "Statistics Fundamentals for Historians" — coming soon. Step by step: choosing the right method for your data, reading SPSS output, and writing up results for a paper.',
+    shareNote:'Feel free to share this file with colleagues and students.',
+    footerCopyright:'© 2026 Anna Agafonova, PhD · <a href="https://urbantransmission.org" target="_blank" rel="noopener noreferrer">urbantransmission.org</a>',
+    footerWorks:'Works offline — your data stays with you.',
+    footerPrivacy:'Privacy Policy', footerTerms:'Terms of Use', backToTop:'Back to top',
+    statusReading:function(f){return 'Reading '+f+' …';},
+    statusLoaded:function(n,m,f){return 'Loaded: '+n+' rows, '+m+' columns ('+f+')';},
+    statusNoData:'The file has no data.',
+    statusExcelError:function(msg){return 'Error reading Excel file: '+msg;},
+    hintSurvey:'This looks like a survey export. Try <b>Survey mode</b> — it will clean up headers and split multiple-choice answers.',
+    guardUnknownExt:function(ext){return 'Couldn\'t recognize the file format ".'+ext+'". Supported: CSV, TSV, TXT, and Excel (.xlsx/.xls).';},
+    guardZipMagic:'The file starts like a zip archive, not a plain CSV/TSV. If this is a jamovi export (.omv) or a renamed xlsx file — export it to CSV and try again.',
+    blocked:{
+      omv:'This is a jamovi project file (.omv), not a table. In jamovi, choose Export → CSV and upload the CSV.',
+      sav:'This is an SPSS file (.sav), not a plain table. In SPSS: File → Export → CSV, then upload the CSV.',
+      zip:'This is an archive (.zip), not a data table.',
+      rar:'This is an archive (.rar), not a data table.',
+      '7z':'This is an archive (.7z), not a data table.',
+      dta:'This is a Stata file (.dta). Export the data to CSV and upload the CSV.',
+      sqlite:'This is a database file, not a table.',
+      db:'This is a database file, not a table.',
+      accdb:'This is an Access database file, not a table.',
+      pdf:'This is a PDF, not a data table.',
+      docx:'This is a Word document, not a data table.',
+      pptx:'This is a presentation, not a data table.'
+    },
+    changedSurvey:function(renamed,mlogLen,extra,issuesLen,before,after){return '<b>What was done:</b> shortened names for '+renamed+' column(s); split '+mlogLen+' multiple-choice question(s)'+extra+'; found '+issuesLen+' issue(s). Result: '+before+' → '+after+' columns.';},
+    changedCodebook:function(varCount,issuesLen){return '<b>What was done:</b> built a codebook for '+varCount+' variables; found '+issuesLen+' issue(s). <span class="muted">In this mode the data is unchanged — the value is in the Codebook.md file and the issues report.</span>';},
+    columnsWord:'columns',
+    kpiObservations:'Observations', kpiVariables:'Variables', kpiIssues:'Issues', kpiParsed:'Questions split',
+    tabCodebook:'Codebook', tabIssues:function(n){return 'Issues ('+n+')';}, tabSummary:'Summary', tabVariables:'Variables', tabData:'Data',
+    cbHeaders:['#','Variable','Label/question','Type','Valid','Missing','Uniq.','Range / top values'],
+    issHeaders:['Variable','Issue','Description','Suggestion'], issEmpty:'No issues found ✅',
+    mapHeaders:['Variable','Original question'], prevNote:'First 30 rows.',
+    dlnoteSurvey:'Import the clean CSV into SPSS, then run the .sps file — it will apply variable and value labels.',
+    dlnoteCodebook:'"data_copy.csv" is an unchanged copy of the original data in this mode; the main output is Codebook.md (or Codebook.rtf if you\'d rather open it in Word).',
+    issues:{
+      reasonNonAscii:'non-ASCII characters', reasonSpaces:'spaces', reasonUpper:'uppercase letters', reasonDigitStart:'starts with a digit', reasonTooLong:'length > 31 (SPSS)',
+      kVarName:'variable name',
+      kMixedLabel:'mixed languages in label', dMixed:'both Cyrillic and Latin', pLabelSuggest:'label_ru / label_en',
+      kManyMissing:'many missing values', dPctMissing:function(p){return p+'% missing';}, pVerifyDoc:'verify/document',
+      kConstant:'constant', dSingleValue:'single value', pRemoveOrDoc:'remove or document',
+      kMagicNum:'possible "magic" missing codes', dValues:function(list){return 'values '+list;}, pCheckNoData:'check whether these mean "no data"',
+      kMagicStr:'text-based missing markers', pStandardize:'standardize as missing'
+    }
+  }
+};
+
+/* ================= ЧИСТЫЕ ФУНКЦИИ (без DOM) ================= */
+var TRANSLIT={а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'kh',ц:'ts',ч:'ch',ш:'sh',щ:'shch',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya'};
+var STOP={the:1,a:1,an:1,of:1,to:1,in:1,on:1,for:1,and:1,or:1,your:1,you:1,do:1,is:1,are:1,what:1,which:1,how:1,please:1,select:1,all:1,that:1,apply:1,'и':1,'в':1,'на':1,'с':1,'по':1,'как':1,'что':1,'вы':1,'ваш':1,'ваша':1,'ваше':1,'из':1,'о':1};
+function translit(s){s=String(s);var o='';for(var i=0;i<s.length;i++){var c=s[i],l=c.toLowerCase();if(TRANSLIT.hasOwnProperty(l)){var t=TRANSLIT[l];o+=(c!==l&&t)?t.toUpperCase():t;}else o+=c;}return o;}
+function slugify(name,maxwords){var s=translit(name).trim().toLowerCase();s=s.replace(/[^\w\s]+/g,' ');var w=s.split(/\s+/).filter(Boolean);if(maxwords){var m=w.filter(function(x){return !STOP[x];});if(m.length)w=m;w=w.slice(0,maxwords);}s=w.join('_').replace(/_+/g,'_').replace(/^_|_$/g,'');if(!s)s='var';if(/^[0-9]/.test(s))s='v_'+s;return s.slice(0,40);}
+function detectScript(t){var cyr=false,lat=false;t=String(t);for(var i=0;i<t.length;i++){var c=t.charCodeAt(i);if(c>=0x0400&&c<=0x04FF)cyr=true;else if((c>=65&&c<=90)||(c>=97&&c<=122))lat=true;}if(cyr&&lat)return'mixed';if(cyr)return'cyrillic';if(lat)return'latin';return'other';}
+
+var SEPARATORS=[';',', ',',',' / ','|'];
+function isBlank(v){return v===null||v===undefined||String(v).trim()==='';}
+function detectSeparator(vals){var best=null,bf=0;for(var s=0;s<SEPARATORS.length;s++){var sep=SEPARATORS[s],cnt=0,tot=0;for(var i=0;i<vals.length;i++){if(isBlank(vals[i]))continue;tot++;if(String(vals[i]).indexOf(sep)>=0)cnt++;}var f=tot?cnt/tot:0;if(f>bf){bf=f;best=sep;}}return bf>=0.20?best:null;}
+function tokenize(v,sep){return String(v).split(sep).map(function(x){return x.trim();}).filter(Boolean);}
+
+/* УМНОЕ определение множественного выбора.
+   Ключевая идея: настоящий множественный выбор «сжимает» кардинальность —
+   мало вариантов-токенов, но много разных комбинаций-ячеек.
+   Одиночный ответ с запятой внутри («Страны ЕС, США или Канада») НЕ сжимает. */
+function analyzeColumn(vals){
+  var sep=detectSeparator(vals);if(!sep)return {sep:null,auto:false};
+  var nonblank=vals.filter(function(v){return !isBlank(v);});
+  var withSep=0,tokRows={},whole={},tokList=[];
+  for(var i=0;i<nonblank.length;i++){var v=String(nonblank[i]).trim();whole[v]=1;if(v.indexOf(sep)>=0)withSep++;var tk=tokenize(v,sep);var seen={};for(var j=0;j<tk.length;j++){var t=tk[j];if(!seen[t]){seen[t]=1;tokRows[t]=(tokRows[t]||0)+1;}if(tokList.indexOf(t)<0)tokList.push(t);}}
+  var distinctTok=tokList.length,distinctWhole=Object.keys(whole).length;
+  var share=nonblank.length?withSep/nonblank.length:0;
+  var lens=tokList.map(function(t){return t.length;}).sort(function(a,b){return a-b;});
+  var medLen=lens.length?lens[Math.floor(lens.length/2)]:0;
+  var recur=0;for(var k=0;k<tokList.length;k++)if(tokRows[tokList[k]]>=2)recur++;
+  var recurShare=distinctTok?recur/distinctTok:0;
+  var auto = share>=0.30 && distinctTok>=2 && distinctTok<=30
+           && distinctTok <= distinctWhole*0.8
+           && medLen<=40 && recurShare>=0.5;
+  var candidate = sep && distinctTok>=2 && distinctTok<=40 && share>=0.20;
+  return {sep:sep,tokens:tokList,distinctTok:distinctTok,distinctWhole:distinctWhole,share:share,medLen:medLen,auto:auto,candidate:candidate};
+}
+function detectCandidates(headers,cols){
+  var out=[];
+  for(var i=0;i<headers.length;i++){
+    if(/time\s*stamp|отметка времени/i.test(headers[i]))continue;
+    var a=analyzeColumn(cols[i]);
+    if(a.candidate)out.push({idx:i,header:headers[i],tokens:a.tokens,n:a.distinctTok,auto:a.auto,share:a.share});
+  }
+  return out;
+}
+
+/* survey transform: разносит ТОЛЬКО подтверждённые индексы (splitSet) */
+function surveyTransform(headers,rows,splitSet){
+  var used={},newHeaders=[],newCols=[],qmap=[],mlog=[],renamed=0;
+  function uniq(base){var n=base,i=2;while(used[n]){n=base+'_'+i;i++;}used[n]=1;return n;}
+  function col(idx){return rows.map(function(r){return r[idx];});}
+  for(var h=0;h<headers.length;h++){
+    var head=headers[h],vals=col(h);
+    if(/time\s*stamp|отметка времени/i.test(head)){var nm=uniq('timestamp');newHeaders.push(nm);newCols.push(vals);qmap.push([nm,head]);if(nm!==head)renamed++;continue;}
+    var base=slugify(head,4);
+    if(splitSet&&splitSet[h]){
+      var a=analyzeColumn(vals),sep=a.sep||', ',toks=a.tokens;
+      for(var t=0;t<toks.length;t++){(function(tok){var cn=uniq(base+'__'+slugify(tok,3));var bin=vals.map(function(v){return(!isBlank(v)&&tokenize(v,sep).indexOf(tok)>=0)?1:0;});newHeaders.push(cn);newCols.push(bin);qmap.push([cn,head+' → вариант «'+tok+'»']);})(toks[t]);}
+      mlog.push([head,toks]);continue;
+    }
+    var name=uniq(base);newHeaders.push(name);newCols.push(vals);qmap.push([name,head]);if(name!==head)renamed++;
+  }
+  var outRows=rows.map(function(_,ri){return newCols.map(function(c){return c[ri];});});
+  return {headers:newHeaders,rows:outRows,questionMap:qmap,multiselect:mlog,renamed:renamed};
+}
+
+var MAGIC_NUM={'-1':1,'-99':1,'-999':1,'99':1,'999':1,'9999':1};
+var MAGIC_STR={'na':1,'n/a':1,'нд':1,'н/д':1,'нет данных':1,'нет':1,'-':1,'—':1,'?':1,'none':1,'null':1,'missing':1};
+function inferType(vals){var nn=vals.filter(function(v){return !isBlank(v);});if(!nn.length)return'string';var numCnt=0,intCnt=0;for(var i=0;i<nn.length;i++){var s=String(nn[i]).trim().replace(',', '.').replace(/\s/g,'').replace('%','');if(s!==''&&!isNaN(Number(s))){numCnt++;if(Number.isInteger(Number(s)))intCnt++;}}if(numCnt/nn.length>0.9)return intCnt===numCnt?'integer':'number';return'string';}
+function toNum(v){if(isBlank(v))return NaN;var s=String(v).trim().replace(',', '.').replace(/\s/g,'').replace('%','');return Number(s);}
+function profile(name,label,vals){var n=vals.length,miss=0;for(var i=0;i<n;i++)if(isBlank(vals[i]))miss++;var valid=n-miss,type=inferType(vals);var us={};for(var i=0;i<n;i++)if(!isBlank(vals[i]))us[String(vals[i])]=1;var p={name:name,label:label||'',type:type,valid:valid,miss:miss,pmiss:n?Math.round(1000*miss/n)/10:0,nunique:Object.keys(us).length};if(type==='integer'||type==='number'){var nums=vals.map(toNum).filter(function(x){return !isNaN(x);});if(nums.length){nums.sort(function(a,b){return a-b;});var sum=0;for(var i=0;i<nums.length;i++)sum+=nums[i];p.min=nums[0];p.max=nums[nums.length-1];p.mean=Math.round(1000*sum/nums.length)/1000;var mid=Math.floor(nums.length/2);p.median=nums.length%2?nums[mid]:(nums[mid-1]+nums[mid])/2;}}if(type==='string'&&p.nunique<=30){var vc={};for(var i=0;i<n;i++){if(isBlank(vals[i]))continue;var k=String(vals[i]);vc[k]=(vc[k]||0)+1;}p.top=Object.keys(vc).map(function(k){return[k,vc[k]];}).sort(function(a,b){return b[1]-a[1];}).slice(0,10);}var ex=[];for(var i=0;i<n&&ex.length<5;i++)if(!isBlank(vals[i])&&ex.indexOf(String(vals[i]))<0)ex.push(String(vals[i]));p.examples=ex;return p;}
+function detectIssues(headers,profiles,cols,ISS){var issues=[],rename={},seen={};for(var h=0;h<headers.length;h++){var c=headers[h],pr=[];if(/[^\x00-\x7f]/.test(c))pr.push(ISS.reasonNonAscii);if(/\s/.test(c))pr.push(ISS.reasonSpaces);if(c!==c.toLowerCase()&&/[A-ZА-Я]/.test(c))pr.push(ISS.reasonUpper);if(/^[0-9]/.test(c))pr.push(ISS.reasonDigitStart);if(c.length>31)pr.push(ISS.reasonTooLong);var slug=slugify(c);if(pr.length){rename[c]=slug;issues.push({v:c,k:ISS.kVarName,d:pr.join('; '),p:slug});}seen[c]=slug;}for(var i=0;i<profiles.length;i++){var p=profiles[i],vals=cols[i];if(p.label&&detectScript(p.label)==='mixed')issues.push({v:p.name,k:ISS.kMixedLabel,d:ISS.dMixed,p:ISS.pLabelSuggest});if(p.pmiss>=50)issues.push({v:p.name,k:ISS.kManyMissing,d:ISS.dPctMissing(p.pmiss),p:ISS.pVerifyDoc});if(p.nunique<=1&&p.valid>0)issues.push({v:p.name,k:ISS.kConstant,d:ISS.dSingleValue,p:ISS.pRemoveOrDoc});if(p.type==='integer'||p.type==='number'){var mg={};for(var j=0;j<vals.length;j++){var x=toNum(vals[j]);if(!isNaN(x)&&MAGIC_NUM[String(x)])mg[x]=1;}var mk=Object.keys(mg);if(mk.length)issues.push({v:p.name,k:ISS.kMagicNum,d:ISS.dValues(mk.join(', ')),p:ISS.pCheckNoData});}else{var ms={};for(var j=0;j<vals.length;j++){if(isBlank(vals[j]))continue;var s=String(vals[j]).trim().toLowerCase();if(MAGIC_STR[s])ms[s]=1;}var msk=Object.keys(ms);if(msk.length)issues.push({v:p.name,k:ISS.kMagicStr,d:ISS.dValues(msk.join(', ')),p:ISS.pStandardize});}}return {issues:issues,rename:rename};}
+
+var FRT={integer:'integer',number:'number',string:'string'};
+function csvCell(v){if(isBlank(v))return'';var s=String(v);if(/[",\n]/.test(s))return'"'+s.replace(/"/g,'""')+'"';return s;}
+function toCSV(headers,rows){var out=headers.map(csvCell).join(',')+'\n';for(var i=0;i<rows.length;i++)out+=rows[i].map(csvCell).join(',')+'\n';return out;}
+function codebookMD(headers,profiles,nrows){var L=['# Codebook','','*Сгенерировано в браузере, '+new Date().toISOString().slice(0,10)+'*','','## Обзор','- Наблюдений: '+nrows,'- Переменных: '+headers.length,'','## Словарь переменных','','| # | Переменная | Метка/вопрос | Тип | Valid N | Пропуски | Уник. |','|---|---|---|---|---|---|---|'];for(var i=0;i<profiles.length;i++){var p=profiles[i];L.push('| '+(i+1)+' | `'+p.name+'` | '+(p.label||'—')+' | '+p.type+' | '+p.valid+' | '+p.miss+' ('+p.pmiss+'%) | '+p.nunique+' |');}L.push('','## Детали','');for(var i=0;i<profiles.length;i++){var p=profiles[i];L.push('### `'+p.name+'`');if(p.label)L.push('**Метка/вопрос:** '+p.label+'  ');var line='**Тип:** '+p.type+' · **Valid N:** '+p.valid+' · **Пропуски:** '+p.miss+' ('+p.pmiss+'%) · **Уник.:** '+p.nunique;if('min'in p)line+=' · **Диапазон:** '+p.min+'…'+p.max+' · среднее '+p.mean+' · медиана '+p.median;L.push(line+'  ');if(p.top){L.push('**Частые значения:**  ');for(var t=0;t<p.top.length;t++)L.push('- '+p.top[t][0]+' — '+p.top[t][1]);}L.push('**Примеры:** '+(p.examples.join(', ')||'—'),'');}return L.join('\n');}
+function datapackageJSON(headers,profiles){var fields=[];for(var i=0;i<profiles.length;i++){var p=profiles[i],f={name:p.name,type:FRT[p.type]||'string'};if(p.label)f.title=p.label;fields.push(f);}return JSON.stringify({profile:'tabular-data-package',resources:[{name:'data',path:'cleaned_data.csv',profile:'tabular-data-resource',schema:{fields:fields,missingValues:['','NA','н/д']}}],created:new Date().toISOString()},null,2);}
+function variableMapMD(qmap){var L=['# Карта «вопрос → переменная»','','| Переменная | Исходный вопрос / столбец |','|---|---|'];for(var i=0;i<qmap.length;i++)L.push('| `'+qmap[i][0]+'` | '+qmap[i][1]+' |');return L.join('\n');}
+function surveySummaryMD(profiles,mlog,nrows){var L=['# Сводка по опросу','','Респондентов: '+nrows,''];if(mlog.length){L.push('## Вопросы с множественным выбором (разобраны)');for(var i=0;i<mlog.length;i++)L.push('- '+mlog[i][0]+' → '+mlog[i][1].length+' вариантов: '+mlog[i][1].slice(0,12).join(', '));L.push('');}L.push('## Распределения','');for(var i=0;i<profiles.length;i++){var p=profiles[i];if((p.type==='integer'||p.type==='number')&&'mean'in p){L.push('### '+p.name);L.push('среднее '+p.mean+' · медиана '+p.median+' · диапазон '+p.min+'–'+p.max+' · ответов '+p.valid);L.push('');}else if(p.top){L.push('### '+p.name);var tot=0;for(var t=0;t<p.top.length;t++)tot+=p.top[t][1];for(var t=0;t<p.top.length;t++){var pct=tot?Math.round(1000*p.top[t][1]/tot)/10:0;L.push('- '+p.top[t][0]+': '+p.top[t][1]+' ('+pct+'%)');}L.push('');}}return L.join('\n');}
+function rtfEsc(s){s=String(s);var out='';for(var i=0;i<s.length;i++){var ch=s[i],code=s.charCodeAt(i);if(ch==='\\'||ch==='{'||ch==='}')out+='\\'+ch;else if(code>127){if(code>=0xD800&&code<=0xDBFF&&i+1<s.length){var low=s.charCodeAt(i+1);if(low>=0xDC00&&low<=0xDFFF){var cp=(code-0xD800)*0x400+(low-0xDC00)+0x10000;out+='\\u'+cp+'?';i++;continue;}}var signed=code>32767?code-65536:code;out+='\\u'+signed+'?';}else out+=ch;}return out;}
+function codebookRTF(headers,profiles,nrows){var L=[];L.push('{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1049');L.push('{\\fonttbl{\\f0\\froman Times New Roman;}{\\f1\\fmodern Courier New;}}');L.push('\\f0\\fs24');L.push('{\\b\\fs40 Codebook\\par}');L.push('{\\i\\fs18 '+rtfEsc('Сгенерировано в браузере, '+new Date().toISOString().slice(0,10))+'\\par}');L.push('\\par');L.push('{\\b\\fs28 '+rtfEsc('Обзор')+'\\par}');L.push('{\\fs22 '+rtfEsc('Наблюдений: '+nrows)+'\\par}');L.push('{\\fs22 '+rtfEsc('Переменных: '+headers.length)+'\\par}');L.push('\\par');L.push('{\\b\\fs28 '+rtfEsc('Словарь переменных')+'\\par}');L.push('\\par');for(var i=0;i<profiles.length;i++){var p=profiles[i];L.push('{\\b\\f1\\fs24 '+rtfEsc(p.name)+'\\f0\\par}');if(p.label)L.push('{\\fs22\\b '+rtfEsc('Метка/вопрос: ')+'\\b0 '+rtfEsc(p.label)+'\\par}');var line='Тип: '+p.type+'  ·  Valid N: '+p.valid+'  ·  Пропуски: '+p.miss+' ('+p.pmiss+'%)  ·  Уник.: '+p.nunique;if('min'in p)line+='  ·  Диапазон: '+p.min+'…'+p.max+'  ·  среднее '+p.mean+'  ·  медиана '+p.median;L.push('{\\fs22 '+rtfEsc(line)+'\\par}');if(p.top){L.push('{\\fs22\\b '+rtfEsc('Частые значения:')+'\\par}');for(var t=0;t<p.top.length;t++)L.push('{\\fs22 '+rtfEsc('• '+p.top[t][0]+' — '+p.top[t][1])+'\\par}');}L.push('{\\fs20\\i '+rtfEsc('Примеры: '+(p.examples.join(', ')||'—'))+'\\par}');L.push('\\par');}L.push('}');return L.join('\n');}
+function spssSyntax(headers,profiles,mlog){var L=['* Автосгенерированный синтаксис SPSS.','* 1) Положите cleaned_data.csv рядом. 2) Запустите этот файл.','','GET DATA /TYPE=TXT /FILE="cleaned_data.csv" /DELIMITERS="," /QUALIFIER=\'"\' /FIRSTCASE=2 /VARIABLES='];for(var i=0;i<headers.length;i++){var p=profiles[i];var t=(p.type==='integer'||p.type==='number')?'F12.3':'A255';L.push('  '+headers[i]+' '+t);}L[L.length-1]=L[L.length-1]+'.';L.push('EXECUTE.','','VARIABLE LABELS');for(var i=0;i<profiles.length;i++){var p=profiles[i];if(p.label)L.push('  '+p.name+' "'+String(p.label).replace(/"/g,"'")+'"');}L[L.length-1]=L[L.length-1]+'.';var bin=[];for(var i=0;i<profiles.length;i++){if(profiles[i].name.indexOf('__')>=0&&profiles[i].type==='integer')bin.push(profiles[i].name);}if(bin.length){L.push('','VALUE LABELS');for(var i=0;i<bin.length;i++)L.push('  '+bin[i]+' 0 "нет" 1 "да"');L[L.length-1]=L[L.length-1]+'.';}L.push('EXECUTE.');return L.join('\n');}
+function parseCSV(text){var rows=[],row=[],cur='',q=false;for(var i=0;i<text.length;i++){var c=text[i];if(q){if(c==='"'){if(text[i+1]==='"'){cur+='"';i++;}else q=false;}else cur+=c;}else{if(c==='"')q=true;else if(c===','){row.push(cur);cur='';}else if(c==='\n'){row.push(cur);rows.push(row);row=[];cur='';}else if(c==='\r'){}else cur+=c;}}if(cur!==''||row.length){row.push(cur);rows.push(row);}return rows.filter(function(r){return r.some(function(x){return String(x).trim()!=='';});});}
+
+/* ================= защита от не-табличных файлов ================= */
+var BLOCKED_EXTS={omv:1,sav:1,zip:1,rar:1,'7z':1,dta:1,sqlite:1,db:1,accdb:1,pdf:1,docx:1,pptx:1};
+var ALLOWED_EXT={csv:1,tsv:1,txt:1,xlsx:1,xls:1};
+
+/* ================= UI ================= */
+if(typeof document!=='undefined'){
+  var MODE='codebook',RAW=null,SPLIT={},CANDS=[],DL={},LANG='ru',LAST_LOOKS_SURVEY=false;
+  var drop=document.getElementById('drop'),fileInput=document.getElementById('file'),status=document.getElementById('status');
+
+  function applyStaticI18n(){
+    var S=I18N[LANG];
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var key=el.getAttribute('data-i18n');
+      if(S.hasOwnProperty(key)&&typeof S[key]==='string')el.innerHTML=S[key];
+    });
+    drop.setAttribute('aria-label',S.dropAriaLabel);
+    var btt=document.getElementById('back-to-top');
+    btt.setAttribute('aria-label',S.backToTop);btt.setAttribute('title',S.backToTop);
+    document.title=S.pageTitle;
+  }
+
+  function renderHint(){
+    document.getElementById('hint').innerHTML=(MODE==='codebook'&&LAST_LOOKS_SURVEY)?('<div class="hint">'+I18N[LANG].hintSurvey+'</div>'):'';
+  }
+
+  function setLang(l){
+    LANG=(l==='en')?'en':'ru';
+    document.documentElement.lang=LANG;
+    document.getElementById('lang-ru').classList.toggle('on',LANG==='ru');
+    document.getElementById('lang-ru').setAttribute('aria-pressed',LANG==='ru');
+    document.getElementById('lang-en').classList.toggle('on',LANG==='en');
+    document.getElementById('lang-en').setAttribute('aria-pressed',LANG==='en');
+    applyStaticI18n();
+    renderHint();
+    if(RAW){status.textContent=I18N[LANG].statusLoaded(RAW.rows.length,RAW.headers.length,RAW.fname);process();}
+    try{localStorage.setItem('cst_lang',LANG);}catch(e){}
+  }
+  document.getElementById('lang-ru').addEventListener('click',function(){setLang('ru');});
+  document.getElementById('lang-en').addEventListener('click',function(){setLang('en');});
+
+  drop.addEventListener('click',function(){fileInput.click();});
+  drop.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();fileInput.click();}});
+  drop.addEventListener('dragover',function(e){e.preventDefault();drop.classList.add('drag');});
+  drop.addEventListener('dragleave',function(){drop.classList.remove('drag');});
+  drop.addEventListener('drop',function(e){e.preventDefault();drop.classList.remove('drag');if(e.dataTransfer.files[0])guardAndLoad(e.dataTransfer.files[0]);});
+  fileInput.addEventListener('change',function(e){if(e.target.files[0])guardAndLoad(e.target.files[0]);});
+  document.querySelectorAll('.mode').forEach(function(m){
+    function activate(){document.querySelectorAll('.mode').forEach(function(x){x.classList.remove('active');x.setAttribute('aria-pressed','false');});m.classList.add('active');m.setAttribute('aria-pressed','true');MODE=m.dataset.mode;renderHint();if(RAW){initCandidates();process();}}
+    m.addEventListener('click',activate);
+    m.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});
+  });
+
+  function guardAndLoad(file){
+    var ext=file.name.toLowerCase().split('.').pop();
+    if(BLOCKED_EXTS[ext]){status.textContent=I18N[LANG].blocked[ext];return;}
+    if(!ALLOWED_EXT[ext]){status.textContent=I18N[LANG].guardUnknownExt(ext);return;}
+    // проверяем "магические байты": если файл начинается как zip-архив (PK), а расширение не xlsx/xls — это не обычный CSV
+    var head=file.slice(0,4),hr=new FileReader();
+    hr.onload=function(ev){
+      var bytes=new Uint8Array(ev.target.result);
+      var isZipMagic=bytes.length>=2&&bytes[0]===0x50&&bytes[1]===0x4B;
+      if(isZipMagic&&ext!=='xlsx'&&ext!=='xls'){status.textContent=I18N[LANG].guardZipMagic;return;}
+      loadFile(file,ext);
+    };
+    hr.onerror=function(){loadFile(file,ext);};
+    hr.readAsArrayBuffer(head);
+  }
+
+  function loadFile(file,ext){status.textContent=I18N[LANG].statusReading(file.name);
+    if(ext==='xlsx'||ext==='xls'){var r=new FileReader();r.onload=function(ev){try{var wb=XLSX.read(new Uint8Array(ev.target.result),{type:'array'});var ws=wb.Sheets[wb.SheetNames[0]];var arr=XLSX.utils.sheet_to_json(ws,{header:1,raw:false,defval:''});setData(arr,file.name);}catch(err){status.textContent=I18N[LANG].statusExcelError(err.message);}};r.readAsArrayBuffer(file);}
+    else{var r=new FileReader();r.onload=function(ev){setData(parseCSV(ev.target.result),file.name);};r.readAsText(file,'utf-8');}}
+
+  function setData(arr,fname){if(!arr||arr.length<2){status.textContent=I18N[LANG].statusNoData;return;}var headers=arr[0].map(function(h){return String(h).replace(/^﻿/,'');});RAW={headers:headers,rows:arr.slice(1),fname:fname};status.textContent=I18N[LANG].statusLoaded(RAW.rows.length,headers.length,fname);
+    LAST_LOOKS_SURVEY=/time\s*stamp|отметка времени/i.test(headers.join(' '))||headers.some(function(h){return h.length>40;});
+    renderHint();
+    initCandidates();process();}
+
+  function initCandidates(){SPLIT={};CANDS=[];if(MODE!=='survey'||!RAW)return;var cols=RAW.headers.map(function(_,i){return RAW.rows.map(function(r){return r[i];});});CANDS=detectCandidates(RAW.headers,cols);CANDS.forEach(function(c){if(c.auto)SPLIT[c.idx]=true;});}
+
+  function renderMSPanel(){var S=I18N[LANG];var panel=document.getElementById('msPanel');if(MODE!=='survey'||!CANDS.length){panel.classList.add('hidden');return;}panel.classList.remove('hidden');
+    document.getElementById('msList').innerHTML=CANDS.map(function(c){var id='ms_'+c.idx;var vs=c.tokens.slice(0,6).join(' · ')+(c.tokens.length>6?' …':'');return '<label class="msrow" for="'+id+'"><input type="checkbox" id="'+id+'" data-idx="'+c.idx+'" '+(SPLIT[c.idx]?'checked':'')+'><span><span class="q">'+esc(c.header)+'</span>'+(c.auto?' <span class="tag">'+S.msTagConfident+'</span>':' <span class="tag">'+S.msTagUncertain+'</span>')+'<div class="h">'+S.msVariants(c.n,esc(vs))+'</div></span></label>';}).join('');
+    document.querySelectorAll('#msList input').forEach(function(cb){cb.addEventListener('change',function(){var i=cb.dataset.idx;if(cb.checked)SPLIT[i]=true;else delete SPLIT[i];process();});});}
+
+  function process(){renderMSPanel();
+    var headers=RAW.headers,rows=RAW.rows,qmap=null,mlog=[],renamed=0,before=headers.length;
+    if(MODE==='survey'){var t=surveyTransform(headers,rows,SPLIT);headers=t.headers;rows=t.rows;qmap=t.questionMap;mlog=t.multiselect;renamed=t.renamed;}
+    var cols=headers.map(function(_,i){return rows.map(function(r){return r[i];});});
+    var labels={};if(qmap)qmap.forEach(function(x){labels[x[0]]=x[1];});
+    var profiles=headers.map(function(h,i){return profile(h,labels[h]||'',cols[i]);});
+    var di=detectIssues(headers,profiles,cols,I18N[LANG].issues);
+    render(headers,rows,cols,profiles,di,qmap,mlog,renamed,before);}
+
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function render(headers,rows,cols,profiles,di,qmap,mlog,renamed,before){
+    var S=I18N[LANG];
+    document.getElementById('results').classList.remove('hidden');
+    var ch;
+    if(MODE==='survey'){
+      var newcols=headers.length-before;
+      var extra=mlog.length?(' (+'+(newcols>0?newcols:0)+' '+S.columnsWord+')'):'';
+      ch=S.changedSurvey(renamed,mlog.length,extra,di.issues.length,before,headers.length);
+    } else {
+      ch=S.changedCodebook(headers.length,di.issues.length);
+    }
+    document.getElementById('changed').innerHTML=ch;
+
+    var kpis=[[S.kpiObservations,rows.length,''],[S.kpiVariables,headers.length,''],[S.kpiIssues,di.issues.length,di.issues.length?'warn':'']];
+    if(mlog&&mlog.length)kpis.push([S.kpiParsed,mlog.length,'']);
+    document.getElementById('kpis').innerHTML=kpis.map(function(k){return '<div class="kpi '+k[2]+'"><div class="n">'+k[1]+'</div><div class="l">'+k[0]+'</div></div>';}).join('');
+
+    var tabs=[['cb',S.tabCodebook],['iss',S.tabIssues(di.issues.length)]];
+    if(MODE==='survey'){tabs.push(['sum',S.tabSummary]);tabs.push(['map',S.tabVariables]);}
+    tabs.push(['prev',S.tabData]);
+    document.getElementById('tabs').innerHTML=tabs.map(function(t,i){return '<div class="tab'+(i===0?' active':'')+'" data-p="'+t[0]+'">'+t[1]+'</div>';}).join('');
+
+    var cbHTML='<div class="scroll"><table><thead><tr><th>'+S.cbHeaders.join('</th><th>')+'</th></tr></thead><tbody>';
+    profiles.forEach(function(p,i){var ex='';if('min'in p)ex=p.min+'…'+p.max+' (мед. '+p.median+')';else if(p.top)ex=p.top.slice(0,3).map(function(t){return t[0]+':'+t[1];}).join(', ');cbHTML+='<tr><td>'+(i+1)+'</td><td><code>'+esc(p.name)+'</code></td><td>'+esc(p.label||'—')+'</td><td><span class="tag">'+p.type+'</span></td><td>'+p.valid+'</td><td>'+p.miss+' ('+p.pmiss+'%)</td><td>'+p.nunique+'</td><td class="muted">'+esc(ex)+'</td></tr>';});cbHTML+='</tbody></table></div>';
+    var issHTML=di.issues.length?'<div class="scroll"><table><thead><tr><th>'+S.issHeaders.join('</th><th>')+'</th></tr></thead><tbody>'+di.issues.map(function(it){return '<tr><td><code>'+esc(it.v)+'</code></td><td>'+esc(it.k)+'</td><td class="muted">'+esc(it.d)+'</td><td>'+esc(it.p)+'</td></tr>';}).join('')+'</tbody></table></div>':'<p class="muted">'+S.issEmpty+'</p>';
+    var sumHTML='';if(MODE==='survey'){sumHTML=surveySummaryMD(profiles,mlog,rows.length).replace(/^# .*/m,'').split('\n').map(function(l){if(l.indexOf('### ')===0)return '<h3>'+esc(l.slice(4))+'</h3>';if(l.indexOf('## ')===0)return '<p class="muted" style="margin-top:14px"><b>'+esc(l.slice(3))+'</b></p>';if(l.indexOf('- ')===0)return '<div>'+esc(l.slice(2))+'</div>';if(l.trim())return '<div>'+esc(l)+'</div>';return '';}).join('');}
+    var mapHTML='';if(qmap)mapHTML='<div class="scroll"><table><thead><tr><th>'+S.mapHeaders.join('</th><th>')+'</th></tr></thead><tbody>'+qmap.map(function(x){return '<tr><td><code>'+esc(x[0])+'</code></td><td>'+esc(x[1])+'</td></tr>';}).join('')+'</tbody></table></div>';
+    var prevHTML='<div class="scroll"><table><thead><tr>'+headers.map(function(h){return '<th>'+esc(h)+'</th>';}).join('')+'</tr></thead><tbody>'+rows.slice(0,30).map(function(r){return '<tr>'+headers.map(function(_,i){return '<td>'+esc(r[i]==null?'':r[i])+'</td>';}).join('')+'</tr>';}).join('')+'</tbody></table></div><p class="muted">'+S.prevNote+'</p>';
+    var panels={cb:cbHTML,iss:issHTML,sum:sumHTML,map:mapHTML,prev:prevHTML};
+    document.getElementById('panels').innerHTML=tabs.map(function(t,i){return '<div class="panel'+(i===0?' active':'')+'" data-p="'+t[0]+'">'+(panels[t[0]]||'')+'</div>';}).join('');
+    document.querySelectorAll('.tab').forEach(function(tab){tab.addEventListener('click',function(){document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});document.querySelectorAll('.panel').forEach(function(x){x.classList.remove('active');});tab.classList.add('active');document.querySelector('.panel[data-p="'+tab.dataset.p+'"]').classList.add('active');});});
+
+    DL={};var dataName=MODE==='survey'?'cleaned_data.csv':'data_copy.csv';DL[dataName]=toCSV(headers,rows);DL['Codebook.md']=codebookMD(headers,profiles,rows.length);DL['Codebook.rtf']=codebookRTF(headers,profiles,rows.length);DL['datapackage.json']=datapackageJSON(headers,profiles);DL['spss_syntax.sps']=spssSyntax(headers,profiles,mlog);if(qmap)DL['variable_map.md']=variableMapMD(qmap);if(MODE==='survey')DL['survey_summary.md']=surveySummaryMD(profiles,mlog,rows.length);
+    var order=MODE==='survey'?['cleaned_data.csv','Codebook.md','Codebook.rtf','spss_syntax.sps','datapackage.json','variable_map.md','survey_summary.md']:['Codebook.md','Codebook.rtf','spss_syntax.sps','datapackage.json','data_copy.csv'];
+    document.getElementById('downloads').innerHTML=order.map(function(f,i){return '<button class="btn'+(i>2?' sec':'')+'" data-f="'+f+'">⬇ '+f+'</button>';}).join('');
+    document.getElementById('dlnote').innerHTML=MODE==='survey'?S.dlnoteSurvey:S.dlnoteCodebook;
+    document.querySelectorAll('#downloads .btn').forEach(function(b){b.addEventListener('click',function(){var f=b.dataset.f,isRtf=f.slice(-4)==='.rtf',mime=isRtf?'application/rtf':(f.slice(-4)==='.csv'?'text/csv':(f.slice(-5)==='.json'?'application/json':'text/plain'));var content=isRtf?DL[f]:('﻿'+DL[f]);var blob=new Blob([content],{type:mime+(isRtf?'':';charset=utf-8')});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=f;a.click();});});
+  }
+
+  /* ── шпаргалка: раскрытие по клику ── */
+  var cheatsheet=document.getElementById('cheatsheet');
+  function revealCheatsheet(doScroll){
+    cheatsheet.classList.remove('collapsed');
+    if(doScroll!==false){setTimeout(function(){cheatsheet.scrollIntoView({behavior:'smooth',block:'start'});},10);}
+  }
+  ['cheatMiniLink','teaserLink'].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener('click',function(e){e.preventDefault();revealCheatsheet();});});
+  var revealBtn=document.getElementById('cheatRevealBtn');if(revealBtn)revealBtn.addEventListener('click',function(){revealCheatsheet();});
+  if(location.hash==='#cheatsheet')revealCheatsheet(false);
+  window.addEventListener('hashchange',function(){if(location.hash==='#cheatsheet')revealCheatsheet();});
+
+  /* ── наверх ── */
+  var btt=document.getElementById('back-to-top');
+  window.addEventListener('scroll',function(){btt.classList.toggle('visible',window.scrollY>320);});
+  btt.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+
+  /* ── лёгкий параллакс боковых гравюр (только мышь, без reduced-motion) ── */
+  var eL=document.getElementById('engrave-left'),eR=document.getElementById('engrave-right');
+  var reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer=window.matchMedia&&window.matchMedia('(pointer:fine)').matches;
+  if(eL&&eR&&!reduceMotion&&finePointer){
+    window.addEventListener('mousemove',function(e){
+      var nx=(e.clientX/window.innerWidth)-0.5, ny=(e.clientY/window.innerHeight)-0.5;
+      eL.style.transform='translate('+(nx*10)+'px,'+(ny*6)+'px)';
+      eR.style.transform='translate('+(nx*-10)+'px,'+(ny*6)+'px)';
+    });
+  }
+
+  /* ── инициализация языка (общий ключ localStorage со страницами политики/условий) ── */
+  (function(){
+    var s='ru';
+    try{s=localStorage.getItem('cst_lang')||'ru';}catch(e){}
+    setLang(s);
+  })();
+}
+if(typeof module!=='undefined'){module.exports={surveyTransform:surveyTransform,analyzeColumn:analyzeColumn,detectCandidates:detectCandidates,profile:profile,parseCSV:parseCSV,slugify:slugify};}
+</script>
+</body>
+</html>
