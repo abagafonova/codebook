@@ -4,21 +4,47 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#2C1A0B">
-<title>Чистые данные · Codebook &amp; Survey Tidier</title>
-<meta name="description" content="Бесплатный браузерный инструмент: загрузите CSV/Excel (в т.ч. выгрузку Google/Яндекс Форм) и получите кодбук, чистый датасет и синтаксис SPSS. Всё считается в браузере, данные никуда не уходят.">
+<title>Codebook & Survey Tidier — кодбук и очистка данных опросов онлайн</title>
+<meta name="description" content="Бесплатный браузерный инструмент для исследователей: чистит выгрузки Google/Яндекс/MS Forms, строит кодбук и метаданные, готовит файлы для SPSS и jamovi. Данные не покидают браузер.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="canonical" href="https://abagafonova.github.io/codebook/index.html">
-<meta property="og:url" content="https://abagafonova.github.io/codebook/index.html">
-<meta property="og:site_name" content="Codebook & Survey Tidier">
+<link rel="canonical" href="https://abagafonova.github.io/codebook/">
+
+<!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Codebook & Survey Tidier — чистые данные для гуманитария">
-<meta property="og:description" content="Бесплатный браузерный инструмент: CSV/Excel → кодбук, чистый датасет и синтаксис SPSS. Данные не покидают браузер.">
-<meta property="og:image" content="https://abagafonova.github.io/codebook/assets/hero.png">
+<meta property="og:site_name" content="Codebook & Survey Tidier">
+<meta property="og:title" content="Codebook & Survey Tidier — кодбук и очистка данных опросов">
+<meta property="og:description" content="Чистит выгрузки Google/Яндекс/MS Forms, строит кодбук и метаданные, готовит файлы для SPSS и jamovi. Всё в браузере — данные никуда не загружаются.">
+<meta property="og:url" content="https://abagafonova.github.io/codebook/">
+<meta property="og:image" content="https://abagafonova.github.io/codebook/assets/og-cover.png">
 <meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="en_US">
+
+<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Codebook & Survey Tidier — чистые данные для гуманитария">
-<meta name="twitter:description" content="Бесплатный браузерный инструмент: CSV/Excel → кодбук, чистый датасет и синтаксис SPSS. Данные не покидают браузер.">
-<meta name="twitter:image" content="https://abagafonova.github.io/codebook/assets/hero.png">
+<meta name="twitter:title" content="Codebook & Survey Tidier">
+<meta name="twitter:description" content="Free browser tool: clean survey exports, build a codebook and metadata, prepare files for SPSS and jamovi. Data never leaves your browser.">
+<meta name="twitter:image" content="https://abagafonova.github.io/codebook/assets/og-cover.png">
+
+<!-- Structured data: SoftwareApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Codebook & Survey Tidier",
+  "applicationCategory": "ResearchApplication",
+  "operatingSystem": "Any (web browser)",
+  "url": "https://abagafonova.github.io/codebook/",
+  "description": "Free, browser-based tool for researchers: cleans survey exports (Google/Yandex/MS Forms), builds a codebook and machine-readable metadata (Tabular Data Package), and prepares SPSS/jamovi-ready files. All processing happens locally in the browser.",
+  "inLanguage": ["ru", "en"],
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": {
+    "@type": "Person",
+    "name": "Anna B. Agafonova",
+    "url": "https://orcid.org/0000-0003-3021-4002"
+  }
+}
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
   :root{
@@ -283,6 +309,8 @@
 
   <div class="privacy-note" data-i18n="privacyNote">🔒 Всё считается в вашем браузере. Файлы никуда не загружаются – ни на сервер, ни автору. Закрыли вкладку – данные исчезли.</div>
 
+  <div class="privacy-note" data-i18n="langNote">🌐 <b>На каком языке могут быть ваши данные?</b> Загружать можно анкеты и базы на любом языке — немецком, иврите, хинди, китайском и других. Содержимое ячеек, подсчёт пропусков, частоты и описательные статистики обрабатываются корректно независимо от языка, а в кодбуке значения показываются в их родном алфавите.<br><br>Нюанс касается только автоматического создания <i>коротких имён переменных</i> в режиме опроса: для языков на латинице и кириллице они формируются полностью, а для других алфавитов (иврит, хинди, арабский и т.п.) короткие имена получаются обобщёнными (<code>var_1</code>, <code>var_2</code>…) — при этом исходные вопросы сохраняются в отдельном файле-соответствии, и вы легко переименуете переменные вручную. В обычном режиме (кодбук) имена переменных сохраняются как есть на любом языке.</div>
+
   <p class="bonus-line"><span data-i18n="bonusText">Бесплатно к инструменту – шпаргалка «Какой статистический тест выбрать»: три вопроса, и вы находите нужный метод.</span> <a href="#cheatsheet" id="cheatMiniLink" data-i18n="linkReadMore">Читать →</a></p>
 
   <p class="course-line" data-i18n="courseLine">Хотите научиться анализировать такие данные? Курс «Основы статистики для историка» – скоро.</p>
@@ -400,7 +428,7 @@
 var I18N={
   ru:{
     skipLink:'Перейти к содержимому',
-    pageTitle:'Чистые данные · Codebook & Survey Tidier',
+    pageTitle:'Codebook & Survey Tidier — кодбук и очистка данных опросов',
     lead:'От сырой выгрузки анкет – к чистым данным и готовому кодбуку. Без ручной рутины.',
     sub:'Инструмент для историков, социологов, филологов и всех, кто работает с анкетами. Чистит выгрузки Google&nbsp;/&nbsp;Яндекс&nbsp;/&nbsp;MS&nbsp;Forms, строит кодбук и готовит файлы для SPSS и jamovi.',
     dropIntro:'<b>Перетащите файл сюда</b> или нажмите, чтобы выбрать',
@@ -420,6 +448,7 @@ var I18N={
     feature4:'<b>Формирует машиночитаемые метаданные.</b> Выдаёт данные в стандарте Tabular Data Package — для репозиториев открытых данных (Zenodo и др.) и публикации по принципам FAIR.',
     feature5:'<b>Готовит к анализу.</b> На выходе — чистый CSV, кодбук и готовый синтаксис SPSS с прописанными метками переменных и значений; данные сразу открываются в jamovi.',
     privacyNote:'🔒 Всё считается в вашем браузере. Файлы никуда не загружаются – ни на сервер, ни автору. Закрыли вкладку – данные исчезли.',
+    langNote:'🌐 <b>На каком языке могут быть ваши данные?</b> Загружать можно анкеты и базы на любом языке — немецком, иврите, хинди, китайском и других. Содержимое ячеек, подсчёт пропусков, частоты и описательные статистики обрабатываются корректно независимо от языка, а в кодбуке значения показываются в их родном алфавите.<br><br>Нюанс касается только автоматического создания <i>коротких имён переменных</i> в режиме опроса: для языков на латинице и кириллице они формируются полностью, а для других алфавитов (иврит, хинди, арабский и т.п.) короткие имена получаются обобщёнными (<code>var_1</code>, <code>var_2</code>…) — при этом исходные вопросы сохраняются в отдельном файле-соответствии, и вы легко переименуете переменные вручную. В обычном режиме (кодбук) имена переменных сохраняются как есть на любом языке.',
     bonusText:'Бесплатно к инструменту – шпаргалка «Какой статистический тест выбрать»: три вопроса, и вы находите нужный метод.',
     linkReadMore:'Читать →',
     courseLine:'Хотите научиться анализировать такие данные? Курс «Основы статистики для историка» – скоро.',
@@ -498,7 +527,7 @@ var I18N={
   },
   en:{
     skipLink:'Skip to content',
-    pageTitle:'Clean data · Codebook & Survey Tidier',
+    pageTitle:'Codebook & Survey Tidier — Clean Survey Data & Codebook',
     lead:'From raw survey exports to clean data and a ready codebook. No manual busywork.',
     sub:'A tool for historians, sociologists, philologists, and anyone working with survey data. Cleans up Google&nbsp;/&nbsp;Yandex&nbsp;/&nbsp;MS&nbsp;Forms exports, builds a codebook, and prepares files for SPSS and jamovi.',
     dropIntro:'<b>Drop a file here</b> or click to choose one',
@@ -518,6 +547,7 @@ var I18N={
     feature4:'<b>Produces machine-readable metadata.</b> Exports a Tabular Data Package — ready for open-data repositories (Zenodo and others) and FAIR-compliant publication.',
     feature5:'<b>Gets data analysis-ready.</b> You get a clean CSV, a codebook, and ready-to-run SPSS syntax with variable and value labels already written in; the data opens directly in jamovi.',
     privacyNote:'🔒 Everything runs in your browser. Files are never uploaded — not to a server, not to the author. Close the tab and the data is gone.',
+    langNote:'🌐 <b>What language can your data be in?</b> You can upload surveys and datasets in any language — German, Hebrew, Hindi, Chinese and others. Cell values, missing-value counts, frequencies and descriptive statistics are handled correctly regardless of language, and the codebook shows values in their original script.<br><br>One nuance concerns only the automatic generation of <i>short variable names</i> in Survey mode: for Latin- and Cyrillic-script languages they are generated in full, while for other scripts (Hebrew, Hindi, Arabic, etc.) the short names come out generic (<code>var_1</code>, <code>var_2</code>…). The original questions are preserved in a separate mapping file, so you can rename variables easily. In Codebook mode, variable names are kept as-is in any language.',
     bonusText:'Free with the tool — a cheat sheet on "Which statistical test to choose": three questions, and you find the right method.',
     linkReadMore:'Read →',
     courseLine:'Want to learn how to analyze data like this? The course "Statistics Fundamentals for Historians" — coming soon.',
@@ -677,7 +707,7 @@ function detectIssues(headers,profiles,cols,ISS){var issues=[],rename={},seen={}
 var FRT={integer:'integer',number:'number',string:'string'};
 function csvCell(v){if(isBlank(v))return'';var s=String(v);if(/[",\n]/.test(s))return'"'+s.replace(/"/g,'""')+'"';return s;}
 function toCSV(headers,rows){var out=headers.map(csvCell).join(',')+'\n';for(var i=0;i<rows.length;i++)out+=rows[i].map(csvCell).join(',')+'\n';return out;}
-function codebookMD(headers,profiles,nrows){var L=['# Codebook','','*Сгенерировано в браузере, '+new Date().toISOString().slice(0,10)+'*','','## Обзор','- Наблюдений: '+nrows,'- Переменных: '+headers.length,'','## Словарь переменных','','| # | Переменная | Метка/вопрос | Тип | Valid N | Пропуски | Уник. |','|---|---|---|---|---|---|---|'];for(var i=0;i<profiles.length;i++){var p=profiles[i];L.push('| '+(i+1)+' | `'+p.name+'` | '+(p.label||'—')+' | '+p.type+' | '+p.valid+' | '+p.miss+' ('+p.pmiss+'%) | '+p.nunique+' |');}L.push('','## Детали','');for(var i=0;i<profiles.length;i++){var p=profiles[i];L.push('### `'+p.name+'`');if(p.label)L.push('**Метка/вопрос:** '+p.label+'  ');var line='**Тип:** '+p.type+' · **Valid N:** '+p.valid+' · **Пропуски:** '+p.miss+' ('+p.pmiss+'%) · **Уник.:** '+p.nunique;if('min'in p)line+=' · **Диапазон:** '+p.min+'…'+p.max+' · среднее '+p.mean+' · медиана '+p.median;L.push(line+'  ');if(p.valueLabels){var vlk=Object.keys(p.valueLabels).sort(function(a,b){return Number(a)-Number(b);});L.push('**Метки значений:** '+vlk.map(function(k){return k+' = '+p.valueLabels[k];}).join('; ')+'  ');}if(p.top){L.push('**Частые значения:**  ');for(var t=0;t<p.top.length;t++)L.push('- '+p.top[t][0]+' — '+p.top[t][1]);}L.push('**Примеры:** '+(p.examples.join(', ')||'—'),'');}return L.join('\n');}
+function codebookMD(headers,profiles,nrows){var L=['# Codebook','','*Generated with Codebook & Survey Tidier — https://abagafonova.github.io/codebook · processed locally in your browser · '+new Date().toISOString().slice(0,10)+'*','','## Обзор','- Наблюдений: '+nrows,'- Переменных: '+headers.length,'','## Словарь переменных','','| # | Переменная | Метка/вопрос | Тип | Valid N | Пропуски | Уник. |','|---|---|---|---|---|---|---|'];for(var i=0;i<profiles.length;i++){var p=profiles[i];L.push('| '+(i+1)+' | `'+p.name+'` | '+(p.label||'—')+' | '+p.type+' | '+p.valid+' | '+p.miss+' ('+p.pmiss+'%) | '+p.nunique+' |');}L.push('','## Детали','');for(var i=0;i<profiles.length;i++){var p=profiles[i];L.push('### `'+p.name+'`');if(p.label)L.push('**Метка/вопрос:** '+p.label+'  ');var line='**Тип:** '+p.type+' · **Valid N:** '+p.valid+' · **Пропуски:** '+p.miss+' ('+p.pmiss+'%) · **Уник.:** '+p.nunique;if('min'in p)line+=' · **Диапазон:** '+p.min+'…'+p.max+' · среднее '+p.mean+' · медиана '+p.median;L.push(line+'  ');if(p.valueLabels){var vlk=Object.keys(p.valueLabels).sort(function(a,b){return Number(a)-Number(b);});L.push('**Метки значений:** '+vlk.map(function(k){return k+' = '+p.valueLabels[k];}).join('; ')+'  ');}if(p.top){L.push('**Частые значения:**  ');for(var t=0;t<p.top.length;t++)L.push('- '+p.top[t][0]+' — '+p.top[t][1]);}L.push('**Примеры:** '+(p.examples.join(', ')||'—'),'');}return L.join('\n');}
 function datapackageJSON(headers,profiles){var fields=[];for(var i=0;i<profiles.length;i++){var p=profiles[i],f={name:p.name,type:FRT[p.type]||'string'};if(p.label)f.title=p.label;fields.push(f);}return JSON.stringify({profile:'tabular-data-package',resources:[{name:'data',path:'cleaned_data.csv',profile:'tabular-data-resource',schema:{fields:fields,missingValues:['','NA','н/д']}}],created:new Date().toISOString()},null,2);}
 function variableMapMD(qmap){var L=['# Карта «вопрос → переменная»','','| Переменная | Исходный вопрос / столбец |','|---|---|'];for(var i=0;i<qmap.length;i++)L.push('| `'+qmap[i][0]+'` | '+qmap[i][1]+' |');return L.join('\n');}
 function surveySummaryMD(profiles,mlog,nrows){var L=['# Сводка по опросу','','Респондентов: '+nrows,''];if(mlog.length){L.push('## Вопросы с множественным выбором (разобраны)');for(var i=0;i<mlog.length;i++)L.push('- '+mlog[i][0]+' → '+mlog[i][1].length+' вариантов: '+mlog[i][1].slice(0,12).join(', '));L.push('');}L.push('## Распределения','');for(var i=0;i<profiles.length;i++){var p=profiles[i];if((p.type==='integer'||p.type==='number')&&'mean'in p){L.push('### '+p.name);L.push('среднее '+p.mean+' · медиана '+p.median+' · диапазон '+p.min+'–'+p.max+' · ответов '+p.valid);L.push('');}else if(p.top){L.push('### '+p.name);var tot=0;for(var t=0;t<p.top.length;t++)tot+=p.top[t][1];for(var t=0;t<p.top.length;t++){var pct=tot?Math.round(1000*p.top[t][1]/tot)/10:0;L.push('- '+p.top[t][0]+': '+p.top[t][1]+' ('+pct+'%)');}L.push('');}}return L.join('\n');}
@@ -690,7 +720,7 @@ function codebookRTF(headers,profiles,nrows){
   L.push('{\\fonttbl{\\f0\\froman Times New Roman;}{\\f1\\fmodern Courier New;}}');
   L.push('\\f0\\fs24');
   L.push('{\\b\\fs40 Codebook\\par}');
-  L.push('{\\i\\fs18 '+rtfEsc('Сгенерировано в браузере, '+new Date().toISOString().slice(0,10))+'\\par}');
+  L.push('{\\i\\fs18 '+rtfEsc('Generated with Codebook & Survey Tidier — https://abagafonova.github.io/codebook · processed locally in your browser · '+new Date().toISOString().slice(0,10))+'\\par}');
   L.push('\\par');
   L.push('{\\b\\fs28 '+rtfEsc('Обзор')+'\\par}');
   L.push('{\\fs22 '+rtfEsc('Наблюдений: '+nrows)+'\\par}');

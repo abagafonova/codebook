@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://abagafonova.github.io/codebook/sitemap.xml
