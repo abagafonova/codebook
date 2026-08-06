@@ -145,9 +145,6 @@
   .course-card__copied{margin-left:6px;color:var(--accent-deep);font-weight:600}
   @media(max-width:520px){.course-card__body{flex-direction:column;gap:12px}.course-card__icon{margin-top:0}}
 
-  .course-afterline{max-width:640px;margin:28px auto 0;text-align:center;font-size:15px;line-height:1.6;color:var(--ink)}
-  .course-afterline a{color:var(--accent-deep);font-weight:700;text-decoration:none}
-  .course-afterline a:hover{text-decoration:underline}
 
   .card{background:rgba(255,255,255,.5);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(255,255,255,.65);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:26px;margin-top:20px}
   .card:first-of-type{margin-top:28px}
@@ -347,7 +344,7 @@
 
   <p class="bonus-line"><span data-i18n="bonusText">Бесплатно к инструменту – шпаргалка «Какой статистический тест выбрать»: три вопроса, и вы находите нужный метод.</span> <a href="#cheatsheet" id="cheatMiniLink" data-i18n="linkReadMore">Читать →</a></p>
 
-  <p class="course-line" id="courseLineOld" data-i18n="courseLine">Хотите научиться анализировать такие данные? Курс «Основы статистики для историка» – скоро.</p>
+  <p class="course-line" id="courseLineOld" data-i18n="courseLine">Хотите научиться анализировать такие данные? Курс «Основы статистики для историков» уже стартовал.</p>
 
   <!-- PROMO: курс, только RU, снять/обновить после 2026-08-31 -->
   <aside class="course-card hidden" id="courseCard" aria-label="Курс: Основы статистики для историков">
@@ -451,15 +448,12 @@
       </div>
 
       <div class="course-cta">
-        <p data-i18n="courseCta"><b>Хотите разобраться глубже?</b> Курс «Основы статистики для историка» — скоро на Stepik. Пошагово: как выбрать метод под свои данные, прочитать вывод SPSS и сформулировать результат для статьи.</p>
+        <p data-i18n="courseCta"><b>Хотите разобраться глубже?</b> Курс «Основы статистики для историков» уже на Stepik. Пошагово: как выбрать метод под свои данные, прочитать вывод SPSS и сформулировать результат для исследования. <a href="https://stepik.org/a/295414/pay?promo=b7202a14ee2530b4" target="_blank" rel="noopener" aria-label="Перейти к курсу «Основы статистики для историков» со скидкой, откроется в новой вкладке">Перейти к курсу со скидкой →</a></p>
       </div>
 
       <p class="share-note" data-i18n="shareNote">Можно свободно делиться этим файлом с коллегами и студентами.</p>
     </div>
   </div>
-
-  <!-- PROMO: курс, только RU, снять/обновить после 2026-08-31 -->
-  <p class="course-afterline hidden" id="courseAfterline">Хотите подробнее разобраться в выборе статистических методов? <a href="https://stepik.org/a/295414/pay?promo=b7202a14ee2530b4" target="_blank" rel="noopener" aria-label="Перейти к курсу «Основы статистики для историков» со скидкой, откроется в новой вкладке">Перейти к курсу со скидкой →</a></p>
 
 </div>
 
@@ -506,7 +500,7 @@ var I18N={
     langNote:'🌐 <b>На каком языке могут быть ваши данные?</b> Загружать можно анкеты и базы на любом языке — немецком, иврите, хинди, китайском и других. Содержимое ячеек, подсчёт пропусков, частоты и описательные статистики обрабатываются корректно независимо от языка, а в кодбуке значения показываются в их родном алфавите.<br><br>Нюанс касается только автоматического создания <i>коротких имён переменных</i> в режиме опроса: для языков на латинице и кириллице они формируются полностью, а для других алфавитов (иврит, хинди, арабский и т.п.) короткие имена получаются обобщёнными (<code>var_1</code>, <code>var_2</code>…) — при этом исходные вопросы сохраняются в отдельном файле-соответствии, и вы легко переименуете переменные вручную. В обычном режиме (кодбук) имена переменных сохраняются как есть на любом языке.',
     bonusText:'Бесплатно к инструменту – шпаргалка «Какой статистический тест выбрать»: три вопроса, и вы находите нужный метод.',
     linkReadMore:'Читать →',
-    courseLine:'Хотите научиться анализировать такие данные? Курс «Основы статистики для историка» уже стартовал.',
+    courseLine:'Хотите научиться анализировать такие данные? Курс «Основы статистики для историков» уже стартовал.',
     cheatEyebrow:'Из библиотеки исследователя', cheatH2:'Какой статистический тест выбрать?',
     cheatSubtitle:'Шпаргалка для гуманитария на 1 страницу',
     cheatByline1:'Бесплатно от Анны Агафоновой, к.и.н. · urbantransmission.org',
@@ -534,7 +528,7 @@ var I18N={
     warn1:'<b>1. «Есть корреляция → есть причина».</b> Нет. Связь ≠ причина.',
     warn2:'<b>2. Только p, без размера эффекта.</b> p говорит «есть ли», размер эффекта — «насколько большое». Нужны оба.',
     warn3:'<b>3. Громкие выводы на 15 анкетах.</b> Маленькая выборка → осторожные формулировки.',
-    courseCta:'<b>Хотите разобраться глубже?</b> Курс «Основы статистики для историка» уже на Stepik. Пошагово: как выбрать метод под свои данные, прочитать вывод SPSS и сформулировать результат для статьи.',
+    courseCta:'<b>Хотите разобраться глубже?</b> Курс «Основы статистики для историков» уже на Stepik. Пошагово: как выбрать метод под свои данные, прочитать вывод SPSS и сформулировать результат для исследования. <a href="https://stepik.org/a/295414/pay?promo=b7202a14ee2530b4" target="_blank" rel="noopener" aria-label="Перейти к курсу «Основы статистики для историков» со скидкой, откроется в новой вкладке">Перейти к курсу со скидкой →</a>',
     shareNote:'Можно свободно делиться этим файлом с коллегами и студентами.',
     footerCopyright:'© 2026 Анна Агафонова, к.и.н. · <a href="https://urbantransmission.org" target="_blank" rel="noopener noreferrer">urbantransmission.org</a>',
     footerWorks:'Работает офлайн, данные остаются у вас.',
@@ -825,7 +819,7 @@ if(typeof document!=='undefined'){
   function updateCoursePromo(){
     var expired = new Date() >= new Date('2026-09-01T00:00:00+03:00');
     var show = (LANG==='ru') && !expired;
-    ['courseTopline','courseCard','courseAfterline'].forEach(function(id){
+    ['courseTopline','courseCard'].forEach(function(id){
       var el=document.getElementById(id); if(el) el.classList.toggle('hidden', !show);
     });
     var oldLine=document.getElementById('courseLineOld');
