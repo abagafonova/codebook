@@ -101,7 +101,7 @@
   .wrap{max-width:1040px;margin:0 auto;padding:36px 22px 90px;position:relative;z-index:1}
 
   header{margin-bottom:8px}
-  header .lead{font-weight:700;font-size:clamp(36px,3.6vw,26px);line-height:1.32;margin:0 0 20px;letter-spacing:-.01em}
+  header .lead{font-weight:700;font-size:clamp(36px,3.6vw,44px);line-height:1.32;margin:0 0 20px;letter-spacing:-.01em}
   header .sub{margin:0;color:var(--muted);font-size:17px;line-height:1.6;max-width:640px}
 
   /* ─── что делает инструмент ─── */
@@ -112,12 +112,42 @@
   .feature-list li b{font-weight:700}
 
   /* ─── приватность (плашка) ─── */
-  .privacy-note{margin-top:28px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:12px;padding:16px 20px;font-size:16px;line-height:1.6;color:var(--ink)}
+  .privacy-note{margin-top:28px;background:var(--accent-soft);border-left:3px solid var(--hero-bg);border-radius:12px;padding:16px 20px;font-size:16px;line-height:1.6;color:var(--ink)}
 
   /* ─── бонус и курс ─── */
   .bonus-line{margin-top:24px;font-size:16px;line-height:1.6;color:var(--ink)}
   .bonus-line a{font-weight:700}
   .course-line{margin-top:10px;font-size:15.5px;line-height:1.6;color:var(--muted)}
+
+  /* ─── промо курса (RU) ─── */
+  .course-topline{max-width:1040px;box-sizing:border-box;margin:12px auto 0;padding:0 22px;text-align:center;font-size:14px;color:var(--muted)}
+  .course-topline a{color:var(--accent-deep);font-weight:700;text-decoration:none}
+  .course-topline a:hover{text-decoration:underline}
+
+  .course-card{position:relative;max-width:640px;margin:32px auto;background:var(--accent-soft);border:1px solid var(--line);border-left:5px solid var(--hero-bg);border-radius:14px;padding:26px 24px 22px;box-shadow:var(--shadow)}
+  .course-card__badge{position:absolute;top:-24px;left:20px;background:var(--warn);color:#fff;font-size:19.5px;font-weight:600;padding:7.5px 18px;border-radius:999px;letter-spacing:.2px}
+  .course-card__body{display:flex;gap:18px;align-items:flex-start}
+  .course-card__icon{flex:0 0 52px;width:52px;height:52px;border-radius:10px;object-fit:cover;margin-top:6px}
+  .course-card__title{margin:2px 0 8px;font-size:19px;line-height:1.32;font-weight:700;color:var(--ink)}
+  .course-card__sub{margin:0 0 14px;font-size:15px;line-height:1.55;color:var(--ink)}
+  .course-card__cta{text-align:center;margin:16px 0 14px}
+  .course-card__price{margin:0 0 16px;display:flex;align-items:baseline;justify-content:center;gap:10px}
+  .course-card__price .now{font-size:30px;font-weight:800;color:#c41e3a}
+  .course-card__price .old{font-size:20px;color:var(--ink);text-decoration:line-through}
+  .course-card__btn{display:inline-block;background:var(--hero-bg);color:#fbf8f2;font-weight:700;font-size:22px;padding:12px 22px;border-radius:10px;text-decoration:none;transition:filter .15s,transform .15s;min-height:44px}
+  .course-card__btn:hover{filter:brightness(1.18);transform:translateY(-1px)}
+  .course-card__note{margin:10px 0 0;font-size:12.5px;color:var(--ink);text-align:center}
+  .course-card__code-toggle{background:none;border:none;padding:0;margin:0;font:inherit;font-size:12.5px;color:var(--accent-deep);text-decoration:underline;cursor:pointer;min-height:auto}
+  .course-card__code-toggle:hover{color:var(--accent)}
+  .course-card__tip{margin-top:6px;font-size:12.5px;color:var(--ink);text-align:center}
+  .course-card__code{background:var(--line-light);border:1px dashed var(--line);border-radius:6px;padding:2px 9px;font-family:var(--mono);font-size:12.5px;color:var(--ink);cursor:pointer;min-height:auto}
+  .course-card__code:hover{border-color:var(--accent)}
+  .course-card__copied{margin-left:6px;color:var(--accent-deep);font-weight:600}
+  @media(max-width:520px){.course-card__body{flex-direction:column;gap:12px}.course-card__icon{margin-top:0}}
+
+  .course-afterline{max-width:640px;margin:28px auto 0;text-align:center;font-size:15px;line-height:1.6;color:var(--ink)}
+  .course-afterline a{color:var(--accent-deep);font-weight:700;text-decoration:none}
+  .course-afterline a:hover{text-decoration:underline}
 
   .card{background:rgba(255,255,255,.5);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(255,255,255,.65);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:26px;margin-top:20px}
   .card:first-of-type{margin-top:28px}
@@ -196,7 +226,7 @@
   #cheatsheet.collapsed .cheat-body,#cheatsheet.collapsed .cheat-head .subtitle,#cheatsheet.collapsed .cheat-head .byline{display:none}
   .cheat-reveal{display:none;text-align:center;margin-top:6px}
   #cheatsheet.collapsed .cheat-reveal{display:block}
-  .cheat-reveal button{background:var(--accent);color:#fbf8f2;border:none;border-radius:999px;padding:12px 26px;font-weight:600;font-size:14px;cursor:pointer;min-height:44px}
+  .cheat-reveal button{background:var(--hero-bg);color:#fbf8f2;border:none;border-radius:999px;padding:12px 26px;font-weight:600;font-size:14px;cursor:pointer;min-height:44px}
   .qnum{font-size:22px;color:var(--accent);flex-shrink:0;line-height:1.3}
   .qrow{display:flex;gap:12px;align-items:flex-start;margin-bottom:22px}
   .qrow .qtitle{font-weight:700;font-size:15.5px;margin-bottom:8px}
@@ -226,6 +256,7 @@
 
   @media(max-width:640px){
     .wrap{padding:24px 16px 70px}
+    .course-topline{padding:0 16px}
     header .lead{font-size:22px}
     .card{padding:18px}
     #cheatsheet{padding:28px 20px}
@@ -248,6 +279,9 @@
     <button type="button" id="lang-en" aria-pressed="false">EN</button>
   </div>
 </div>
+
+<!-- PROMO: курс, только RU, снять/обновить после 2026-08-31 -->
+<p class="course-topline hidden" id="courseTopline">Курс по статистике для историков —<a href="https://stepik.org/a/295414/pay?promo=b7202a14ee2530b4" target="_blank" rel="noopener" aria-label="Курс «Основы статистики для историков» со скидкой 48%, откроется в новой вкладке">скидка 48% до 31 августа →</a></p>
 
 <div class="wrap" id="main">
   <header>
@@ -313,7 +347,25 @@
 
   <p class="bonus-line"><span data-i18n="bonusText">Бесплатно к инструменту – шпаргалка «Какой статистический тест выбрать»: три вопроса, и вы находите нужный метод.</span> <a href="#cheatsheet" id="cheatMiniLink" data-i18n="linkReadMore">Читать →</a></p>
 
-  <p class="course-line" data-i18n="courseLine">Хотите научиться анализировать такие данные? Курс «Основы статистики для историка» – скоро.</p>
+  <p class="course-line" id="courseLineOld" data-i18n="courseLine">Хотите научиться анализировать такие данные? Курс «Основы статистики для историка» – скоро.</p>
+
+  <!-- PROMO: курс, только RU, снять/обновить после 2026-08-31 -->
+  <aside class="course-card hidden" id="courseCard" aria-label="Курс: Основы статистики для историков">
+    <span class="course-card__badge">−48% · до 31 августа</span>
+    <div class="course-card__body">
+      <img class="course-card__icon" src="assets/logo_stat.png" alt="" aria-hidden="true">
+      <div class="course-card__text">
+        <h3 class="course-card__title">Не знаете, какой статистический тест выбрать?</h3>
+        <p class="course-card__sub">Курс «Основы статистики для историков»: от таблицы и выбора метода до интерпретации в jamovi (или SPSS) и готового фрагмента методраздела.</p>
+      </div>
+    </div>
+    <div class="course-card__cta">
+      <p class="course-card__price"><span class="now">1490 ₽</span> <span class="old">2890 ₽</span></p>
+      <a class="course-card__btn" href="https://stepik.org/a/295414/pay?promo=b7202a14ee2530b4" target="_blank" rel="noopener" aria-label="Перейти к курсу «Основы статистики для историков» за 1490 рублей, откроется в новой вкладке">Перейти к курсу</a>
+    </div>
+    <p class="course-card__note">Скидка применится автоматически. <button type="button" class="course-card__code-toggle" id="promoToggle" aria-expanded="false" aria-controls="promoTip">Промокод для ручного оформления</button></p>
+    <div class="course-card__tip hidden" id="promoTip">Промокод: <button type="button" class="course-card__code" id="promoCodeBtn" aria-label="Скопировать промокод HISTORY в буфер обмена">HISTORY</button> <span class="course-card__copied" id="promoCopied" aria-live="polite"></span></div>
+  </aside>
 
   <div class="hr"></div>
 
@@ -406,6 +458,9 @@
     </div>
   </div>
 
+  <!-- PROMO: курс, только RU, снять/обновить после 2026-08-31 -->
+  <p class="course-afterline hidden" id="courseAfterline">Хотите подробнее разобраться в выборе статистических методов? <a href="https://stepik.org/a/295414/pay?promo=b7202a14ee2530b4" target="_blank" rel="noopener" aria-label="Перейти к курсу «Основы статистики для историков» со скидкой, откроется в новой вкладке">Перейти к курсу со скидкой →</a></p>
+
 </div>
 
 <footer class="site-footer">
@@ -451,7 +506,7 @@ var I18N={
     langNote:'🌐 <b>На каком языке могут быть ваши данные?</b> Загружать можно анкеты и базы на любом языке — немецком, иврите, хинди, китайском и других. Содержимое ячеек, подсчёт пропусков, частоты и описательные статистики обрабатываются корректно независимо от языка, а в кодбуке значения показываются в их родном алфавите.<br><br>Нюанс касается только автоматического создания <i>коротких имён переменных</i> в режиме опроса: для языков на латинице и кириллице они формируются полностью, а для других алфавитов (иврит, хинди, арабский и т.п.) короткие имена получаются обобщёнными (<code>var_1</code>, <code>var_2</code>…) — при этом исходные вопросы сохраняются в отдельном файле-соответствии, и вы легко переименуете переменные вручную. В обычном режиме (кодбук) имена переменных сохраняются как есть на любом языке.',
     bonusText:'Бесплатно к инструменту – шпаргалка «Какой статистический тест выбрать»: три вопроса, и вы находите нужный метод.',
     linkReadMore:'Читать →',
-    courseLine:'Хотите научиться анализировать такие данные? Курс «Основы статистики для историка» – скоро.',
+    courseLine:'Хотите научиться анализировать такие данные? Курс «Основы статистики для историка» уже стартовал.',
     cheatEyebrow:'Из библиотеки исследователя', cheatH2:'Какой статистический тест выбрать?',
     cheatSubtitle:'Шпаргалка для гуманитария на 1 страницу',
     cheatByline1:'Бесплатно от Анны Агафоновой, к.и.н. · urbantransmission.org',
@@ -479,7 +534,7 @@ var I18N={
     warn1:'<b>1. «Есть корреляция → есть причина».</b> Нет. Связь ≠ причина.',
     warn2:'<b>2. Только p, без размера эффекта.</b> p говорит «есть ли», размер эффекта — «насколько большое». Нужны оба.',
     warn3:'<b>3. Громкие выводы на 15 анкетах.</b> Маленькая выборка → осторожные формулировки.',
-    courseCta:'<b>Хотите разобраться глубже?</b> Курс «Основы статистики для историка» — скоро на Stepik. Пошагово: как выбрать метод под свои данные, прочитать вывод SPSS и сформулировать результат для статьи.',
+    courseCta:'<b>Хотите разобраться глубже?</b> Курс «Основы статистики для историка» уже на Stepik. Пошагово: как выбрать метод под свои данные, прочитать вывод SPSS и сформулировать результат для статьи.',
     shareNote:'Можно свободно делиться этим файлом с коллегами и студентами.',
     footerCopyright:'© 2026 Анна Агафонова, к.и.н. · <a href="https://urbantransmission.org" target="_blank" rel="noopener noreferrer">urbantransmission.org</a>',
     footerWorks:'Работает офлайн, данные остаются у вас.',
@@ -766,6 +821,36 @@ if(typeof document!=='undefined'){
     document.getElementById('hint').innerHTML=(MODE==='codebook'&&LAST_LOOKS_SURVEY)?('<div class="hint">'+I18N[LANG].hintSurvey+'</div>'):'';
   }
 
+  /* Промо курса: видно только на RU и только до конца акции (31 августа 2026, по МСК). */
+  function updateCoursePromo(){
+    var expired = new Date() >= new Date('2026-09-01T00:00:00+03:00');
+    var show = (LANG==='ru') && !expired;
+    ['courseTopline','courseCard','courseAfterline'].forEach(function(id){
+      var el=document.getElementById(id); if(el) el.classList.toggle('hidden', !show);
+    });
+    var oldLine=document.getElementById('courseLineOld');
+    if(oldLine) oldLine.classList.toggle('hidden', LANG==='ru');
+  }
+
+  /* Промокод: раскрыть подсказку + скопировать код по клику */
+  var promoToggle=document.getElementById('promoToggle'), promoTip=document.getElementById('promoTip');
+  if(promoToggle&&promoTip){
+    promoToggle.addEventListener('click',function(){
+      var willShow=promoTip.classList.contains('hidden');
+      promoTip.classList.toggle('hidden',!willShow);
+      promoToggle.setAttribute('aria-expanded',String(willShow));
+    });
+  }
+  var promoCodeBtn=document.getElementById('promoCodeBtn');
+  if(promoCodeBtn){
+    promoCodeBtn.addEventListener('click',function(){
+      var text='HISTORY';
+      function showCopied(){var c=document.getElementById('promoCopied');if(c){c.textContent='скопировано ✓';setTimeout(function(){c.textContent='';},1800);}}
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(showCopied).catch(function(){});}
+      else{var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);showCopied();}
+    });
+  }
+
   function setLang(l){
     LANG=(l==='en')?'en':'ru';
     document.documentElement.lang=LANG;
@@ -775,6 +860,7 @@ if(typeof document!=='undefined'){
     document.getElementById('lang-en').setAttribute('aria-pressed',LANG==='en');
     applyStaticI18n();
     renderHint();
+    updateCoursePromo();
     if(RAW){status.textContent=I18N[LANG].statusLoaded(RAW.rows.length,RAW.headers.length,RAW.fname);process();}
     try{localStorage.setItem('cst_lang',LANG);}catch(e){}
   }
