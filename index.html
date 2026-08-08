@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#2C1A0B">
-<title>Codebook & Survey Tidier — кодбук и очистка данных опросов онлайн</title>
-<meta name="description" content="Бесплатный браузерный инструмент для исследователей: чистит выгрузки Google/Яндекс/MS Forms, строит кодбук и метаданные, готовит файлы для SPSS и jamovi. Данные не покидают браузер.">
+<title>Codebook & Survey Tidier – сделать кодбук и очистить данные опроса онлайн (для SPSS, jamovi)</title>
+<meta name="description" content="Бесплатный онлайн-инструмент: как сделать кодбук и очистить данные опроса за пару минут. Готовит выгрузки Google/Яндекс/MS Forms к анализу в SPSS и jamovi – прямо в браузере, без загрузки на сервер.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="canonical" href="https://abagafonova.github.io/codebook/">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Codebook & Survey Tidier">
-<meta property="og:title" content="Codebook & Survey Tidier — кодбук и очистка данных опросов">
-<meta property="og:description" content="Чистит выгрузки Google/Яндекс/MS Forms, строит кодбук и метаданные, готовит файлы для SPSS и jamovi. Всё в браузере — данные никуда не загружаются.">
+<meta property="og:title" content="Codebook & Survey Tidier – сделать кодбук и очистить данные опроса онлайн">
+<meta property="og:description" content="Как сделать кодбук и очистить данные опроса для SPSS и jamovi – бесплатно, прямо в браузере. Готовит выгрузки Google/Яндекс/MS Forms, данные никуда не загружаются.">
 <meta property="og:url" content="https://abagafonova.github.io/codebook/">
 <meta property="og:image" content="https://abagafonova.github.io/codebook/assets/og-cover.png">
 <meta property="og:locale" content="ru_RU">
@@ -22,7 +22,7 @@
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Codebook & Survey Tidier">
-<meta name="twitter:description" content="Free browser tool: clean survey exports, build a codebook and metadata, prepare files for SPSS and jamovi. Data never leaves your browser.">
+<meta name="twitter:description" content="Free online tool to build a codebook and clean survey data for SPSS or jamovi in minutes. Works with Google/MS/Yandex Forms exports – entirely in your browser, nothing uploaded.">
 <meta name="twitter:image" content="https://abagafonova.github.io/codebook/assets/og-cover.png">
 
 <!-- Structured data: SoftwareApplication -->
@@ -34,7 +34,7 @@
   "applicationCategory": "ResearchApplication",
   "operatingSystem": "Any (web browser)",
   "url": "https://abagafonova.github.io/codebook/",
-  "description": "Free, browser-based tool for researchers: cleans survey exports (Google/Yandex/MS Forms), builds a codebook and machine-readable metadata (Tabular Data Package), and prepares SPSS/jamovi-ready files. All processing happens locally in the browser.",
+  "description": "Free, browser-based tool to build a codebook and clean survey data (Google/Yandex/MS Forms exports), producing machine-readable metadata (Tabular Data Package) and SPSS/jamovi-ready files. All processing happens locally in the browser.",
   "inLanguage": ["ru", "en"],
   "isAccessibleForFree": true,
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -45,18 +45,57 @@
   }
 }
 </script>
+
+<!-- Structured data: FAQPage (RU) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "ru",
+  "mainEntity": [
+    {"@type":"Question","name":"Какие файлы можно загружать?","acceptedAnswer":{"@type":"Answer","text":"Выгрузки опросов и таблицы в формате CSV (Google Формы, Яндекс Формы, MS Forms и другие). Данные из Excel предварительно сохраните как CSV."}},
+    {"@type":"Question","name":"Это безопасно? Куда попадают мои данные?","acceptedAnswer":{"@type":"Answer","text":"Никуда. Всё считается прямо в вашем браузере: файлы не загружаются ни на сервер, ни автору. Закрыли вкладку – данные исчезли."}},
+    {"@type":"Question","name":"На каком языке могут быть мои данные?","acceptedAnswer":{"@type":"Answer","text":"На любом – немецком, иврите, хинди, китайском и других. Содержимое ячеек, пропуски, частоты и описательные статистики обрабатываются корректно независимо от языка."}},
+    {"@type":"Question","name":"Для SPSS или для jamovi?","acceptedAnswer":{"@type":"Answer","text":"Для обоих. На выходе – чистый CSV (открывается в jamovi сразу) и синтаксис SPSS с прописанными метками переменных и значений."}},
+    {"@type":"Question","name":"Сколько это стоит?","acceptedAnswer":{"@type":"Answer","text":"Бесплатно. Дополнительно к инструменту прилагается шпаргалка «Какой статистический тест выбрать»."}},
+    {"@type":"Question","name":"Зачем нужен кодбук?","acceptedAnswer":{"@type":"Answer","text":"Он документирует каждую переменную – тип, метку, пропуски, – чтобы и спустя месяцы вы помнили, что означает любой столбец, и чтобы данные можно было опубликовать по принципам FAIR."}},
+    {"@type":"Question","name":"Где пройти курс статистики для историков?","acceptedAnswer":{"@type":"Answer","text":"Курс «Основы статистики для историков» на Stepik: от выбора метода под свои данные до чтения вывода SPSS и формулировки результата для исследования – доступен со скидкой по ссылке на этой странице."}}
+  ]
+}
+</script>
+
+<!-- Structured data: FAQPage (EN) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "en",
+  "mainEntity": [
+    {"@type":"Question","name":"What files can I upload?","acceptedAnswer":{"@type":"Answer","text":"Survey exports and tables in CSV format (Google Forms, MS Forms, Yandex Forms and others). Save Excel files as CSV first."}},
+    {"@type":"Question","name":"Is it safe? Where does my data go?","acceptedAnswer":{"@type":"Answer","text":"Nowhere. Everything runs locally in your browser: files are never uploaded to a server or to the author. Close the tab and the data is gone."}},
+    {"@type":"Question","name":"What language can my data be in?","acceptedAnswer":{"@type":"Answer","text":"Any language – German, Hebrew, Hindi, Chinese and others. Cell values, missing-value counts, frequencies and descriptive statistics are handled correctly regardless of language."}},
+    {"@type":"Question","name":"For SPSS or for jamovi?","acceptedAnswer":{"@type":"Answer","text":"Both. You get a clean CSV (opens directly in jamovi) and SPSS syntax with variable and value labels."}},
+    {"@type":"Question","name":"How much does it cost?","acceptedAnswer":{"@type":"Answer","text":"It's free. A bonus cheat sheet, \"Which statistical test to choose,\" comes with the tool."}},
+    {"@type":"Question","name":"Why do I need a codebook?","acceptedAnswer":{"@type":"Answer","text":"It documents every variable – type, label, missing values – so months later you still know what each column means, and so the data can be shared under FAIR principles."}}
+  ]
+}
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
   :root{
-    --ink:#2b2620; --muted:#7a7163; --faint:#93897a;
-    --accent:#9c7a3c; --accent-deep:#6b5228; --accent-soft:rgba(156,122,60,.12);
-    --line:rgba(120,100,70,.18); --line-light:rgba(120,100,70,.10);
+    --ink:#2b2620; --muted:#5f564a; --faint:#847a6b;
+    --accent:#A85D3E; --accent-deep:#7A4028; --accent-soft:rgba(168,93,62,.13);
+    --sage:#748268; --sage-deep:#4F5C47; --sage-soft:rgba(116,130,104,.16);
+    --line:rgba(140,95,70,.18); --line-light:rgba(140,95,70,.1);
     --warn:#8a3a3a; --warn-bg:rgba(138,58,58,.06); --warn-border:rgba(138,58,58,.25);
     --hero-bg:#2C1A0B; --gold-bright:#e3b969;
-    --radius:14px; --radius-lg:18px;
+    --radius:14px; --radius-lg:20px;
     --serif:Cambria,Georgia,'Times New Roman',serif;
     --mono:ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace;
-    --shadow:0 8px 32px rgba(120,90,40,.10);
+    --shadow:0 10px 36px rgba(130,70,45,.12);
+    --glass-blur:23px; --glass-alpha:.5;
+    --glass-bg:rgba(255,252,246,var(--glass-alpha)); --glass-border:rgba(255,255,255,.7);
+    --page-bg-1:rgba(255,247,232,.9); --page-bg-2:rgba(255,250,240,.7); --page-bg-3:rgba(250,238,222,.55);
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -64,9 +103,9 @@
     margin:0;font-family:var(--serif);color:var(--ink);line-height:1.6;
     background:#f7f2e7;
     background-image:
-      radial-gradient(ellipse 900px 700px at 10% -5%, rgba(255,247,225,.9), transparent 60%),
-      radial-gradient(ellipse 800px 800px at 100% 30%, rgba(255,250,235,.7), transparent 55%),
-      radial-gradient(ellipse 900px 900px at 30% 110%, rgba(250,240,215,.6), transparent 60%);
+      radial-gradient(ellipse 900px 700px at 10% -5%, var(--page-bg-1), transparent 60%),
+      radial-gradient(ellipse 800px 800px at 100% 30%, var(--page-bg-2), transparent 55%),
+      radial-gradient(ellipse 900px 900px at 30% 110%, var(--page-bg-3), transparent 60%);
     background-attachment:fixed;
   }
   a{color:var(--accent-deep)}
@@ -102,55 +141,77 @@
 
   header{margin-bottom:8px}
   header .lead{font-weight:700;font-size:clamp(36px,3.6vw,44px);line-height:1.32;margin:0 0 20px;letter-spacing:-.01em}
-  header .sub{margin:0;color:var(--muted);font-size:17px;line-height:1.6;max-width:640px}
+  header .sub{margin:0;color:var(--muted);font-size:19px;line-height:1.6;max-width:820px}
 
   /* ─── что делает инструмент ─── */
   .features{margin-top:36px}
   .feature-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:18px}
-  .feature-list li{position:relative;padding-left:22px;font-size:16px;line-height:1.6;color:var(--ink)}
+  .feature-list li{position:relative;padding-left:22px;font-size:17.5px;line-height:1.6;color:var(--ink)}
   .feature-list li::before{content:'';position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
   .feature-list li b{font-weight:700}
 
-  /* ─── приватность (плашка) ─── */
-  .privacy-note{margin-top:28px;background:var(--accent-soft);border-left:3px solid var(--hero-bg);border-radius:12px;padding:16px 20px;font-size:16px;line-height:1.6;color:var(--ink)}
+  /* ─── как это работает (под заголовком) ─── */
+  .cb-howto{margin-top:26px}
+  .cb-howto h2{font-family:var(--serif);font-weight:700;font-size:22px;line-height:1.32;margin:0 0 14px;color:var(--ink)}
+  .cb-steps{list-style:none;counter-reset:cbstep;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+  .cb-steps li{position:relative;counter-increment:cbstep;padding-left:38px;font-size:17.5px;line-height:1.6;color:var(--ink)}
+  .cb-steps li::before{content:counter(cbstep);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:var(--sage-soft);color:var(--sage-deep);font-weight:700;font-size:13px;line-height:26px;text-align:center}
+  .cb-steps li b{font-weight:700}
+
+  /* ─── FAQ (аккордеон) ─── */
+  .cb-faq-wrap{margin-top:40px;padding-top:32px;border-top:1px solid var(--line)}
+  .cb-faq-wrap h2{font-family:var(--serif);font-weight:700;font-size:25px;line-height:1.32;margin:0 0 6px;color:var(--ink)}
+  .cb-faq details{border-bottom:1px solid var(--line)}
+  .cb-faq details:first-of-type{border-top:1px solid var(--line)}
+  .cb-faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 2px;font-weight:700;font-size:17.5px;color:var(--ink);min-height:44px}
+  .cb-faq summary::-webkit-details-marker{display:none}
+  .cb-faq__icon{position:relative;flex-shrink:0;width:18px;height:18px}
+  .cb-faq__icon::before,.cb-faq__icon::after{content:'';position:absolute;top:50%;left:50%;background:var(--sage-deep);border-radius:1px;transform:translate(-50%,-50%)}
+  .cb-faq__icon::before{width:12px;height:2px}
+  .cb-faq__icon::after{width:2px;height:12px;transition:transform .15s}
+  .cb-faq details[open] .cb-faq__icon::after{transform:translate(-50%,-50%) rotate(90deg)}
+  .cb-faq details p{margin:0 2px 16px;font-size:17px;line-height:1.6;color:var(--muted)}
+  .cb-faq details p a{color:var(--accent-deep);font-weight:700;text-decoration:none}
+  .cb-faq details p a:hover{text-decoration:underline}
 
   /* ─── бонус и курс ─── */
-  .bonus-line{margin-top:24px;font-size:16px;line-height:1.6;color:var(--ink)}
+  .bonus-line{margin-top:24px;font-size:17.5px;line-height:1.6;color:var(--ink)}
   .bonus-line a{font-weight:700}
-  .course-line{margin-top:10px;font-size:15.5px;line-height:1.6;color:var(--muted)}
+  .course-line{margin-top:10px;font-size:17.5px;line-height:1.6;color:var(--muted)}
 
   /* ─── промо курса (RU) ─── */
   .course-topline{max-width:1040px;box-sizing:border-box;margin:12px auto 0;padding:0 22px;text-align:center;font-size:14px;color:var(--muted)}
   .course-topline a{color:var(--accent-deep);font-weight:700;text-decoration:none}
   .course-topline a:hover{text-decoration:underline}
 
-  .course-card{position:relative;max-width:640px;margin:32px auto;background:var(--accent-soft);border:1px solid var(--line);border-left:5px solid var(--hero-bg);border-radius:14px;padding:26px 24px 22px;box-shadow:var(--shadow)}
-  .course-card__badge{position:absolute;top:-24px;left:20px;background:var(--warn);color:#fff;font-size:19.5px;font-weight:600;padding:7.5px 18px;border-radius:999px;letter-spacing:.2px}
-  .course-card__body{display:flex;gap:18px;align-items:flex-start}
-  .course-card__icon{flex:0 0 52px;width:52px;height:52px;border-radius:10px;object-fit:cover;margin-top:6px}
-  .course-card__title{margin:2px 0 8px;font-size:19px;line-height:1.32;font-weight:700;color:var(--ink)}
-  .course-card__sub{margin:0 0 14px;font-size:15px;line-height:1.55;color:var(--ink)}
-  .course-card__cta{text-align:center;margin:16px 0 14px}
+  .course-card{position:relative;margin:40px 0 0;background:var(--glass-bg);backdrop-filter:blur(var(--glass-blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);border:1px solid var(--glass-border);border-radius:22px;padding:40px 44px 36px;box-shadow:var(--shadow)}
+  .course-card__badge{position:absolute;top:-24px;left:28px;background:var(--warn);color:#fff;font-size:19.5px;font-weight:600;padding:7.5px 18px;border-radius:999px;letter-spacing:.2px}
+  .course-card__body{display:flex;gap:22px;align-items:flex-start}
+  .course-card__icon{flex:0 0 auto;width:clamp(130px,24vw,240px);aspect-ratio:1/1;height:auto;border-radius:18px;object-fit:cover;margin-top:6px;box-shadow:0 4px 14px rgba(80,50,30,.18)}
+  .course-card__title{margin:2px 0 8px;font-size:22px;line-height:1.32;font-weight:700;color:var(--ink)}
+  .course-card__sub{margin:0 0 14px;font-size:17px;line-height:1.55;color:var(--ink)}
+  .course-card__cta{margin:16px 0 14px;width:fit-content;transform:translateX(50%)}
   .course-card__price{margin:0 0 16px;display:flex;align-items:baseline;justify-content:center;gap:10px}
   .course-card__price .now{font-size:30px;font-weight:800;color:#c41e3a}
-  .course-card__price .old{position:relative;display:inline-block;font-size:20px;color:var(--ink)}
+  .course-card__price .old{position:relative;display:inline-block;font-size:20px;color:var(--faint)}
   .course-card__price .old::after{content:'';position:absolute;left:-4%;right:-4%;top:52%;height:1.5px;background:currentColor;transform:rotate(-14deg);transform-origin:center}
-  .course-card__btn{display:inline-block;background:var(--hero-bg);color:#fbf8f2;font-weight:700;font-size:22px;padding:12px 22px;border-radius:10px;text-decoration:none;transition:filter .15s,transform .15s;min-height:44px}
+  .course-card__btn{display:inline-block;background:var(--accent-deep);color:#fbf8f2;font-weight:700;font-size:22px;padding:12px 22px;border-radius:12px;text-decoration:none;transition:filter .15s,transform .15s;min-height:44px}
   .course-card__btn:hover{filter:brightness(1.18);transform:translateY(-1px)}
-  .course-card__note{margin:10px 0 0;font-size:12.5px;color:var(--ink);text-align:center}
+  .course-card__note{margin:10px 0 0;font-size:12.5px;color:var(--ink)}
   .course-card__code-toggle{background:none;border:none;padding:0;margin:0;font:inherit;font-size:12.5px;color:var(--accent-deep);text-decoration:underline;cursor:pointer;min-height:auto}
   .course-card__code-toggle:hover{color:var(--accent)}
-  .course-card__tip{margin-top:6px;font-size:12.5px;color:var(--ink);text-align:center}
+  .course-card__tip{margin-top:6px;font-size:12.5px;color:var(--ink)}
   .course-card__code{background:var(--line-light);border:1px dashed var(--line);border-radius:6px;padding:2px 9px;font-family:var(--mono);font-size:12.5px;color:var(--ink);cursor:pointer;min-height:auto}
   .course-card__code:hover{border-color:var(--accent)}
   .course-card__copied{margin-left:6px;color:var(--accent-deep);font-weight:600}
   @media(max-width:520px){.course-card__body{flex-direction:column;gap:12px}.course-card__icon{margin-top:0}}
 
 
-  .card{background:rgba(255,255,255,.5);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(255,255,255,.65);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:26px;margin-top:20px}
+  .card,.zone{background:var(--glass-bg);backdrop-filter:blur(var(--glass-blur)) saturate(165%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(165%);border:1.5px solid var(--glass-border);border-radius:var(--radius-lg);box-shadow:var(--shadow);padding:26px;margin-top:20px}
   .card:first-of-type{margin-top:28px}
+  .zone{padding:34px 32px;margin-top:40px}
 
-  .drop{border:1.5px dashed rgba(156,122,60,.5);border-radius:var(--radius);padding:42px 20px;text-align:center;cursor:pointer;transition:.15s;background:rgba(255,255,255,.35)}
+  .drop{border:1.5px dashed rgba(168,93,62,.5);border-radius:var(--radius);padding:42px 20px;text-align:center;cursor:pointer;transition:.15s;background:rgba(255,255,255,.35)}
   .drop.drag{border-color:var(--accent);background:var(--accent-soft)}
   .drop b{color:var(--accent-deep);font-size:15.5px}
   .drop small{display:block;color:var(--muted);margin-top:7px;font-size:13px}
@@ -200,7 +261,7 @@
   h3{margin:0 0 6px;font-size:18px}
 
   .teaser{margin-top:22px;background:linear-gradient(135deg,rgba(43,38,32,.92),rgba(60,50,38,.92));backdrop-filter:blur(10px);border-radius:var(--radius-lg);padding:26px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;box-shadow:0 12px 34px rgba(60,45,20,.22)}
-  .teaser .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#d4b878;font-weight:600;margin-bottom:8px}
+  .teaser .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#e0a380;font-weight:600;margin-bottom:8px}
   .teaser .title{font-weight:700;font-size:19px;color:#f7f2e7;margin-bottom:4px}
   .teaser .sub{font-size:13.5px;color:#b7ac98}
   .teaser a{flex-shrink:0;background:#f7f2e7;color:#2b2620;border-radius:999px;padding:11px 22px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap;transition:transform .15s;min-height:44px;display:inline-flex;align-items:center}
@@ -209,9 +270,9 @@
   .hr{height:1px;background:var(--line);margin:56px 0 0}
 
   /* ─── шпаргалка (сворачивается по умолчанию) ─── */
-  #cheatsheet{margin-top:40px;position:relative;background:rgba(255,255,255,.55);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);border:1px solid rgba(255,255,255,.7);border-radius:22px;padding:48px 44px;box-shadow:0 16px 44px rgba(120,90,40,.14);transition:transform .25s,box-shadow .25s}
-  #cheatsheet:hover{transform:translateY(-3px);box-shadow:0 22px 54px rgba(120,90,40,.18)}
-  .corner{position:absolute;width:13px;height:13px;border-color:#b8933a;border-style:solid;border-width:0}
+  #cheatsheet{margin-top:40px;position:relative;background:var(--glass-bg);backdrop-filter:blur(var(--glass-blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);border:1.5px solid var(--glass-border);border-radius:22px;padding:48px 44px;box-shadow:0 14px 38px rgba(130,70,45,.18);transition:transform .25s,box-shadow .25s}
+  #cheatsheet:hover{transform:translateY(-3px);box-shadow:0 18px 46px rgba(130,70,45,.22)}
+  .corner{position:absolute;width:13px;height:13px;border-color:var(--sage);border-style:solid;border-width:0}
   .corner.tl{top:16px;left:16px;border-top-width:1.5px;border-left-width:1.5px}
   .corner.tr{top:16px;right:16px;border-top-width:1.5px;border-right-width:1.5px}
   .corner.bl{bottom:16px;left:16px;border-bottom-width:1.5px;border-left-width:1.5px}
@@ -219,13 +280,14 @@
   .cheat-head{text-align:center;margin-bottom:28px}
   .cheat-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-deep);font-weight:600;margin-bottom:14px}
   .cheat-head h2{font-weight:700;font-size:30px;margin:0 0 8px}
-  .cheat-head .subtitle{font-style:italic;font-size:16px;color:var(--muted);margin:0 0 14px}
+  .cheat-head .subtitle{font-style:italic;font-size:17.5px;color:var(--muted);margin:0 0 14px}
   .cheat-head .byline{font-size:13px;color:var(--faint);margin:0}
   #cheatsheet.collapsed .cheat-body,#cheatsheet.collapsed .cheat-head .subtitle,#cheatsheet.collapsed .cheat-head .byline{display:none}
   .cheat-reveal{display:none;text-align:center;margin-top:6px}
   #cheatsheet.collapsed .cheat-reveal{display:block}
-  .cheat-reveal button{background:var(--hero-bg);color:#fbf8f2;border:none;border-radius:999px;padding:12px 26px;font-weight:600;font-size:14px;cursor:pointer;min-height:44px}
-  .qnum{font-size:22px;color:var(--accent);flex-shrink:0;line-height:1.3}
+  .cheat-reveal button{background:var(--accent-deep);color:#fbf8f2;border:none;border-radius:12px;padding:12px 26px;font-weight:600;font-size:14px;cursor:pointer;min-height:44px;transition:filter .15s,transform .15s}
+  .cheat-reveal button:hover{filter:brightness(1.18);transform:translateY(-1px)}
+  .qnum{font-size:22px;color:var(--sage-deep);flex-shrink:0;line-height:1.3}
   .qrow{display:flex;gap:12px;align-items:flex-start;margin-bottom:22px}
   .qrow .qtitle{font-weight:700;font-size:15.5px;margin-bottom:8px}
   .cheat-table{overflow:auto;border:1px solid var(--line);border-radius:10px}
@@ -233,9 +295,9 @@
   .cheat-note{font-size:12.5px;color:var(--faint);margin:8px 0 0}
   .warnbox{border:1px solid var(--warn-border);background:var(--warn-bg);border-radius:12px;padding:18px 20px;margin-bottom:26px}
   .warnbox .lbl{font-weight:700;color:var(--warn);margin-bottom:10px;letter-spacing:.02em;text-transform:uppercase;font-size:12px}
-  .warnbox div{font-size:14.5px;margin-bottom:8px}
+  .warnbox div{font-size:16px;margin-bottom:8px}
   .course-cta{border-top:1px solid var(--line);padding:20px 4px 0;margin-top:6px}
-  .course-cta p{font-size:14.5px;margin:0 0 8px}
+  .course-cta p{font-size:16px;margin:0 0 8px}
   .share-note{font-size:12.5px;color:var(--faint);text-align:center;font-style:italic;margin:20px 0 0}
 
   /* ─── подвал ─── */
@@ -279,13 +341,31 @@
 </div>
 
 <!-- PROMO: курс, только RU, снять/обновить после 2026-08-31 -->
-<p class="course-topline hidden" id="courseTopline">Курс по статистике для историков —<a href="https://stepik.org/a/295414/pay?promo=b7202a14ee2530b4" target="_blank" rel="noopener" aria-label="Курс «Основы статистики для историков» со скидкой 48%, откроется в новой вкладке">скидка 48% до 31 августа →</a></p>
+<p class="course-topline hidden" id="courseTopline">Курс по статистике для историков –<a href="https://stepik.org/a/295414/pay?promo=b7202a14ee2530b4" target="_blank" rel="noopener" aria-label="Курс «Основы статистики для историков» со скидкой 48%, откроется в новой вкладке">скидка 48% до 31 августа →</a></p>
 
 <div class="wrap" id="main">
   <header>
     <h1 class="lead" data-i18n="lead">От сырой выгрузки анкет – к чистым данным и готовому кодбуку. Без ручной рутины.</h1>
     <p class="sub" data-i18n="sub">Инструмент для историков, социологов, филологов и всех, кто работает с анкетами. Чистит выгрузки Google&nbsp;/&nbsp;Яндекс&nbsp;/&nbsp;MS&nbsp;Forms, строит кодбук и готовит файлы для SPSS и jamovi.</p>
   </header>
+
+  <section class="cb-howto zone" data-lang="ru">
+    <h2>Как это работает</h2>
+    <ol class="cb-steps">
+      <li><b>Загрузите выгрузку.</b> CSV из Google / Яндекс / MS Forms или любую таблицу с анкетой. Файл остаётся в браузере – никуда не отправляется. Закрыли вкладку – данные исчезли.</li>
+      <li><b>Сервис наводит порядок.</b> Приводит длинные вопросы к аккуратным именам переменных, разносит «отметьте всё подходящее» в столбцы 0/1, считает пропуски и подсвечивает вероятные ошибки кодировки.</li>
+      <li><b>Скачайте результат.</b> Чистый CSV, готовый кодбук, машиночитаемые метаданные (Tabular Data Package) и синтаксис SPSS с метками – данные сразу открываются в jamovi.</li>
+    </ol>
+  </section>
+
+  <section class="cb-howto zone hidden" data-lang="en">
+    <h2>How it works</h2>
+    <ol class="cb-steps">
+      <li><b>Upload your export.</b> A CSV from Google / MS / Yandex Forms, or any survey table. The file stays in your browser – it is never sent anywhere. Close the tab and the data is gone.</li>
+      <li><b>The tool tidies it up.</b> It turns long question headers into clean variable names, splits "select all that apply" into 0/1 columns, counts missing values and flags likely coding errors.</li>
+      <li><b>Download the result.</b> A clean CSV, a ready codebook, machine-readable metadata (Tabular Data Package) and SPSS syntax with labels – the data opens in jamovi right away.</li>
+    </ol>
+  </section>
 
   <div class="card">
     <div id="drop" class="drop" tabindex="0" role="button">
@@ -302,7 +382,7 @@
   </div>
 
   <div id="msPanel" class="card hidden">
-    <h3 data-i18n="msPanelTitle">Множественный выбор – подтвердите, что разнести на колонки 0/1</h3>
+    <h2 data-i18n="msPanelTitle">Множественный выбор – подтвердите, что разнести на колонки 0/1</h2>
     <p class="note" data-i18n="msPanelNote">Мы отметили только уверенные случаи. Снимите галочку, если это единый ответ (например «Страны ЕС, США или Канада»), а не несколько выборов.</p>
     <div id="msList"></div>
   </div>
@@ -329,7 +409,7 @@
     </div>
   </div>
 
-  <section class="features">
+  <section class="features zone">
     <ul class="feature-list">
       <li data-i18n="feature1"><b>Наводит порядок в выгрузке.</b> Приводит длинные заголовки-вопросы к аккуратным именам переменных и разносит вопросы «отметьте всё подходящее» в переменные 0/1.</li>
       <li data-i18n="feature2"><b>Контролирует качество данных.</b> Показывает, сколько ответов пропущено, считает базовые описательные статистики и подсвечивает вероятные ошибки кодировки – ещё до того, как вы откроете файл в статистическом пакете.</li>
@@ -339,9 +419,71 @@
     </ul>
   </section>
 
-  <div class="privacy-note" data-i18n="privacyNote">🔒 Всё считается в вашем браузере. Файлы никуда не загружаются – ни на сервер, ни автору. Закрыли вкладку – данные исчезли.</div>
+  <section class="cb-faq-wrap zone" data-lang="ru">
+    <h2>Частые вопросы</h2>
+    <div class="cb-faq">
+      <details>
+        <summary>Какие файлы можно загружать?<span class="cb-faq__icon" aria-hidden="true"></span></summary>
+        <p>Выгрузки опросов и таблицы в формате CSV (Google Формы, Яндекс Формы, MS Forms и другие). Данные из Excel предварительно сохраните как CSV.</p>
+      </details>
+      <details>
+        <summary>Это безопасно? Куда попадают мои данные?<span class="cb-faq__icon" aria-hidden="true"></span></summary>
+        <p>Никуда. Всё считается прямо в вашем браузере: файлы не загружаются ни на сервер, ни автору. Закрыли вкладку – данные исчезли. Это важно, если в анкетах есть персональные или чувствительные ответы.</p>
+      </details>
+      <details>
+        <summary>На каком языке могут быть мои данные?<span class="cb-faq__icon" aria-hidden="true"></span></summary>
+        <p>Загружать можно анкеты и базы на любом языке – немецком, иврите, хинди, китайском и других. Содержимое ячеек, подсчёт пропусков, частоты и описательные статистики обрабатываются корректно независимо от языка, а в кодбуке значения показываются в их родном алфавите.</p>
+        <p>Нюанс касается только автоматического создания коротких имён переменных в режиме опроса: для языков на латинице и кириллице они формируются полностью, а для других алфавитов (иврит, хинди, арабский и т.п.) короткие имена получаются обобщёнными (<code>var_1</code>, <code>var_2</code>…) – при этом исходные вопросы сохраняются в отдельном файле-соответствии, и вы легко переименуете переменные вручную. В обычном режиме (кодбук) имена переменных сохраняются как есть на любом языке.</p>
+      </details>
+      <details>
+        <summary>Для SPSS или для jamovi?<span class="cb-faq__icon" aria-hidden="true"></span></summary>
+        <p>Для обоих. На выходе – чистый CSV (открывается в jamovi сразу) и синтаксис SPSS с прописанными метками переменных и значений.</p>
+      </details>
+      <details>
+        <summary>Сколько это стоит?<span class="cb-faq__icon" aria-hidden="true"></span></summary>
+        <p>Бесплатно. Дополнительно к инструменту прилагается шпаргалка «Какой статистический тест выбрать».</p>
+      </details>
+      <details>
+        <summary>Зачем нужен кодбук?<span class="cb-faq__icon" aria-hidden="true"></span></summary>
+        <p>Он документирует каждую переменную – тип, метку, пропуски, – чтобы и спустя месяцы вы помнили, что означает любой столбец, и чтобы данные можно было опубликовать по принципам FAIR (Zenodo и другие репозитории).</p>
+      </details>
+      <details>
+        <summary>Где пройти курс статистики для историков?<span class="cb-faq__icon" aria-hidden="true"></span></summary>
+        <p>Курс «Основы статистики для историков» – на Stepik: как выбрать метод под свои данные, прочитать вывод SPSS и сформулировать результат для исследования, пошагово. <a href="https://stepik.org/a/295414/pay?promo=b7202a14ee2530b4" target="_blank" rel="noopener" aria-label="Перейти к курсу «Основы статистики для историков» со скидкой, откроется в новой вкладке">Перейти к курсу со скидкой →</a></p>
+      </details>
+    </div>
+  </section>
 
-  <div class="privacy-note" data-i18n="langNote">🌐 <b>На каком языке могут быть ваши данные?</b> Загружать можно анкеты и базы на любом языке — немецком, иврите, хинди, китайском и других. Содержимое ячеек, подсчёт пропусков, частоты и описательные статистики обрабатываются корректно независимо от языка, а в кодбуке значения показываются в их родном алфавите.<br><br>Нюанс касается только автоматического создания <i>коротких имён переменных</i> в режиме опроса: для языков на латинице и кириллице они формируются полностью, а для других алфавитов (иврит, хинди, арабский и т.п.) короткие имена получаются обобщёнными (<code>var_1</code>, <code>var_2</code>…) — при этом исходные вопросы сохраняются в отдельном файле-соответствии, и вы легко переименуете переменные вручную. В обычном режиме (кодбук) имена переменных сохраняются как есть на любом языке.</div>
+  <section class="cb-faq-wrap zone hidden" data-lang="en">
+    <h2>Frequently asked questions</h2>
+    <div class="cb-faq">
+      <details>
+        <summary>What files can I upload?<span class="cb-faq__icon" aria-hidden="true"></span></summary>
+        <p>Survey exports and tables in CSV format (Google Forms, MS Forms, Yandex Forms and others). Save Excel files as CSV first.</p>
+      </details>
+      <details>
+        <summary>Is it safe? Where does my data go?<span class="cb-faq__icon" aria-hidden="true"></span></summary>
+        <p>Nowhere. Everything runs locally in your browser: files are never uploaded to a server or to the author. Close the tab and the data is gone – important when your survey holds personal or sensitive answers.</p>
+      </details>
+      <details>
+        <summary>What language can my data be in?<span class="cb-faq__icon" aria-hidden="true"></span></summary>
+        <p>You can upload surveys and datasets in any language – German, Hebrew, Hindi, Chinese and others. Cell values, missing-value counts, frequencies and descriptive statistics are handled correctly regardless of language, and the codebook shows values in their original script.</p>
+        <p>One nuance concerns only the automatic generation of short variable names in Survey mode: for Latin- and Cyrillic-script languages they are generated in full, while for other scripts (Hebrew, Hindi, Arabic, etc.) the short names come out generic (<code>var_1</code>, <code>var_2</code>…). The original questions are preserved in a separate mapping file, so you can rename variables easily. In Codebook mode, variable names are kept as-is in any language.</p>
+      </details>
+      <details>
+        <summary>For SPSS or for jamovi?<span class="cb-faq__icon" aria-hidden="true"></span></summary>
+        <p>Both. You get a clean CSV (opens directly in jamovi) and SPSS syntax with variable and value labels.</p>
+      </details>
+      <details>
+        <summary>How much does it cost?<span class="cb-faq__icon" aria-hidden="true"></span></summary>
+        <p>It's free. A bonus cheat sheet, "Which statistical test to choose," comes with the tool.</p>
+      </details>
+      <details>
+        <summary>Why do I need a codebook?<span class="cb-faq__icon" aria-hidden="true"></span></summary>
+        <p>It documents every variable – type, label, missing values – so months later you still know what each column means, and so the data can be shared under FAIR principles (Zenodo and other repositories).</p>
+      </details>
+    </div>
+  </section>
 
   <p class="bonus-line"><span data-i18n="bonusText">Бесплатно к инструменту – шпаргалка «Какой статистический тест выбрать»: три вопроса, и вы находите нужный метод.</span> <a href="#cheatsheet" id="cheatMiniLink" data-i18n="linkReadMore">Читать →</a></p>
 
@@ -349,20 +491,22 @@
 
   <!-- PROMO: курс, только RU, снять/обновить после 2026-08-31 -->
   <aside class="course-card hidden" id="courseCard" aria-label="Курс: Основы статистики для историков">
+    <span class="corner tl" aria-hidden="true"></span><span class="corner tr" aria-hidden="true"></span>
+    <span class="corner bl" aria-hidden="true"></span><span class="corner br" aria-hidden="true"></span>
     <span class="course-card__badge">−48% · до 31 августа</span>
     <div class="course-card__body">
       <img class="course-card__icon" src="assets/logo_stat.png" alt="" aria-hidden="true">
       <div class="course-card__text">
         <h3 class="course-card__title">Не знаете, какой статистический тест выбрать?</h3>
         <p class="course-card__sub">Курс «Основы статистики для историков»: от таблицы и выбора метода до интерпретации в jamovi (или SPSS) и готового фрагмента методраздела.</p>
+        <div class="course-card__cta">
+          <p class="course-card__price"><span class="now">1490 ₽</span> <span class="old">2890 ₽</span></p>
+          <a class="course-card__btn" href="https://stepik.org/a/295414/pay?promo=b7202a14ee2530b4" target="_blank" rel="noopener" aria-label="Перейти к курсу «Основы статистики для историков» за 1490 рублей, откроется в новой вкладке">Перейти к курсу</a>
+        </div>
+        <p class="course-card__note">Скидка применится автоматически. <button type="button" class="course-card__code-toggle" id="promoToggle" aria-expanded="false" aria-controls="promoTip">Промокод для ручного оформления</button></p>
+        <div class="course-card__tip hidden" id="promoTip">Промокод: <button type="button" class="course-card__code" id="promoCodeBtn" aria-label="Скопировать промокод HISTORY в буфер обмена">HISTORY</button> <span class="course-card__copied" id="promoCopied" aria-live="polite"></span></div>
       </div>
     </div>
-    <div class="course-card__cta">
-      <p class="course-card__price"><span class="now">1490 ₽</span> <span class="old">2890 ₽</span></p>
-      <a class="course-card__btn" href="https://stepik.org/a/295414/pay?promo=b7202a14ee2530b4" target="_blank" rel="noopener" aria-label="Перейти к курсу «Основы статистики для историков» за 1490 рублей, откроется в новой вкладке">Перейти к курсу</a>
-    </div>
-    <p class="course-card__note">Скидка применится автоматически. <button type="button" class="course-card__code-toggle" id="promoToggle" aria-expanded="false" aria-controls="promoTip">Промокод для ручного оформления</button></p>
-    <div class="course-card__tip hidden" id="promoTip">Промокод: <button type="button" class="course-card__code" id="promoCodeBtn" aria-label="Скопировать промокод HISTORY в буфер обмена">HISTORY</button> <span class="course-card__copied" id="promoCopied" aria-live="polite"></span></div>
   </aside>
 
   <div class="hr"></div>
@@ -433,8 +577,8 @@
         <div>
           <div class="qtitle" data-i18n="q4Title">Предсказываете</div>
           <div style="display:flex;flex-direction:column;gap:6px;font-size:14.5px">
-            <div data-i18n="q4a">Исход — число → линейная регрессия</div>
-            <div data-i18n="q4b">Исход — да/нет → <b>логистическая регрессия</b> (покажет «во сколько раз меняются шансы»)</div>
+            <div data-i18n="q4a">Исход – число → линейная регрессия</div>
+            <div data-i18n="q4b">Исход – да/нет → <b>логистическая регрессия</b> (покажет «во сколько раз меняются шансы»)</div>
           </div>
         </div>
       </div>
@@ -444,7 +588,7 @@
       <div class="warnbox">
         <div class="lbl" data-i18n="warnLabel">Три ошибки, которые видит каждый рецензент</div>
         <div data-i18n="warn1"><b>1. «Есть корреляция → есть причина».</b> Нет. Связь ≠ причина.</div>
-        <div data-i18n="warn2"><b>2. Только p, без размера эффекта.</b> p говорит «есть ли», размер эффекта — «насколько большое». Нужны оба.</div>
+        <div data-i18n="warn2"><b>2. Только p, без размера эффекта.</b> p говорит «есть ли», размер эффекта – «насколько большое». Нужны оба.</div>
         <div data-i18n="warn3"><b>3. Громкие выводы на 15 анкетах.</b> Маленькая выборка → осторожные формулировки.</div>
       </div>
 
@@ -478,7 +622,7 @@
 var I18N={
   ru:{
     skipLink:'Перейти к содержимому',
-    pageTitle:'Codebook & Survey Tidier — кодбук и очистка данных опросов',
+    pageTitle:'Codebook & Survey Tidier – кодбук и очистка данных опросов',
     lead:'От сырой выгрузки анкет – к чистым данным и готовому кодбуку. Без ручной рутины.',
     sub:'Инструмент для историков, социологов, филологов и всех, кто работает с анкетами. Чистит выгрузки Google&nbsp;/&nbsp;Яндекс&nbsp;/&nbsp;MS&nbsp;Forms, строит кодбук и готовит файлы для SPSS и jamovi.',
     dropIntro:'<b>Перетащите файл сюда</b> или нажмите, чтобы выбрать',
@@ -493,12 +637,10 @@ var I18N={
     teaserEyebrow:'Из библиотеки исследователя', teaserTitle:'Шпаргалка: как выбрать статистический тест',
     teaserSub:'Три вопроса – и вы найдёте нужный метод. Один печатный лист, без воды.', teaserLinkText:'Читать шпаргалку →',
     feature1:'<b>Наводит порядок в выгрузке.</b> Приводит длинные заголовки-вопросы к аккуратным именам переменных и разносит вопросы «отметьте всё подходящее» в переменные 0/1.',
-    feature2:'<b>Контролирует качество данных.</b> Показывает, сколько ответов пропущено, считает базовые описательные статистики и подсвечивает вероятные ошибки кодировки — ещё до того, как вы откроете файл в статистическом пакете.',
-    feature3:'<b>Строит кодбук.</b> Документирует каждую переменную — тип, метку, пропуски, — чтобы и спустя месяцы вы помнили, что означает любой столбец.',
-    feature4:'<b>Формирует машиночитаемые метаданные.</b> Выдаёт данные в стандарте Tabular Data Package — для репозиториев открытых данных (Zenodo и др.) и публикации по принципам FAIR.',
-    feature5:'<b>Готовит к анализу.</b> На выходе — чистый CSV, кодбук и готовый синтаксис SPSS с прописанными метками переменных и значений; данные сразу открываются в jamovi.',
-    privacyNote:'🔒 Всё считается в вашем браузере. Файлы никуда не загружаются – ни на сервер, ни автору. Закрыли вкладку – данные исчезли.',
-    langNote:'🌐 <b>На каком языке могут быть ваши данные?</b> Загружать можно анкеты и базы на любом языке — немецком, иврите, хинди, китайском и других. Содержимое ячеек, подсчёт пропусков, частоты и описательные статистики обрабатываются корректно независимо от языка, а в кодбуке значения показываются в их родном алфавите.<br><br>Нюанс касается только автоматического создания <i>коротких имён переменных</i> в режиме опроса: для языков на латинице и кириллице они формируются полностью, а для других алфавитов (иврит, хинди, арабский и т.п.) короткие имена получаются обобщёнными (<code>var_1</code>, <code>var_2</code>…) — при этом исходные вопросы сохраняются в отдельном файле-соответствии, и вы легко переименуете переменные вручную. В обычном режиме (кодбук) имена переменных сохраняются как есть на любом языке.',
+    feature2:'<b>Контролирует качество данных.</b> Показывает, сколько ответов пропущено, считает базовые описательные статистики и подсвечивает вероятные ошибки кодировки – ещё до того, как вы откроете файл в статистическом пакете.',
+    feature3:'<b>Строит кодбук.</b> Документирует каждую переменную – тип, метку, пропуски, – чтобы и спустя месяцы вы помнили, что означает любой столбец.',
+    feature4:'<b>Формирует машиночитаемые метаданные.</b> Выдаёт данные в стандарте Tabular Data Package – для репозиториев открытых данных (Zenodo и др.) и публикации по принципам FAIR.',
+    feature5:'<b>Готовит к анализу.</b> На выходе – чистый CSV, кодбук и готовый синтаксис SPSS с прописанными метками переменных и значений; данные сразу открываются в jamovi.',
     bonusText:'Бесплатно к инструменту – шпаргалка «Какой статистический тест выбрать»: три вопроса, и вы находите нужный метод.',
     linkReadMore:'Читать →',
     courseLine:'Хотите научиться анализировать такие данные? Курс «Основы статистики для историков» уже стартовал.',
@@ -523,11 +665,11 @@ var I18N={
     q3a:'Число × Число → корреляция <b>Пирсона</b> (или Спирмена, если данные неровные)',
     q3b:'Категория × Категория → <b>χ²</b>',
     q4Title:'Предсказываете',
-    q4a:'Исход — число → линейная регрессия',
-    q4b:'Исход — да/нет → <b>логистическая регрессия</b> (покажет «во сколько раз меняются шансы»)',
+    q4a:'Исход – число → линейная регрессия',
+    q4b:'Исход – да/нет → <b>логистическая регрессия</b> (покажет «во сколько раз меняются шансы»)',
     warnLabel:'Три ошибки, которые видит каждый рецензент',
     warn1:'<b>1. «Есть корреляция → есть причина».</b> Нет. Связь ≠ причина.',
-    warn2:'<b>2. Только p, без размера эффекта.</b> p говорит «есть ли», размер эффекта — «насколько большое». Нужны оба.',
+    warn2:'<b>2. Только p, без размера эффекта.</b> p говорит «есть ли», размер эффекта – «насколько большое». Нужны оба.',
     warn3:'<b>3. Громкие выводы на 15 анкетах.</b> Маленькая выборка → осторожные формулировки.',
     courseCta:'<b>Хотите разобраться глубже?</b> Курс «Основы статистики для историков» уже на Stepik. Пошагово: как выбрать метод под свои данные, прочитать вывод SPSS и сформулировать результат для исследования. <a href="https://stepik.org/a/295414/pay?promo=b7202a14ee2530b4" target="_blank" rel="noopener" aria-label="Перейти к курсу «Основы статистики для историков» со скидкой, откроется в новой вкладке">Перейти к курсу со скидкой →</a>',
     shareNote:'Можно свободно делиться этим файлом с коллегами и студентами.',
@@ -538,9 +680,9 @@ var I18N={
     statusLoaded:function(n,m,f){return 'Загружено: '+n+' строк, '+m+' столбцов ('+f+')';},
     statusNoData:'В файле нет данных.',
     statusExcelError:function(msg){return 'Ошибка чтения Excel: '+msg;},
-    hintSurvey:'Похоже на выгрузку опроса. Попробуйте <b>Режим опроса</b> — он почистит заголовки и разнесёт множественный выбор.',
+    hintSurvey:'Похоже на выгрузку опроса. Попробуйте <b>Режим опроса</b> – он почистит заголовки и разнесёт множественный выбор.',
     guardUnknownExt:function(ext){return 'Не удалось распознать формат файла «.'+ext+'». Поддерживаются CSV, TSV, TXT и Excel (.xlsx/.xls).';},
-    guardZipMagic:'Файл начинается как архив (zip), а не как обычный CSV/TSV. Если это выгрузка из jamovi (.omv) или переименованный xlsx — экспортируйте данные в CSV и попробуйте снова.',
+    guardZipMagic:'Файл начинается как архив (zip), а не как обычный CSV/TSV. Если это выгрузка из jamovi (.omv) или переименованный xlsx – экспортируйте данные в CSV и попробуйте снова.',
     blocked:{
       omv:'Это проектный файл jamovi (.omv), а не таблица. В jamovi выберите Export → CSV и загрузите CSV.',
       sav:'Это файл SPSS (.sav), а не обычная таблица. В SPSS: File → Export → CSV и загрузите CSV.',
@@ -556,15 +698,15 @@ var I18N={
       pptx:'Это презентация, а не таблица с данными.'
     },
     changedSurvey:function(renamed,mlogLen,extra,issuesLen,before,after){return '<b>Что сделано:</b> приведены к коротким именам '+renamed+' столбц.; разнесено вопросов множественного выбора: '+mlogLen+extra+'; найдено проблем: '+issuesLen+'. Итог: было '+before+' → стало '+after+' столбцов.';},
-    changedCodebook:function(varCount,issuesLen){return '<b>Что сделано:</b> построен кодбук по '+varCount+' переменным; найдено проблем: '+issuesLen+'. <span class="muted">В этом режиме данные не меняются — ценность в файле Codebook.md и отчёте о проблемах.</span>';},
+    changedCodebook:function(varCount,issuesLen){return '<b>Что сделано:</b> построен кодбук по '+varCount+' переменным; найдено проблем: '+issuesLen+'. <span class="muted">В этом режиме данные не меняются – ценность в файле Codebook.md и отчёте о проблемах.</span>';},
     columnsWord:'колонок',
     kpiObservations:'Наблюдений', kpiVariables:'Переменных', kpiIssues:'Проблем', kpiParsed:'Разобрано вопросов',
     tabCodebook:'Кодбук', tabIssues:function(n){return 'Проблемы ('+n+')';}, tabSummary:'Сводка', tabVariables:'Переменные', tabData:'Данные',
     cbHeaders:['#','Переменная','Метка/вопрос','Тип','Valid','Пропуски','Уник.','Диапазон / частые'],
     issHeaders:['Переменная','Проблема','Описание','Предложение'], issEmpty:'Проблем не обнаружено ✅',
     mapHeaders:['Переменная','Исходный вопрос'], prevNote:'Первые 30 строк.',
-    dlnoteSurvey:'Чистый CSV импортируйте в SPSS, затем запустите .sps — он проставит метки переменных и значений.',
-    dlnoteCodebook:'В этом режиме «data_copy.csv» — копия исходных данных без изменений; главный результат — Codebook.md (или Codebook.rtf, если удобнее открыть в Word).',
+    dlnoteSurvey:'Чистый CSV импортируйте в SPSS, затем запустите .sps – он проставит метки переменных и значений.',
+    dlnoteCodebook:'В этом режиме «data_copy.csv» – копия исходных данных без изменений; главный результат – Codebook.md (или Codebook.rtf, если удобнее открыть в Word).',
     issues:{
       reasonNonAscii:'не-ASCII в имени', reasonSpaces:'пробелы', reasonUpper:'верхний регистр', reasonDigitStart:'начинается с цифры', reasonTooLong:'длина > 31 (SPSS)',
       kVarName:'имя переменной',
@@ -577,36 +719,34 @@ var I18N={
   },
   en:{
     skipLink:'Skip to content',
-    pageTitle:'Codebook & Survey Tidier — Clean Survey Data & Codebook',
+    pageTitle:'Codebook & Survey Tidier – Clean Survey Data & Codebook',
     lead:'From raw survey exports to clean data and a ready codebook. No manual busywork.',
     sub:'A tool for historians, sociologists, philologists, and anyone working with survey data. Cleans up Google&nbsp;/&nbsp;Yandex&nbsp;/&nbsp;MS&nbsp;Forms exports, builds a codebook, and prepares files for SPSS and jamovi.',
     dropIntro:'<b>Drop a file here</b> or click to choose one',
-    dropSmall:'CSV or Excel (.xlsx). For example — a response export from Google&nbsp;/&nbsp;Yandex Forms',
+    dropSmall:'CSV or Excel (.xlsx). For example – a response export from Google&nbsp;/&nbsp;Yandex Forms',
     dropAriaLabel:'Upload a file: drag and drop, or press Enter to choose one',
     modeCodebookTitle:'Standard mode (codebook)', modeCodebookDesc:'Documents the table; data is NOT changed',
     modeSurveyTitle:'Survey mode', modeSurveyDesc:'Cleans question headers, splits multiple-choice answers, builds a summary',
-    msPanelTitle:'Multiple choice — confirm which columns to split into 0/1',
+    msPanelTitle:'Multiple choice – confirm which columns to split into 0/1',
     msPanelNote:'We flagged only confident cases. Uncheck a box if it is actually a single answer (e.g. "EU countries, US, or Canada"), not multiple choices.',
     msTagConfident:'confident', msTagUncertain:'uncertain', msTagFreeText:'⚠️ looks like free text',
     msVariants:function(n,list){return n+' options: '+list;},
     teaserEyebrow:'From the Researcher\'s Library', teaserTitle:'Cheat sheet: which statistical test to choose',
-    teaserSub:'Three questions — and you\'ll find the right method. One printable page, no fluff.', teaserLinkText:'Read the cheat sheet →',
+    teaserSub:'Three questions – and you\'ll find the right method. One printable page, no fluff.', teaserLinkText:'Read the cheat sheet →',
     feature1:'<b>Cleans up your export.</b> Turns long question-headers into tidy variable names and splits "select all that apply" questions into 0/1 variables.',
-    feature2:'<b>Checks data quality.</b> Shows how many answers are missing, computes basic descriptive statistics, and flags likely coding errors — before you ever open the file in a stats package.',
-    feature3:'<b>Builds a codebook.</b> Documents every variable — type, label, missing values — so that months later you still know what each column means.',
-    feature4:'<b>Produces machine-readable metadata.</b> Exports a Tabular Data Package — ready for open-data repositories (Zenodo and others) and FAIR-compliant publication.',
+    feature2:'<b>Checks data quality.</b> Shows how many answers are missing, computes basic descriptive statistics, and flags likely coding errors – before you ever open the file in a stats package.',
+    feature3:'<b>Builds a codebook.</b> Documents every variable – type, label, missing values – so that months later you still know what each column means.',
+    feature4:'<b>Produces machine-readable metadata.</b> Exports a Tabular Data Package – ready for open-data repositories (Zenodo and others) and FAIR-compliant publication.',
     feature5:'<b>Gets data analysis-ready.</b> You get a clean CSV, a codebook, and ready-to-run SPSS syntax with variable and value labels already written in; the data opens directly in jamovi.',
-    privacyNote:'🔒 Everything runs in your browser. Files are never uploaded — not to a server, not to the author. Close the tab and the data is gone.',
-    langNote:'🌐 <b>What language can your data be in?</b> You can upload surveys and datasets in any language — German, Hebrew, Hindi, Chinese and others. Cell values, missing-value counts, frequencies and descriptive statistics are handled correctly regardless of language, and the codebook shows values in their original script.<br><br>One nuance concerns only the automatic generation of <i>short variable names</i> in Survey mode: for Latin- and Cyrillic-script languages they are generated in full, while for other scripts (Hebrew, Hindi, Arabic, etc.) the short names come out generic (<code>var_1</code>, <code>var_2</code>…). The original questions are preserved in a separate mapping file, so you can rename variables easily. In Codebook mode, variable names are kept as-is in any language.',
-    bonusText:'Free with the tool — a cheat sheet on "Which statistical test to choose": three questions, and you find the right method.',
+    bonusText:'Free with the tool – a cheat sheet on "Which statistical test to choose": three questions, and you find the right method.',
     linkReadMore:'Read →',
-    courseLine:'Want to learn how to analyze data like this? The course "Statistics Fundamentals for Historians" — coming soon.',
+    courseLine:'Want to learn how to analyze data like this? The course "Statistics Fundamentals for Historians" – coming soon.',
     cheatEyebrow:'From the Researcher\'s Library', cheatH2:'Which statistical test should you use?',
     cheatSubtitle:'A one-page cheat sheet for humanities researchers',
     cheatByline1:'Free, by Anna Agafonova, PhD · urbantransmission.org',
-    cheatByline2:'Save it — you\'ll want it at your defense or when reviewing a paper.',
+    cheatByline2:'Save it – you\'ll want it at your defense or when reviewing a paper.',
     cheatRevealBtn:'Show the full cheat sheet ↓',
-    cheatIntro:'Answer 3 questions — and find your method.',
+    cheatIntro:'Answer 3 questions – and find your method.',
     q1Title:'What do you want to do?',
     q1a:'<b>Compare groups</b> (men/women, before/after) → block ②',
     q1b:'<b>Find a relationship</b> between two variables → block ③',
@@ -628,18 +768,18 @@ var I18N={
     warn1:'<b>1. "There\'s a correlation → there\'s a cause."</b> No. Correlation ≠ causation.',
     warn2:'<b>2. Only p, no effect size.</b> p tells you whether there\'s an effect, effect size tells you how big. You need both.',
     warn3:'<b>3. Bold conclusions from 15 responses.</b> A small sample calls for cautious wording.',
-    courseCta:'<b>Want to go deeper?</b> The course "Statistics Fundamentals for Historians" — coming soon. Step by step: choosing the right method for your data, reading SPSS output, and writing up results for a paper.',
+    courseCta:'<b>Want to go deeper?</b> The course "Statistics Fundamentals for Historians" – coming soon. Step by step: choosing the right method for your data, reading SPSS output, and writing up results for a paper.',
     shareNote:'Feel free to share this file with colleagues and students.',
     footerCopyright:'© 2026 Anna Agafonova, PhD · <a href="https://urbantransmission.org" target="_blank" rel="noopener noreferrer">urbantransmission.org</a>',
-    footerWorks:'Works offline — your data stays with you.',
+    footerWorks:'Works offline – your data stays with you.',
     footerPrivacy:'Privacy Policy', footerTerms:'Terms of Use', backToTop:'Back to top',
     statusReading:function(f){return 'Reading '+f+' …';},
     statusLoaded:function(n,m,f){return 'Loaded: '+n+' rows, '+m+' columns ('+f+')';},
     statusNoData:'The file has no data.',
     statusExcelError:function(msg){return 'Error reading Excel file: '+msg;},
-    hintSurvey:'This looks like a survey export. Try <b>Survey mode</b> — it will clean up headers and split multiple-choice answers.',
+    hintSurvey:'This looks like a survey export. Try <b>Survey mode</b> – it will clean up headers and split multiple-choice answers.',
     guardUnknownExt:function(ext){return 'Couldn\'t recognize the file format ".'+ext+'". Supported: CSV, TSV, TXT, and Excel (.xlsx/.xls).';},
-    guardZipMagic:'The file starts like a zip archive, not a plain CSV/TSV. If this is a jamovi export (.omv) or a renamed xlsx file — export it to CSV and try again.',
+    guardZipMagic:'The file starts like a zip archive, not a plain CSV/TSV. If this is a jamovi export (.omv) or a renamed xlsx file – export it to CSV and try again.',
     blocked:{
       omv:'This is a jamovi project file (.omv), not a table. In jamovi, choose Export → CSV and upload the CSV.',
       sav:'This is an SPSS file (.sav), not a plain table. In SPSS: File → Export → CSV, then upload the CSV.',
@@ -655,14 +795,14 @@ var I18N={
       pptx:'This is a presentation, not a data table.'
     },
     changedSurvey:function(renamed,mlogLen,extra,issuesLen,before,after){return '<b>What was done:</b> shortened names for '+renamed+' column(s); split '+mlogLen+' multiple-choice question(s)'+extra+'; found '+issuesLen+' issue(s). Result: '+before+' → '+after+' columns.';},
-    changedCodebook:function(varCount,issuesLen){return '<b>What was done:</b> built a codebook for '+varCount+' variables; found '+issuesLen+' issue(s). <span class="muted">In this mode the data is unchanged — the value is in the Codebook.md file and the issues report.</span>';},
+    changedCodebook:function(varCount,issuesLen){return '<b>What was done:</b> built a codebook for '+varCount+' variables; found '+issuesLen+' issue(s). <span class="muted">In this mode the data is unchanged – the value is in the Codebook.md file and the issues report.</span>';},
     columnsWord:'columns',
     kpiObservations:'Observations', kpiVariables:'Variables', kpiIssues:'Issues', kpiParsed:'Questions split',
     tabCodebook:'Codebook', tabIssues:function(n){return 'Issues ('+n+')';}, tabSummary:'Summary', tabVariables:'Variables', tabData:'Data',
     cbHeaders:['#','Variable','Label/question','Type','Valid','Missing','Uniq.','Range / top values'],
     issHeaders:['Variable','Issue','Description','Suggestion'], issEmpty:'No issues found ✅',
     mapHeaders:['Variable','Original question'], prevNote:'First 30 rows.',
-    dlnoteSurvey:'Import the clean CSV into SPSS, then run the .sps file — it will apply variable and value labels.',
+    dlnoteSurvey:'Import the clean CSV into SPSS, then run the .sps file – it will apply variable and value labels.',
     dlnoteCodebook:'"data_copy.csv" is an unchanged copy of the original data in this mode; the main output is Codebook.md (or Codebook.rtf if you\'d rather open it in Word).',
     issues:{
       reasonNonAscii:'non-ASCII characters', reasonSpaces:'spaces', reasonUpper:'uppercase letters', reasonDigitStart:'starts with a digit', reasonTooLong:'length > 31 (SPSS)',
@@ -689,7 +829,7 @@ function detectSeparator(vals){var best=null,bf=0;for(var s=0;s<SEPARATORS.lengt
 function tokenize(v,sep){return String(v).split(sep).map(function(x){return x.trim();}).filter(Boolean);}
 
 /* УМНОЕ определение множественного выбора.
-   Ключевая идея: настоящий множественный выбор «сжимает» кардинальность —
+   Ключевая идея: настоящий множественный выбор «сжимает» кардинальность –
    мало вариантов-токенов, но много разных комбинаций-ячеек.
    Одиночный ответ с запятой внутри («Страны ЕС, США или Канада») НЕ сжимает. */
 function analyzeColumn(vals){
@@ -708,8 +848,8 @@ function analyzeColumn(vals){
            && medLen<=40 && recurShare>=0.5;
   var candidate = sep && distinctTok>=2 && distinctTok<=40 && share>=0.20;
   /* эвристика "похоже на свободный текст": много разных фрагментов, которые почти не повторяются
-     от респондента к респонденту — типичный признак открытых комментариев, а не настоящего
-     множественного выбора (в отличие от «Telegram, VK» — там варианты повторяются) */
+     от респондента к респонденту – типичный признак открытых комментариев, а не настоящего
+     множественного выбора (в отличие от «Telegram, VK» – там варианты повторяются) */
   var looksFreeText = !auto && distinctTok>=4 && recurShare<0.34;
   return {sep:sep,tokens:tokList,distinctTok:distinctTok,distinctWhole:distinctWhole,share:share,medLen:medLen,auto:auto,candidate:candidate,looksFreeText:looksFreeText};
 }
@@ -744,20 +884,20 @@ function surveyTransform(headers,rows,splitSet){
 }
 
 var MAGIC_NUM={'-1':1,'-99':1,'-999':1,'99':1,'999':1,'9999':1};
-var MAGIC_STR={'na':1,'n/a':1,'нд':1,'н/д':1,'нет данных':1,'нет':1,'-':1,'—':1,'?':1,'none':1,'null':1,'missing':1};
+var MAGIC_STR={'na':1,'n/a':1,'нд':1,'н/д':1,'нет данных':1,'нет':1,'-':1,'–':1,'?':1,'none':1,'null':1,'missing':1};
 function inferType(vals){var nn=vals.filter(function(v){return !isBlank(v);});if(!nn.length)return'string';var numCnt=0,intCnt=0;for(var i=0;i<nn.length;i++){var x=toNum(nn[i]);if(!isNaN(x)){numCnt++;if(Number.isInteger(x))intCnt++;}}if(numCnt/nn.length>0.9)return intCnt===numCnt?'integer':'number';return'string';}
-/* toNum: сначала строгий разбор (вся строка — число), затем мягкий разбор ведущего числа,
+/* toNum: сначала строгий разбор (вся строка – число), затем мягкий разбор ведущего числа,
    если после него в строке больше нет цифр (защищает даты/таймстемпы/коды от ложного распознавания
    и одновременно позволяет разбирать «34 лет» → 34, «5 - Отличное» → 5). */
 function toNum(v){if(isBlank(v))return NaN;var raw=String(v).trim();var s=raw.replace(/\s/g,'').replace(',', '.').replace('%','');if(s!==''&&!isNaN(Number(s)))return Number(s);var m=raw.match(/^[-+]?\d+(?:[.,]\d+)?/);if(m){var rest=raw.slice(m[0].length);if(!/\d/.test(rest))return Number(m[0].replace(',', '.'));}return NaN;}
-function extractValueLabels(vals){var map={};for(var i=0;i<vals.length;i++){if(isBlank(vals[i]))continue;var s=String(vals[i]).trim();var m=s.match(/^([-+]?\d+)\s*[-–—]\s*(.+)$/);if(m){var code=String(Number(m[1]));var label=m[2].trim();if(label&&!map[code])map[code]=label;}}return Object.keys(map).length?map:null;}
+function extractValueLabels(vals){var map={};for(var i=0;i<vals.length;i++){if(isBlank(vals[i]))continue;var s=String(vals[i]).trim();var m=s.match(/^([-+]?\d+)\s*[-––]\s*(.+)$/);if(m){var code=String(Number(m[1]));var label=m[2].trim();if(label&&!map[code])map[code]=label;}}return Object.keys(map).length?map:null;}
 function profile(name,label,vals){var n=vals.length,miss=0;for(var i=0;i<n;i++)if(isBlank(vals[i]))miss++;var valid=n-miss,type=inferType(vals);var us={};for(var i=0;i<n;i++)if(!isBlank(vals[i]))us[String(vals[i])]=1;var p={name:name,label:label||'',type:type,valid:valid,miss:miss,pmiss:n?Math.round(1000*miss/n)/10:0,nunique:Object.keys(us).length};if(type==='integer'||type==='number'){var nums=vals.map(toNum).filter(function(x){return !isNaN(x);});if(nums.length){nums.sort(function(a,b){return a-b;});var sum=0;for(var i=0;i<nums.length;i++)sum+=nums[i];p.min=nums[0];p.max=nums[nums.length-1];p.mean=Math.round(1000*sum/nums.length)/1000;var mid=Math.floor(nums.length/2);p.median=nums.length%2?nums[mid]:(nums[mid-1]+nums[mid])/2;}var vl=extractValueLabels(vals);if(vl)p.valueLabels=vl;}if(type==='string'&&p.nunique<=30){var vc={};for(var i=0;i<n;i++){if(isBlank(vals[i]))continue;var k=String(vals[i]);vc[k]=(vc[k]||0)+1;}p.top=Object.keys(vc).map(function(k){return[k,vc[k]];}).sort(function(a,b){return b[1]-a[1];}).slice(0,10);}var ex=[];for(var i=0;i<n&&ex.length<5;i++)if(!isBlank(vals[i])&&ex.indexOf(String(vals[i]))<0)ex.push(String(vals[i]));p.examples=ex;return p;}
 function detectIssues(headers,profiles,cols,ISS){var issues=[],rename={},seen={};for(var h=0;h<headers.length;h++){var c=headers[h],pr=[];if(/[^\x00-\x7f]/.test(c))pr.push(ISS.reasonNonAscii);if(/\s/.test(c))pr.push(ISS.reasonSpaces);if(c!==c.toLowerCase()&&/[A-ZА-Я]/.test(c))pr.push(ISS.reasonUpper);if(/^[0-9]/.test(c))pr.push(ISS.reasonDigitStart);if(c.length>31)pr.push(ISS.reasonTooLong);var slug=slugify(c);if(pr.length){rename[c]=slug;issues.push({v:c,k:ISS.kVarName,d:pr.join('; '),p:slug});}seen[c]=slug;}for(var i=0;i<profiles.length;i++){var p=profiles[i],vals=cols[i];if(p.label&&detectScript(p.label)==='mixed')issues.push({v:p.name,k:ISS.kMixedLabel,d:ISS.dMixed,p:ISS.pLabelSuggest});if(p.pmiss>=50)issues.push({v:p.name,k:ISS.kManyMissing,d:ISS.dPctMissing(p.pmiss),p:ISS.pVerifyDoc});if(p.nunique<=1&&p.valid>0)issues.push({v:p.name,k:ISS.kConstant,d:ISS.dSingleValue,p:ISS.pRemoveOrDoc});if(p.type==='integer'||p.type==='number'){var mg={};for(var j=0;j<vals.length;j++){var x=toNum(vals[j]);if(!isNaN(x)&&MAGIC_NUM[String(x)])mg[x]=1;}var mk=Object.keys(mg);if(mk.length)issues.push({v:p.name,k:ISS.kMagicNum,d:ISS.dValues(mk.join(', ')),p:ISS.pCheckNoData});}else{var ms={};for(var j=0;j<vals.length;j++){if(isBlank(vals[j]))continue;var s=String(vals[j]).trim().toLowerCase();if(MAGIC_STR[s])ms[s]=1;}var msk=Object.keys(ms);if(msk.length)issues.push({v:p.name,k:ISS.kMagicStr,d:ISS.dValues(msk.join(', ')),p:ISS.pStandardize});}}return {issues:issues,rename:rename};}
 
 var FRT={integer:'integer',number:'number',string:'string'};
 function csvCell(v){if(isBlank(v))return'';var s=String(v);if(/[",\n]/.test(s))return'"'+s.replace(/"/g,'""')+'"';return s;}
 function toCSV(headers,rows){var out=headers.map(csvCell).join(',')+'\n';for(var i=0;i<rows.length;i++)out+=rows[i].map(csvCell).join(',')+'\n';return out;}
-function codebookMD(headers,profiles,nrows){var L=['# Codebook','','*Generated with Codebook & Survey Tidier — https://abagafonova.github.io/codebook · processed locally in your browser · '+new Date().toISOString().slice(0,10)+'*','','## Обзор','- Наблюдений: '+nrows,'- Переменных: '+headers.length,'','## Словарь переменных','','| # | Переменная | Метка/вопрос | Тип | Valid N | Пропуски | Уник. |','|---|---|---|---|---|---|---|'];for(var i=0;i<profiles.length;i++){var p=profiles[i];L.push('| '+(i+1)+' | `'+p.name+'` | '+(p.label||'—')+' | '+p.type+' | '+p.valid+' | '+p.miss+' ('+p.pmiss+'%) | '+p.nunique+' |');}L.push('','## Детали','');for(var i=0;i<profiles.length;i++){var p=profiles[i];L.push('### `'+p.name+'`');if(p.label)L.push('**Метка/вопрос:** '+p.label+'  ');var line='**Тип:** '+p.type+' · **Valid N:** '+p.valid+' · **Пропуски:** '+p.miss+' ('+p.pmiss+'%) · **Уник.:** '+p.nunique;if('min'in p)line+=' · **Диапазон:** '+p.min+'…'+p.max+' · среднее '+p.mean+' · медиана '+p.median;L.push(line+'  ');if(p.valueLabels){var vlk=Object.keys(p.valueLabels).sort(function(a,b){return Number(a)-Number(b);});L.push('**Метки значений:** '+vlk.map(function(k){return k+' = '+p.valueLabels[k];}).join('; ')+'  ');}if(p.top){L.push('**Частые значения:**  ');for(var t=0;t<p.top.length;t++)L.push('- '+p.top[t][0]+' — '+p.top[t][1]);}L.push('**Примеры:** '+(p.examples.join(', ')||'—'),'');}return L.join('\n');}
+function codebookMD(headers,profiles,nrows){var L=['# Codebook','','*Generated with Codebook & Survey Tidier – https://abagafonova.github.io/codebook · processed locally in your browser · '+new Date().toISOString().slice(0,10)+'*','','## Обзор','- Наблюдений: '+nrows,'- Переменных: '+headers.length,'','## Словарь переменных','','| # | Переменная | Метка/вопрос | Тип | Valid N | Пропуски | Уник. |','|---|---|---|---|---|---|---|'];for(var i=0;i<profiles.length;i++){var p=profiles[i];L.push('| '+(i+1)+' | `'+p.name+'` | '+(p.label||'–')+' | '+p.type+' | '+p.valid+' | '+p.miss+' ('+p.pmiss+'%) | '+p.nunique+' |');}L.push('','## Детали','');for(var i=0;i<profiles.length;i++){var p=profiles[i];L.push('### `'+p.name+'`');if(p.label)L.push('**Метка/вопрос:** '+p.label+'  ');var line='**Тип:** '+p.type+' · **Valid N:** '+p.valid+' · **Пропуски:** '+p.miss+' ('+p.pmiss+'%) · **Уник.:** '+p.nunique;if('min'in p)line+=' · **Диапазон:** '+p.min+'…'+p.max+' · среднее '+p.mean+' · медиана '+p.median;L.push(line+'  ');if(p.valueLabels){var vlk=Object.keys(p.valueLabels).sort(function(a,b){return Number(a)-Number(b);});L.push('**Метки значений:** '+vlk.map(function(k){return k+' = '+p.valueLabels[k];}).join('; ')+'  ');}if(p.top){L.push('**Частые значения:**  ');for(var t=0;t<p.top.length;t++)L.push('- '+p.top[t][0]+' – '+p.top[t][1]);}L.push('**Примеры:** '+(p.examples.join(', ')||'–'),'');}return L.join('\n');}
 function datapackageJSON(headers,profiles){var fields=[];for(var i=0;i<profiles.length;i++){var p=profiles[i],f={name:p.name,type:FRT[p.type]||'string'};if(p.label)f.title=p.label;fields.push(f);}return JSON.stringify({profile:'tabular-data-package',resources:[{name:'data',path:'cleaned_data.csv',profile:'tabular-data-resource',schema:{fields:fields,missingValues:['','NA','н/д']}}],created:new Date().toISOString()},null,2);}
 function variableMapMD(qmap){var L=['# Карта «вопрос → переменная»','','| Переменная | Исходный вопрос / столбец |','|---|---|'];for(var i=0;i<qmap.length;i++)L.push('| `'+qmap[i][0]+'` | '+qmap[i][1]+' |');return L.join('\n');}
 function surveySummaryMD(profiles,mlog,nrows){var L=['# Сводка по опросу','','Респондентов: '+nrows,''];if(mlog.length){L.push('## Вопросы с множественным выбором (разобраны)');for(var i=0;i<mlog.length;i++)L.push('- '+mlog[i][0]+' → '+mlog[i][1].length+' вариантов: '+mlog[i][1].slice(0,12).join(', '));L.push('');}L.push('## Распределения','');for(var i=0;i<profiles.length;i++){var p=profiles[i];if((p.type==='integer'||p.type==='number')&&'mean'in p){L.push('### '+p.name);L.push('среднее '+p.mean+' · медиана '+p.median+' · диапазон '+p.min+'–'+p.max+' · ответов '+p.valid);L.push('');}else if(p.top){L.push('### '+p.name);var tot=0;for(var t=0;t<p.top.length;t++)tot+=p.top[t][1];for(var t=0;t<p.top.length;t++){var pct=tot?Math.round(1000*p.top[t][1]/tot)/10:0;L.push('- '+p.top[t][0]+': '+p.top[t][1]+' ('+pct+'%)');}L.push('');}}return L.join('\n');}
@@ -770,7 +910,7 @@ function codebookRTF(headers,profiles,nrows){
   L.push('{\\fonttbl{\\f0\\froman Times New Roman;}{\\f1\\fmodern Courier New;}}');
   L.push('\\f0\\fs24');
   L.push('{\\b\\fs40 Codebook\\par}');
-  L.push('{\\i\\fs18 '+rtfEsc('Generated with Codebook & Survey Tidier — https://abagafonova.github.io/codebook · processed locally in your browser · '+new Date().toISOString().slice(0,10))+'\\par}');
+  L.push('{\\i\\fs18 '+rtfEsc('Generated with Codebook & Survey Tidier – https://abagafonova.github.io/codebook · processed locally in your browser · '+new Date().toISOString().slice(0,10))+'\\par}');
   L.push('\\par');
   L.push('{\\b\\fs28 '+rtfEsc('Обзор')+'\\par}');
   L.push('{\\fs22 '+rtfEsc('Наблюдений: '+nrows)+'\\par}');
@@ -779,12 +919,12 @@ function codebookRTF(headers,profiles,nrows){
   L.push('{\\b\\fs28 '+rtfEsc('Словарь переменных')+'\\par}');
   L.push('\\par');
   L.push(rtfRow(['#','Переменная','Метка/вопрос','Тип','Valid','Пропуски','Уник.'],true));
-  for(var i=0;i<profiles.length;i++){var p=profiles[i];L.push(rtfRow([i+1,p.name,p.label||'—',p.type,p.valid,p.miss+' ('+p.pmiss+'%)',p.nunique],false));}
+  for(var i=0;i<profiles.length;i++){var p=profiles[i];L.push(rtfRow([i+1,p.name,p.label||'–',p.type,p.valid,p.miss+' ('+p.pmiss+'%)',p.nunique],false));}
   L.push('\\pard\\par');
   L.push('\\par');
   L.push('{\\b\\fs28 '+rtfEsc('Детали')+'\\par}');
   L.push('\\par');
-  for(var i=0;i<profiles.length;i++){var p=profiles[i];L.push('{\\b\\f1\\fs24 '+rtfEsc(p.name)+'\\f0\\par}');if(p.label)L.push('{\\fs22\\b '+rtfEsc('Метка/вопрос: ')+'\\b0 '+rtfEsc(p.label)+'\\par}');var line='Тип: '+p.type+'  ·  Valid N: '+p.valid+'  ·  Пропуски: '+p.miss+' ('+p.pmiss+'%)  ·  Уник.: '+p.nunique;if('min'in p)line+='  ·  Диапазон: '+p.min+'…'+p.max+'  ·  среднее '+p.mean+'  ·  медиана '+p.median;L.push('{\\fs22 '+rtfEsc(line)+'\\par}');if(p.valueLabels){var vlk=Object.keys(p.valueLabels).sort(function(a,b){return Number(a)-Number(b);});L.push('{\\fs22\\b '+rtfEsc('Метки значений: ')+'\\b0 '+rtfEsc(vlk.map(function(k){return k+' = '+p.valueLabels[k];}).join('; '))+'\\par}');}if(p.top){L.push('{\\fs22\\b '+rtfEsc('Частые значения:')+'\\par}');for(var t=0;t<p.top.length;t++)L.push('{\\fs22 '+rtfEsc('• '+p.top[t][0]+' — '+p.top[t][1])+'\\par}');}L.push('{\\fs20\\i '+rtfEsc('Примеры: '+(p.examples.join(', ')||'—'))+'\\par}');L.push('\\par');}
+  for(var i=0;i<profiles.length;i++){var p=profiles[i];L.push('{\\b\\f1\\fs24 '+rtfEsc(p.name)+'\\f0\\par}');if(p.label)L.push('{\\fs22\\b '+rtfEsc('Метка/вопрос: ')+'\\b0 '+rtfEsc(p.label)+'\\par}');var line='Тип: '+p.type+'  ·  Valid N: '+p.valid+'  ·  Пропуски: '+p.miss+' ('+p.pmiss+'%)  ·  Уник.: '+p.nunique;if('min'in p)line+='  ·  Диапазон: '+p.min+'…'+p.max+'  ·  среднее '+p.mean+'  ·  медиана '+p.median;L.push('{\\fs22 '+rtfEsc(line)+'\\par}');if(p.valueLabels){var vlk=Object.keys(p.valueLabels).sort(function(a,b){return Number(a)-Number(b);});L.push('{\\fs22\\b '+rtfEsc('Метки значений: ')+'\\b0 '+rtfEsc(vlk.map(function(k){return k+' = '+p.valueLabels[k];}).join('; '))+'\\par}');}if(p.top){L.push('{\\fs22\\b '+rtfEsc('Частые значения:')+'\\par}');for(var t=0;t<p.top.length;t++)L.push('{\\fs22 '+rtfEsc('• '+p.top[t][0]+' – '+p.top[t][1])+'\\par}');}L.push('{\\fs20\\i '+rtfEsc('Примеры: '+(p.examples.join(', ')||'–'))+'\\par}');L.push('\\par');}
   L.push('}');
   return L.join('\n');
 }
@@ -854,6 +994,9 @@ if(typeof document!=='undefined'){
     document.getElementById('lang-en').classList.toggle('on',LANG==='en');
     document.getElementById('lang-en').setAttribute('aria-pressed',LANG==='en');
     applyStaticI18n();
+    document.querySelectorAll('[data-lang]').forEach(function(el){
+      el.classList.toggle('hidden', el.getAttribute('data-lang')!==LANG);
+    });
     renderHint();
     updateCoursePromo();
     if(RAW){status.textContent=I18N[LANG].statusLoaded(RAW.rows.length,RAW.headers.length,RAW.fname);process();}
@@ -878,7 +1021,7 @@ if(typeof document!=='undefined'){
     var ext=file.name.toLowerCase().split('.').pop();
     if(BLOCKED_EXTS[ext]){status.textContent=I18N[LANG].blocked[ext];return;}
     if(!ALLOWED_EXT[ext]){status.textContent=I18N[LANG].guardUnknownExt(ext);return;}
-    // проверяем "магические байты": если файл начинается как zip-архив (PK), а расширение не xlsx/xls — это не обычный CSV
+    // проверяем "магические байты": если файл начинается как zip-архив (PK), а расширение не xlsx/xls – это не обычный CSV
     var head=file.slice(0,4),hr=new FileReader();
     hr.onload=function(ev){
       var bytes=new Uint8Array(ev.target.result);
@@ -938,7 +1081,7 @@ if(typeof document!=='undefined'){
     document.getElementById('tabs').innerHTML=tabs.map(function(t,i){return '<div class="tab'+(i===0?' active':'')+'" data-p="'+t[0]+'">'+t[1]+'</div>';}).join('');
 
     var cbHTML='<div class="scroll"><table><thead><tr><th>'+S.cbHeaders.join('</th><th>')+'</th></tr></thead><tbody>';
-    profiles.forEach(function(p,i){var ex='';if('min'in p)ex=p.min+'…'+p.max+' (мед. '+p.median+')';else if(p.top)ex=p.top.slice(0,3).map(function(t){return t[0]+':'+t[1];}).join(', ');cbHTML+='<tr><td>'+(i+1)+'</td><td><code>'+esc(p.name)+'</code></td><td>'+esc(p.label||'—')+'</td><td><span class="tag">'+p.type+'</span></td><td>'+p.valid+'</td><td>'+p.miss+' ('+p.pmiss+'%)</td><td>'+p.nunique+'</td><td class="muted">'+esc(ex)+'</td></tr>';});cbHTML+='</tbody></table></div>';
+    profiles.forEach(function(p,i){var ex='';if('min'in p)ex=p.min+'…'+p.max+' (мед. '+p.median+')';else if(p.top)ex=p.top.slice(0,3).map(function(t){return t[0]+':'+t[1];}).join(', ');cbHTML+='<tr><td>'+(i+1)+'</td><td><code>'+esc(p.name)+'</code></td><td>'+esc(p.label||'–')+'</td><td><span class="tag">'+p.type+'</span></td><td>'+p.valid+'</td><td>'+p.miss+' ('+p.pmiss+'%)</td><td>'+p.nunique+'</td><td class="muted">'+esc(ex)+'</td></tr>';});cbHTML+='</tbody></table></div>';
     var issHTML=di.issues.length?'<div class="scroll"><table><thead><tr><th>'+S.issHeaders.join('</th><th>')+'</th></tr></thead><tbody>'+di.issues.map(function(it){return '<tr><td><code>'+esc(it.v)+'</code></td><td>'+esc(it.k)+'</td><td class="muted">'+esc(it.d)+'</td><td>'+esc(it.p)+'</td></tr>';}).join('')+'</tbody></table></div>':'<p class="muted">'+S.issEmpty+'</p>';
     var sumHTML='';if(MODE==='survey'){sumHTML=surveySummaryMD(profiles,mlog,rows.length).replace(/^# .*/m,'').split('\n').map(function(l){if(l.indexOf('### ')===0)return '<h3>'+esc(l.slice(4))+'</h3>';if(l.indexOf('## ')===0)return '<p class="muted" style="margin-top:14px"><b>'+esc(l.slice(3))+'</b></p>';if(l.indexOf('- ')===0)return '<div>'+esc(l.slice(2))+'</div>';if(l.trim())return '<div>'+esc(l)+'</div>';return '';}).join('');}
     var mapHTML='';if(qmap)mapHTML='<div class="scroll"><table><thead><tr><th>'+S.mapHeaders.join('</th><th>')+'</th></tr></thead><tbody>'+qmap.map(function(x){return '<tr><td><code>'+esc(x[0])+'</code></td><td>'+esc(x[1])+'</td></tr>';}).join('')+'</tbody></table></div>';
