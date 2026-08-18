@@ -225,6 +225,7 @@
 
   .note{font-size:13px;color:var(--muted);margin-top:12px;margin-bottom:0}
   .hint{background:var(--warn-bg);border:1px solid var(--warn-border);color:var(--warn);border-radius:10px;padding:10px 13px;font-size:13.5px;margin-top:12px}
+  .hint-btn{background:none;border:none;padding:0;margin-left:4px;font:inherit;font-weight:700;color:var(--warn);text-decoration:underline;cursor:pointer;min-height:auto}
 
   .changed{background:var(--accent-soft);border:1px solid rgba(156,122,60,.25);border-radius:12px;padding:14px 16px;font-size:14.5px}
   .changed b{color:var(--accent-deep)}
@@ -379,12 +380,19 @@
     </div>
     <p class="note" id="status"></p>
     <div id="hint"></div>
+    <div id="encWarn" class="hint hidden"><span class="enc-msg"></span> <button type="button" id="encFixBtn" class="hint-btn"></button></div>
   </div>
 
   <div id="msPanel" class="card hidden">
     <h2 data-i18n="msPanelTitle">Множественный выбор – подтвердите, что разнести на колонки 0/1</h2>
     <p class="note" data-i18n="msPanelNote">Мы отметили только уверенные случаи. Снимите галочку, если это единый ответ (например «Страны ЕС, США или Канада»), а не несколько выборов.</p>
     <div id="msList"></div>
+  </div>
+
+  <div id="scalePanel" class="card hidden">
+    <h2 data-i18n="scalePanelTitle">Готовые шкалы – перекодировать в числа?</h2>
+    <p class="note" data-i18n="scalePanelNote">Мы нашли столбцы, которые точно совпадают с типовой шкалой. Отметьте те, что нужно заменить на числовые коды (1–5 и т.п.) с сохранением подписей значений для SPSS/кодбука. По умолчанию ничего не меняется – это на ваш выбор.</p>
+    <div id="scaleList"></div>
   </div>
 
   <div id="results" class="hidden">
@@ -416,6 +424,7 @@
       <li data-i18n="feature3"><b>Строит кодбук.</b> Документирует каждую переменную – тип, метку, пропуски, – чтобы и спустя месяцы вы помнили, что означает любой столбец.</li>
       <li data-i18n="feature4"><b>Формирует машиночитаемые метаданные.</b> Выдаёт данные в стандарте Tabular Data Package – для репозиториев открытых данных (Zenodo и др.) и публикации по принципам FAIR.</li>
       <li data-i18n="feature5"><b>Готовит к анализу.</b> На выходе – чистый CSV, кодбук и готовый синтаксис SPSS с прописанными метками переменных и значений; данные сразу открываются в jamovi.</li>
+      <li data-i18n="feature6"><b>Подстраховывается с кодировкой и упрощает шкалы.</b> Если кириллица в CSV выглядит как «кракозябры», сервис сам это заметит и предложит перечитать файл в кодировке Windows-1251; а типовые словесные шкалы («совершенно согласен» … «совершенно не согласен» и другие) можно одним кликом перекодировать в числа 1–5 с сохранением подписей значений. <span class="tag">обновление</span></li>
     </ul>
   </section>
 
@@ -633,6 +642,10 @@ var I18N={
     msPanelTitle:'Множественный выбор – подтвердите, что разнести на колонки 0/1',
     msPanelNote:'Мы отметили только уверенные случаи. Снимите галочку, если это единый ответ (например «Страны ЕС, США или Канада»), а не несколько выборов.',
     msTagConfident:'уверенно', msTagUncertain:'под вопросом', msTagFreeText:'⚠️ похоже на свободный текст',
+    scalePanelTitle:'Готовые шкалы – перекодировать в числа?',
+    scalePanelNote:'Мы нашли столбцы, которые точно совпадают с типовой шкалой. Отметьте те, что нужно заменить на числовые коды (1–5 и т.п.) с сохранением подписей значений для SPSS/кодбука. По умолчанию ничего не меняется – это на ваш выбор.',
+    encWarnMsg:'Похоже, кириллица отображается некорректно – файл, скорее всего, сохранён не в UTF-8, а в кодировке Windows-1251 ("ANSI").',
+    encWarnBtn:'Показать как Windows-1251 →',
     msVariants:function(n,list){return n+' вариантов: '+list;},
     teaserEyebrow:'Из библиотеки исследователя', teaserTitle:'Шпаргалка: как выбрать статистический тест',
     teaserSub:'Три вопроса – и вы найдёте нужный метод. Один печатный лист, без воды.', teaserLinkText:'Читать шпаргалку →',
@@ -641,6 +654,7 @@ var I18N={
     feature3:'<b>Строит кодбук.</b> Документирует каждую переменную – тип, метку, пропуски, – чтобы и спустя месяцы вы помнили, что означает любой столбец.',
     feature4:'<b>Формирует машиночитаемые метаданные.</b> Выдаёт данные в стандарте Tabular Data Package – для репозиториев открытых данных (Zenodo и др.) и публикации по принципам FAIR.',
     feature5:'<b>Готовит к анализу.</b> На выходе – чистый CSV, кодбук и готовый синтаксис SPSS с прописанными метками переменных и значений; данные сразу открываются в jamovi.',
+    feature6:'<b>Подстраховывается с кодировкой и упрощает шкалы.</b> Если кириллица в CSV выглядит как «кракозябры», сервис сам это заметит и предложит перечитать файл в кодировке Windows-1251; а типовые словесные шкалы («совершенно согласен» … «совершенно не согласен» и другие) можно одним кликом перекодировать в числа 1–5 с сохранением подписей значений. <span class="tag">обновление</span>',
     bonusText:'Бесплатно к инструменту – шпаргалка «Какой статистический тест выбрать»: три вопроса, и вы находите нужный метод.',
     linkReadMore:'Читать →',
     courseLine:'Хотите научиться анализировать такие данные? Курс «Основы статистики для историков» уже стартовал.',
@@ -705,7 +719,7 @@ var I18N={
     cbHeaders:['#','Переменная','Метка/вопрос','Тип','Valid','Пропуски','Уник.','Диапазон / частые'],
     issHeaders:['Переменная','Проблема','Описание','Предложение'], issEmpty:'Проблем не обнаружено ✅',
     mapHeaders:['Переменная','Исходный вопрос'], prevNote:'Первые 30 строк.',
-    dlnoteSurvey:'Чистый CSV импортируйте в SPSS, затем запустите .sps – он проставит метки переменных и значений.',
+    dlnoteSurvey:'Сохраните cleaned_data.csv и файл .sps в одну папку, откройте .sps в SPSS и нажмите Run → All – SPSS сам загрузит данные и проставит метки переменных и значений. Импортировать CSV или переносить данные вручную не нужно.',
     dlnoteCodebook:'В этом режиме «data_copy.csv» – копия исходных данных без изменений; главный результат – Codebook.md (или Codebook.rtf, если удобнее открыть в Word).',
     issues:{
       reasonNonAscii:'не-ASCII в имени', reasonSpaces:'пробелы', reasonUpper:'верхний регистр', reasonDigitStart:'начинается с цифры', reasonTooLong:'длина > 31 (SPSS)',
@@ -730,6 +744,10 @@ var I18N={
     msPanelTitle:'Multiple choice – confirm which columns to split into 0/1',
     msPanelNote:'We flagged only confident cases. Uncheck a box if it is actually a single answer (e.g. "EU countries, US, or Canada"), not multiple choices.',
     msTagConfident:'confident', msTagUncertain:'uncertain', msTagFreeText:'⚠️ looks like free text',
+    scalePanelTitle:'Standard scales – recode as numbers?',
+    scalePanelNote:'We found columns that exactly match a common scale. Check the ones you want replaced with numeric codes (1–5, etc.) while keeping the value labels for SPSS/the codebook. Nothing changes by default – it is your choice.',
+    encWarnMsg:'Cyrillic text looks garbled – the file was probably saved in Windows-1251 ("ANSI") instead of UTF-8.',
+    encWarnBtn:'Try reading as Windows-1251 →',
     msVariants:function(n,list){return n+' options: '+list;},
     teaserEyebrow:'From the Researcher\'s Library', teaserTitle:'Cheat sheet: which statistical test to choose',
     teaserSub:'Three questions – and you\'ll find the right method. One printable page, no fluff.', teaserLinkText:'Read the cheat sheet →',
@@ -738,6 +756,7 @@ var I18N={
     feature3:'<b>Builds a codebook.</b> Documents every variable – type, label, missing values – so that months later you still know what each column means.',
     feature4:'<b>Produces machine-readable metadata.</b> Exports a Tabular Data Package – ready for open-data repositories (Zenodo and others) and FAIR-compliant publication.',
     feature5:'<b>Gets data analysis-ready.</b> You get a clean CSV, a codebook, and ready-to-run SPSS syntax with variable and value labels already written in; the data opens directly in jamovi.',
+    feature6:'<b>Guards against encoding issues and simplifies common scales.</b> If Cyrillic text in a CSV looks garbled, the tool notices and offers to re-read the file as Windows-1251; and common word-based scales ("strongly agree" … "strongly disagree" and others) can be recoded into numbers 1–5 in one click, keeping the value labels. <span class="tag">update</span>',
     bonusText:'Free with the tool – a cheat sheet on "Which statistical test to choose": three questions, and you find the right method.',
     linkReadMore:'Read →',
     courseLine:'Want to learn how to analyze data like this? The course "Statistics Fundamentals for Historians" – coming soon.',
@@ -802,7 +821,7 @@ var I18N={
     cbHeaders:['#','Variable','Label/question','Type','Valid','Missing','Uniq.','Range / top values'],
     issHeaders:['Variable','Issue','Description','Suggestion'], issEmpty:'No issues found ✅',
     mapHeaders:['Variable','Original question'], prevNote:'First 30 rows.',
-    dlnoteSurvey:'Import the clean CSV into SPSS, then run the .sps file – it will apply variable and value labels.',
+    dlnoteSurvey:'Save cleaned_data.csv and the .sps file in the same folder, open the .sps file in SPSS and press Run → All – SPSS will load the data itself and apply the variable and value labels. No need to import the CSV or copy data by hand.',
     dlnoteCodebook:'"data_copy.csv" is an unchanged copy of the original data in this mode; the main output is Codebook.md (or Codebook.rtf if you\'d rather open it in Word).',
     issues:{
       reasonNonAscii:'non-ASCII characters', reasonSpaces:'spaces', reasonUpper:'uppercase letters', reasonDigitStart:'starts with a digit', reasonTooLong:'length > 31 (SPSS)',
@@ -891,6 +910,53 @@ function inferType(vals){var nn=vals.filter(function(v){return !isBlank(v);});if
    и одновременно позволяет разбирать «34 лет» → 34, «5 - Отличное» → 5). */
 function toNum(v){if(isBlank(v))return NaN;var raw=String(v).trim();var s=raw.replace(/\s/g,'').replace(',', '.').replace('%','');if(s!==''&&!isNaN(Number(s)))return Number(s);var m=raw.match(/^[-+]?\d+(?:[.,]\d+)?/);if(m){var rest=raw.slice(m[0].length);if(!/\d/.test(rest))return Number(m[0].replace(',', '.'));}return NaN;}
 function extractValueLabels(vals){var map={};for(var i=0;i<vals.length;i++){if(isBlank(vals[i]))continue;var s=String(vals[i]).trim();var m=s.match(/^([-+]?\d+)\s*[-––]\s*(.+)$/);if(m){var code=String(Number(m[1]));var label=m[2].trim();if(label&&!map[code])map[code]=label;}}return Object.keys(map).length?map:null;}
+
+/* ── Библиотека типовых шкал опросов: текст → числовой код ──
+   RU-шкалы под русскоязычные формулировки, EN-шкалы под англоязычные.
+   Для остальных языков (немецкий, иврит, хинди и т.д.) распознавания нет –
+   такие столбцы просто останутся текстовыми, это безопасно. */
+var SCALES=[
+  {id:'ru_agree5',lang:'ru',name:'Шкала согласия (1–5)',map:{
+    'совершенно согласен':1,'полностью согласен':1,'совершенно согласна':1,'полностью согласна':1,'целиком согласен':1,'целиком согласна':1,
+    'скорее согласен':2,'скорее согласна':2,'согласен':2,'согласна':2,
+    'скорее не согласен':3,'скорее не согласна':3,'не согласен':3,'не согласна':3,
+    'совершенно не согласен':4,'полностью не согласен':4,'совершенно не согласна':4,'полностью не согласна':4,'целиком не согласен':4,'целиком не согласна':4,
+    'затрудняюсь ответить':5,'затрудняюсь ответить.':5,'не знаю':5,'нет ответа':5,'сложно сказать':5
+  }},
+  {id:'ru_freq5',lang:'ru',name:'Шкала частоты (1–5)',map:{'никогда':1,'редко':2,'иногда':3,'часто':4,'всегда':5}},
+  {id:'ru_yesnodk',lang:'ru',name:'Да / Нет / Затрудняюсь ответить',map:{'да':1,'нет':2,'затрудняюсь ответить':3,'не знаю':3}},
+  {id:'en_agree5',lang:'en',name:'Agreement scale (1–5)',map:{
+    'strongly agree':1,'agree':2,'neutral':3,'neither agree nor disagree':3,'disagree':4,'strongly disagree':5
+  }},
+  {id:'en_freq5',lang:'en',name:'Frequency scale (1–5)',map:{'never':1,'rarely':2,'sometimes':3,'often':4,'always':5}},
+  {id:'en_yesnodk',lang:'en',name:"Yes / No / Don't know",map:{'yes':1,'no':2,"don't know":3,'not sure':3}}
+];
+function normText(s){return String(s).trim().toLowerCase().replace(/\s+/g,' ').replace(/[.]+$/,'');}
+function detectScaleForColumn(vals){
+  var distinct={},n=0;
+  for(var i=0;i<vals.length;i++){if(isBlank(vals[i]))continue;distinct[normText(vals[i])]=true;n++;}
+  var keys=Object.keys(distinct);
+  if(keys.length<2||n<2)return null;
+  for(var s=0;s<SCALES.length;s++){
+    var sc=SCALES[s],ok=true;
+    for(var k=0;k<keys.length;k++){if(!(keys[k] in sc.map)){ok=false;break;}}
+    if(ok)return sc;
+  }
+  return null;
+}
+function scaleMappingPreview(scale){
+  var byCode={};Object.keys(scale.map).forEach(function(k){var c=scale.map[k];if(!(c in byCode))byCode[c]=k;});
+  var codes=Object.keys(byCode).sort(function(a,b){return a-b;});
+  return codes.map(function(c){return byCode[c]+' → '+c;}).join(' · ');
+}
+function buildScaleValueLabels(vals,scale){
+  var rev={};
+  for(var i=0;i<vals.length;i++){if(isBlank(vals[i]))continue;var code=scale.map[normText(vals[i])];if(code!=null&&!(code in rev))rev[code]=String(vals[i]).trim();}
+  return rev;
+}
+function recodeScaleColumn(vals,scale){
+  return vals.map(function(v){if(isBlank(v))return v;var code=scale.map[normText(v)];return code!=null?String(code):v;});
+}
 function profile(name,label,vals){var n=vals.length,miss=0;for(var i=0;i<n;i++)if(isBlank(vals[i]))miss++;var valid=n-miss,type=inferType(vals);var us={};for(var i=0;i<n;i++)if(!isBlank(vals[i]))us[String(vals[i])]=1;var p={name:name,label:label||'',type:type,valid:valid,miss:miss,pmiss:n?Math.round(1000*miss/n)/10:0,nunique:Object.keys(us).length};if(type==='integer'||type==='number'){var nums=vals.map(toNum).filter(function(x){return !isNaN(x);});if(nums.length){nums.sort(function(a,b){return a-b;});var sum=0;for(var i=0;i<nums.length;i++)sum+=nums[i];p.min=nums[0];p.max=nums[nums.length-1];p.mean=Math.round(1000*sum/nums.length)/1000;var mid=Math.floor(nums.length/2);p.median=nums.length%2?nums[mid]:(nums[mid-1]+nums[mid])/2;}var vl=extractValueLabels(vals);if(vl)p.valueLabels=vl;}if(type==='string'&&p.nunique<=30){var vc={};for(var i=0;i<n;i++){if(isBlank(vals[i]))continue;var k=String(vals[i]);vc[k]=(vc[k]||0)+1;}p.top=Object.keys(vc).map(function(k){return[k,vc[k]];}).sort(function(a,b){return b[1]-a[1];}).slice(0,10);}var ex=[];for(var i=0;i<n&&ex.length<5;i++)if(!isBlank(vals[i])&&ex.indexOf(String(vals[i]))<0)ex.push(String(vals[i]));p.examples=ex;return p;}
 function detectIssues(headers,profiles,cols,ISS){var issues=[],rename={},seen={};for(var h=0;h<headers.length;h++){var c=headers[h],pr=[];if(/[^\x00-\x7f]/.test(c))pr.push(ISS.reasonNonAscii);if(/\s/.test(c))pr.push(ISS.reasonSpaces);if(c!==c.toLowerCase()&&/[A-ZА-Я]/.test(c))pr.push(ISS.reasonUpper);if(/^[0-9]/.test(c))pr.push(ISS.reasonDigitStart);if(c.length>31)pr.push(ISS.reasonTooLong);var slug=slugify(c);if(pr.length){rename[c]=slug;issues.push({v:c,k:ISS.kVarName,d:pr.join('; '),p:slug});}seen[c]=slug;}for(var i=0;i<profiles.length;i++){var p=profiles[i],vals=cols[i];if(p.label&&detectScript(p.label)==='mixed')issues.push({v:p.name,k:ISS.kMixedLabel,d:ISS.dMixed,p:ISS.pLabelSuggest});if(p.pmiss>=50)issues.push({v:p.name,k:ISS.kManyMissing,d:ISS.dPctMissing(p.pmiss),p:ISS.pVerifyDoc});if(p.nunique<=1&&p.valid>0)issues.push({v:p.name,k:ISS.kConstant,d:ISS.dSingleValue,p:ISS.pRemoveOrDoc});if(p.type==='integer'||p.type==='number'){var mg={};for(var j=0;j<vals.length;j++){var x=toNum(vals[j]);if(!isNaN(x)&&MAGIC_NUM[String(x)])mg[x]=1;}var mk=Object.keys(mg);if(mk.length)issues.push({v:p.name,k:ISS.kMagicNum,d:ISS.dValues(mk.join(', ')),p:ISS.pCheckNoData});}else{var ms={};for(var j=0;j<vals.length;j++){if(isBlank(vals[j]))continue;var s=String(vals[j]).trim().toLowerCase();if(MAGIC_STR[s])ms[s]=1;}var msk=Object.keys(ms);if(msk.length)issues.push({v:p.name,k:ISS.kMagicStr,d:ISS.dValues(msk.join(', ')),p:ISS.pStandardize});}}return {issues:issues,rename:rename};}
 
@@ -928,7 +994,20 @@ function codebookRTF(headers,profiles,nrows){
   L.push('}');
   return L.join('\n');
 }
-function spssSyntax(headers,profiles,mlog){var L=['* Автосгенерированный синтаксис SPSS.','* 1) Положите cleaned_data.csv рядом. 2) Запустите этот файл.','','GET DATA /TYPE=TXT /FILE="cleaned_data.csv" /DELIMITERS="," /QUALIFIER=\'"\' /FIRSTCASE=2 /VARIABLES='];for(var i=0;i<headers.length;i++){var p=profiles[i];var t=p.type==='integer'?'F8.0':(p.type==='number'?'F12.3':'A255');L.push('  '+headers[i]+' '+t);}L[L.length-1]=L[L.length-1]+'.';L.push('EXECUTE.','','VARIABLE LABELS');for(var i=0;i<profiles.length;i++){var p=profiles[i];if(p.label)L.push('  '+p.name+' "'+String(p.label).replace(/"/g,"'")+'"');}L[L.length-1]=L[L.length-1]+'.';var scaled=[];for(var i=0;i<profiles.length;i++){if(profiles[i].valueLabels)scaled.push(profiles[i]);}if(scaled.length){L.push('','VALUE LABELS');for(var i=0;i<scaled.length;i++){var p=scaled[i];var codes=Object.keys(p.valueLabels).sort(function(a,b){return Number(a)-Number(b);});var parts=[];for(var c=0;c<codes.length;c++)parts.push(codes[c]+' "'+p.valueLabels[codes[c]].replace(/"/g,"'")+'"');L.push('  '+p.name+' '+parts.join(' '));}L[L.length-1]=L[L.length-1]+'.';}var bin=[];for(var i=0;i<profiles.length;i++){if(profiles[i].name.indexOf('__')>=0&&profiles[i].type==='integer')bin.push(profiles[i].name);}if(bin.length){L.push('','VALUE LABELS');for(var i=0;i<bin.length;i++)L.push('  '+bin[i]+' 0 "нет" 1 "да"');L[L.length-1]=L[L.length-1]+'.';}L.push('EXECUTE.');return L.join('\n');}
+function spssSyntax(headers,profiles,mlog){var L=[
+  '* Автосгенерированный синтаксис SPSS.',
+  '* КАК ЗАПУСТИТЬ:',
+  '* 1) Сохраните этот файл и cleaned_data.csv в ОДНУ папку.',
+  '* 2) Откройте SPSS – открывать или создавать базу заранее не нужно.',
+  '* 3) File -> Open -> Syntax... и выберите этот файл (.sps).',
+  '* 4) Выделите весь текст (Ctrl+A) и нажмите Run -> All (или Ctrl+R).',
+  '* SPSS сам прочитает CSV командой GET DATA и создаст датасет с нужными',
+  '* именами переменных, типами, метками переменных и значений –',
+  '* копировать данные вручную из Excel не нужно.',
+  '* Если появится ошибка "не найден файл" – замените ниже "cleaned_data.csv"',
+  '* на полный путь к файлу, например "C:\\Users\\Имя\\Downloads\\cleaned_data.csv".',
+  '',
+  'GET DATA /TYPE=TXT /FILE="cleaned_data.csv" /DELIMITERS="," /QUALIFIER=\'"\' /FIRSTCASE=2 /VARIABLES='];for(var i=0;i<headers.length;i++){var p=profiles[i];var t=p.type==='integer'?'F8.0':(p.type==='number'?'F12.3':'A255');L.push('  '+headers[i]+' '+t);}L[L.length-1]=L[L.length-1]+'.';L.push('EXECUTE.','','VARIABLE LABELS');for(var i=0;i<profiles.length;i++){var p=profiles[i];if(p.label)L.push('  '+p.name+' "'+String(p.label).replace(/"/g,"'")+'"');}L[L.length-1]=L[L.length-1]+'.';var scaled=[];for(var i=0;i<profiles.length;i++){if(profiles[i].valueLabels)scaled.push(profiles[i]);}if(scaled.length){L.push('','VALUE LABELS');for(var i=0;i<scaled.length;i++){var p=scaled[i];var codes=Object.keys(p.valueLabels).sort(function(a,b){return Number(a)-Number(b);});var parts=[];for(var c=0;c<codes.length;c++)parts.push(codes[c]+' "'+p.valueLabels[codes[c]].replace(/"/g,"'")+'"');L.push('  '+p.name+' '+parts.join(' '));}L[L.length-1]=L[L.length-1]+'.';}var bin=[];for(var i=0;i<profiles.length;i++){if(profiles[i].name.indexOf('__')>=0&&profiles[i].type==='integer')bin.push(profiles[i].name);}if(bin.length){L.push('','VALUE LABELS');for(var i=0;i<bin.length;i++)L.push('  '+bin[i]+' 0 "нет" 1 "да"');L[L.length-1]=L[L.length-1]+'.';}L.push('EXECUTE.');return L.join('\n');}
 function parseCSV(text){var rows=[],row=[],cur='',q=false;for(var i=0;i<text.length;i++){var c=text[i];if(q){if(c==='"'){if(text[i+1]==='"'){cur+='"';i++;}else q=false;}else cur+=c;}else{if(c==='"')q=true;else if(c===','){row.push(cur);cur='';}else if(c==='\n'){row.push(cur);rows.push(row);row=[];cur='';}else if(c==='\r'){}else cur+=c;}}if(cur!==''||row.length){row.push(cur);rows.push(row);}return rows.filter(function(r){return r.some(function(x){return String(x).trim()!=='';});});}
 
 /* ================= защита от не-табличных файлов ================= */
@@ -937,7 +1016,7 @@ var ALLOWED_EXT={csv:1,tsv:1,txt:1,xlsx:1,xls:1};
 
 /* ================= UI ================= */
 if(typeof document!=='undefined'){
-  var MODE='codebook',RAW=null,SPLIT={},CANDS=[],DL={},LANG='ru',LAST_LOOKS_SURVEY=false;
+  var MODE='codebook',RAW=null,SPLIT={},CANDS=[],DL={},LANG='ru',LAST_LOOKS_SURVEY=false,SCALECANDS=[],SCALESEL={};
   var drop=document.getElementById('drop'),fileInput=document.getElementById('file'),status=document.getElementById('status');
 
   function applyStaticI18n(){
@@ -1012,7 +1091,7 @@ if(typeof document!=='undefined'){
   drop.addEventListener('drop',function(e){e.preventDefault();drop.classList.remove('drag');if(e.dataTransfer.files[0])guardAndLoad(e.dataTransfer.files[0]);});
   fileInput.addEventListener('change',function(e){if(e.target.files[0])guardAndLoad(e.target.files[0]);});
   document.querySelectorAll('.mode').forEach(function(m){
-    function activate(){document.querySelectorAll('.mode').forEach(function(x){x.classList.remove('active');x.setAttribute('aria-pressed','false');});m.classList.add('active');m.setAttribute('aria-pressed','true');MODE=m.dataset.mode;renderHint();if(RAW){initCandidates();process();}}
+    function activate(){document.querySelectorAll('.mode').forEach(function(x){x.classList.remove('active');x.setAttribute('aria-pressed','false');});m.classList.add('active');m.setAttribute('aria-pressed','true');MODE=m.dataset.mode;renderHint();if(RAW){initCandidates();initScaleCandidates();process();}}
     m.addEventListener('click',activate);
     m.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();activate();}});
   });
@@ -1033,27 +1112,80 @@ if(typeof document!=='undefined'){
     hr.readAsArrayBuffer(head);
   }
 
-  function loadFile(file,ext){status.textContent=I18N[LANG].statusReading(file.name);
+  /* Эвристика "кракозябр": валидный UTF-8-текст почти никогда не содержит U+FFFD
+     (символ-заменитель), а вот тот же файл, ошибочно прочитанный как UTF-8, но
+     на самом деле сохранённый в Windows-1251 ("ANSI"), даёт их много. */
+  function looksMojibake(text){
+    var sample=text.slice(0,20000),bad=0;
+    for(var i=0;i<sample.length;i++){if(sample[i]==='�')bad++;}
+    return sample.length>0&&(bad/sample.length)>0.01;
+  }
+  function hideEncodingWarning(){var el=document.getElementById('encWarn');if(el)el.classList.add('hidden');}
+  function showEncodingWarning(file){
+    var S=I18N[LANG],el=document.getElementById('encWarn');if(!el)return;
+    el.classList.remove('hidden');
+    el.querySelector('.enc-msg').textContent=S.encWarnMsg;
+    var btn=el.querySelector('#encFixBtn');btn.textContent=S.encWarnBtn;
+    btn.onclick=function(){
+      var r2=new FileReader();
+      r2.onload=function(ev2){
+        var text2;
+        try{text2=new TextDecoder('windows-1251').decode(new Uint8Array(ev2.target.result));}
+        catch(e){text2=null;}
+        if(text2){hideEncodingWarning();setData(parseCSV(text2),file.name);}
+      };
+      r2.readAsArrayBuffer(file);
+    };
+  }
+  function loadFile(file,ext){status.textContent=I18N[LANG].statusReading(file.name);hideEncodingWarning();
     if(ext==='xlsx'||ext==='xls'){var r=new FileReader();r.onload=function(ev){try{var wb=XLSX.read(new Uint8Array(ev.target.result),{type:'array'});var ws=wb.Sheets[wb.SheetNames[0]];var arr=XLSX.utils.sheet_to_json(ws,{header:1,raw:false,defval:''});setData(arr,file.name);}catch(err){status.textContent=I18N[LANG].statusExcelError(err.message);}};r.readAsArrayBuffer(file);}
-    else{var r=new FileReader();r.onload=function(ev){setData(parseCSV(ev.target.result),file.name);};r.readAsText(file,'utf-8');}}
+    else{var r=new FileReader();r.onload=function(ev){var text=ev.target.result;if(looksMojibake(text)){showEncodingWarning(file);}setData(parseCSV(text),file.name);};r.readAsText(file,'utf-8');}}
 
   function setData(arr,fname){if(!arr||arr.length<2){status.textContent=I18N[LANG].statusNoData;return;}var headers=arr[0].map(function(h){return String(h).replace(/^﻿/,'');});RAW={headers:headers,rows:arr.slice(1),fname:fname};status.textContent=I18N[LANG].statusLoaded(RAW.rows.length,headers.length,fname);
     LAST_LOOKS_SURVEY=/time\s*stamp|отметка времени/i.test(headers.join(' '))||headers.some(function(h){return h.length>40;});
     renderHint();
-    initCandidates();process();}
+    initCandidates();initScaleCandidates();process();}
 
   function initCandidates(){SPLIT={};CANDS=[];if(MODE!=='survey'||!RAW)return;var cols=RAW.headers.map(function(_,i){return RAW.rows.map(function(r){return r[i];});});CANDS=detectCandidates(RAW.headers,cols);CANDS.forEach(function(c){if(c.auto)SPLIT[c.idx]=true;});}
+
+  /* Библиотека шкал: ищем среди столбцов совпадения с готовыми словарями (RU/EN).
+     Работает независимо от режима codebook/survey; галочку пользователь ставит сам. */
+  function initScaleCandidates(){SCALECANDS=[];SCALESEL={};if(!RAW)return;var headers=RAW.headers,rows=RAW.rows;
+    for(var i=0;i<headers.length;i++){var vals=rows.map(function(r){return r[i];});var sc=detectScaleForColumn(vals);if(sc)SCALECANDS.push({idx:i,header:headers[i],scale:sc});}}
 
   function renderMSPanel(){var S=I18N[LANG];var panel=document.getElementById('msPanel');if(MODE!=='survey'||!CANDS.length){panel.classList.add('hidden');return;}panel.classList.remove('hidden');
     document.getElementById('msList').innerHTML=CANDS.map(function(c){var id='ms_'+c.idx;var vs=c.tokens.slice(0,6).join(' · ')+(c.tokens.length>6?' …':'');var tag=c.auto?(' <span class="tag">'+S.msTagConfident+'</span>'):(c.looksFreeText?(' <span class="tag freetext">'+S.msTagFreeText+'</span>'):(' <span class="tag">'+S.msTagUncertain+'</span>'));return '<label class="msrow" for="'+id+'"><input type="checkbox" id="'+id+'" data-idx="'+c.idx+'" '+(SPLIT[c.idx]?'checked':'')+'><span><span class="q">'+esc(c.header)+'</span>'+tag+'<div class="h">'+S.msVariants(c.n,esc(vs))+'</div></span></label>';}).join('');
     document.querySelectorAll('#msList input').forEach(function(cb){cb.addEventListener('change',function(){var i=cb.dataset.idx;if(cb.checked)SPLIT[i]=true;else delete SPLIT[i];process();});});}
 
-  function process(){renderMSPanel();
+  function renderScalePanel(){var S=I18N[LANG];var panel=document.getElementById('scalePanel');if(!panel)return;if(!SCALECANDS.length){panel.classList.add('hidden');return;}panel.classList.remove('hidden');
+    document.getElementById('scaleList').innerHTML=SCALECANDS.map(function(c){var id='sc_'+c.idx;var preview=scaleMappingPreview(c.scale);return '<label class="msrow" for="'+id+'"><input type="checkbox" id="'+id+'" data-idx="'+c.idx+'" '+(SCALESEL[c.idx]?'checked':'')+'><span><span class="q">'+esc(c.header)+'</span> <span class="tag">'+esc(c.scale.name)+'</span><div class="h">'+esc(preview)+'</div></span></label>';}).join('');
+    document.querySelectorAll('#scaleList input').forEach(function(cb){cb.addEventListener('change',function(){var i=cb.dataset.idx;if(cb.checked)SCALESEL[i]=true;else delete SCALESEL[i];process();});});}
+
+  /* Находит текущую позицию столбца (по исходному заголовку) в headers после surveyTransform:
+     в survey-режиме surveyTransform переименовывает ВСЕ заголовки, поэтому indexOf по старому
+     имени не сработает – ищем через qmap (пары [новое_имя, исходный_заголовок]). */
+  function findColPos(headers,qmap,originalHeader){
+    if(!qmap)return headers.indexOf(originalHeader);
+    for(var i=0;i<qmap.length;i++){if(qmap[i][1]===originalHeader)return headers.indexOf(qmap[i][0]);}
+    return -1;
+  }
+
+  function process(){renderMSPanel();renderScalePanel();
     var headers=RAW.headers,rows=RAW.rows,qmap=null,mlog=[],renamed=0,before=headers.length;
     if(MODE==='survey'){var t=surveyTransform(headers,rows,SPLIT);headers=t.headers;rows=t.rows;qmap=t.questionMap;mlog=t.multiselect;renamed=t.renamed;}
+    rows=rows.map(function(r){return r.slice();}); // не мутируем RAW.rows – process() перезапускается многократно
+    var scaleLabelsByCol={};
+    SCALECANDS.forEach(function(c){
+      if(!SCALESEL[c.idx]||SPLIT[c.idx])return;
+      var pos=findColPos(headers,qmap,c.header);if(pos<0)return;
+      var vals=rows.map(function(r){return r[pos];});
+      scaleLabelsByCol[pos]=buildScaleValueLabels(vals,c.scale);
+      var recoded=recodeScaleColumn(vals,c.scale);
+      for(var ri=0;ri<rows.length;ri++)rows[ri][pos]=recoded[ri];
+    });
     var cols=headers.map(function(_,i){return rows.map(function(r){return r[i];});});
     var labels={};if(qmap)qmap.forEach(function(x){labels[x[0]]=x[1];});
-    var profiles=headers.map(function(h,i){return profile(h,labels[h]||'',cols[i]);});
+    var profiles=headers.map(function(h,i){var p=profile(h,labels[h]||'',cols[i]);if(scaleLabelsByCol[i])p.valueLabels=scaleLabelsByCol[i];return p;});
     var di=detectIssues(headers,profiles,cols,I18N[LANG].issues);
     render(headers,rows,cols,profiles,di,qmap,mlog,renamed,before);}
 
