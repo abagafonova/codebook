@@ -362,9 +362,9 @@
   <section class="cb-howto zone hidden" data-lang="en">
     <h2>How it works</h2>
     <ol class="cb-steps">
-      <li><b>Upload your export.</b> A CSV from Google / MS / Yandex Forms, or any survey table. The file stays in your browser – it is never sent anywhere. Close the tab and the data is gone.</li>
-      <li><b>The tool tidies it up.</b> It turns long question headers into clean variable names, splits "select all that apply" into 0/1 columns, counts missing values and flags likely coding errors.</li>
-      <li><b>Download the result.</b> A clean CSV, a ready codebook, machine-readable metadata (Tabular Data Package) and SPSS syntax with labels – the data opens in jamovi right away.</li>
+      <li><b>Upload your export.</b> A CSV export from Google, Microsoft, or Yandex Forms, or any survey table. The file stays in your browser – it is never sent anywhere. Close the tab and the data is gone.</li>
+      <li><b>The tool tidies it up.</b> It turns long question headers into tidy variable names, splits "select all that apply" into 0/1 columns, counts missing values and flags likely coding errors.</li>
+      <li><b>Download the result.</b> A clean CSV, a ready codebook, machine-readable metadata (Tabular Data Package) and SPSS syntax with labels. You can open the data in jamovi right away.</li>
     </ol>
   </section>
 
@@ -414,6 +414,15 @@
         <div class="sub" data-i18n="teaserSub">Три вопроса – и вы найдёте нужный метод. Один печатный лист, без воды.</div>
       </div>
       <a href="#cheatsheet" id="teaserLink" data-i18n="teaserLinkText">Читать шпаргалку →</a>
+    </div>
+
+    <div class="teaser" style="margin-top:12px">
+      <div>
+        <div class="eyebrow" data-i18n="teaserTurnPDFEyebrow">Другой бесплатный инструмент</div>
+        <div class="title" data-i18n="teaserTurnPDFTitle">TurnPDF – Повернуть PDF онлайн</div>
+        <div class="sub" data-i18n="teaserTurnPDFSub">Нужно исправить ориентацию скана? Поверните страницы PDF в браузере без загрузки на сервер.</div>
+      </div>
+      <a href="https://pdf.urbantransmission.org/" target="_blank" rel="noopener noreferrer" data-i18n="teaserTurnPDFLink">Открыть TurnPDF →</a>
     </div>
   </div>
 
@@ -649,6 +658,8 @@ var I18N={
     msVariants:function(n,list){return n+' вариантов: '+list;},
     teaserEyebrow:'Из библиотеки исследователя', teaserTitle:'Шпаргалка: как выбрать статистический тест',
     teaserSub:'Три вопроса – и вы найдёте нужный метод. Один печатный лист, без воды.', teaserLinkText:'Читать шпаргалку →',
+    teaserTurnPDFEyebrow:'Другой бесплатный инструмент', teaserTurnPDFTitle:'TurnPDF – Повернуть PDF онлайн',
+    teaserTurnPDFSub:'Нужно исправить ориентацию скана? Поверните страницы PDF в браузере без загрузки на сервер.', teaserTurnPDFLink:'Открыть TurnPDF →',
     feature1:'<b>Наводит порядок в выгрузке.</b> Приводит длинные заголовки-вопросы к аккуратным именам переменных и разносит вопросы «отметьте всё подходящее» в переменные 0/1.',
     feature2:'<b>Контролирует качество данных.</b> Показывает, сколько ответов пропущено, считает базовые описательные статистики и подсвечивает вероятные ошибки кодировки – ещё до того, как вы откроете файл в статистическом пакете.',
     feature3:'<b>Строит кодбук.</b> Документирует каждую переменную – тип, метку, пропуски, – чтобы и спустя месяцы вы помнили, что означает любой столбец.',
@@ -735,7 +746,7 @@ var I18N={
     skipLink:'Skip to content',
     pageTitle:'Codebook & Survey Tidier – Clean Survey Data & Codebook',
     lead:'From raw survey exports to clean data and a ready codebook. No manual busywork.',
-    sub:'A tool for historians, sociologists, philologists, and anyone working with survey data. Cleans up Google&nbsp;/&nbsp;Yandex&nbsp;/&nbsp;MS&nbsp;Forms exports, builds a codebook, and prepares files for SPSS and jamovi.',
+    sub:'A tool for historians, sociologists, philologists, and anyone who works with survey data. Cleans up Google&nbsp;/&nbsp;Yandex&nbsp;/&nbsp;MS&nbsp;Forms exports, builds a codebook, and prepares files for SPSS and jamovi.',
     dropIntro:'<b>Drop a file here</b> or click to choose one',
     dropSmall:'CSV or Excel (.xlsx). For example – a response export from Google&nbsp;/&nbsp;Yandex Forms',
     dropAriaLabel:'Upload a file: drag and drop, or press Enter to choose one',
@@ -751,15 +762,17 @@ var I18N={
     msVariants:function(n,list){return n+' options: '+list;},
     teaserEyebrow:'From the Researcher\'s Library', teaserTitle:'Cheat sheet: which statistical test to choose',
     teaserSub:'Three questions – and you\'ll find the right method. One printable page, no fluff.', teaserLinkText:'Read the cheat sheet →',
+    teaserTurnPDFEyebrow:'Another free tool', teaserTurnPDFTitle:'TurnPDF – Rotate PDF Online',
+    teaserTurnPDFSub:'Need to fix a scanned page orientation? Rotate PDF pages right in your browser – no server upload.', teaserTurnPDFLink:'Open TurnPDF →',
     feature1:'<b>Cleans up your export.</b> Turns long question-headers into tidy variable names and splits "select all that apply" questions into 0/1 variables.',
     feature2:'<b>Checks data quality.</b> Shows how many answers are missing, computes basic descriptive statistics, and flags likely coding errors – before you ever open the file in a stats package.',
     feature3:'<b>Builds a codebook.</b> Documents every variable – type, label, missing values – so that months later you still know what each column means.',
     feature4:'<b>Produces machine-readable metadata.</b> Exports a Tabular Data Package – ready for open-data repositories (Zenodo and others) and FAIR-compliant publication.',
-    feature5:'<b>Gets data analysis-ready.</b> You get a clean CSV, a codebook, and ready-to-run SPSS syntax with variable and value labels already written in; the data opens directly in jamovi.',
-    feature6:'<b>Guards against encoding issues and simplifies common scales.</b> If Cyrillic text in a CSV looks garbled, the tool notices and offers to re-read the file as Windows-1251; and common word-based scales ("strongly agree" … "strongly disagree" and others) can be recoded into numbers 1–5 in one click, keeping the value labels. <span class="tag">update</span>',
+    feature5:'<b>Prepares your data for analysis.</b> You get a clean CSV, a codebook, and ready-to-run SPSS syntax with variable and value labels already written in. You can open the data in jamovi right away.',
+    feature6:'<b>Helps with encoding issues and simplifies common scales.</b> If Cyrillic text in a CSV looks garbled, the tool can re-read the file as Windows-1251. Common word-based scales ("strongly agree" … "strongly disagree" and others) can be recoded into numbers 1–5 in one click, while keeping the value labels. <span class="tag">update</span>',
     bonusText:'Free with the tool – a cheat sheet on "Which statistical test to choose": three questions, and you find the right method.',
     linkReadMore:'Read →',
-    courseLine:'Want to learn how to analyze data like this? The course "Statistics Fundamentals for Historians" – coming soon.',
+    courseLine:'Want to learn how to analyze data like this? The course "Statistics Fundamentals for Historians" is coming soon.',
     cheatEyebrow:'From the Researcher\'s Library', cheatH2:'Which statistical test should you use?',
     cheatSubtitle:'A one-page cheat sheet for humanities researchers',
     cheatByline1:'Free, by Anna Agafonova, PhD · urbantransmission.org',
@@ -787,7 +800,7 @@ var I18N={
     warn1:'<b>1. "There\'s a correlation → there\'s a cause."</b> No. Correlation ≠ causation.',
     warn2:'<b>2. Only p, no effect size.</b> p tells you whether there\'s an effect, effect size tells you how big. You need both.',
     warn3:'<b>3. Bold conclusions from 15 responses.</b> A small sample calls for cautious wording.',
-    courseCta:'<b>Want to go deeper?</b> The course "Statistics Fundamentals for Historians" – coming soon. Step by step: choosing the right method for your data, reading SPSS output, and writing up results for a paper.',
+    courseCta:'<b>Want to go deeper?</b> The course "Statistics Fundamentals for Historians" is coming soon. Step by step: choosing the right method for your data, reading SPSS output, and writing up results for a paper.',
     shareNote:'Feel free to share this file with colleagues and students.',
     footerCopyright:'© 2026 Anna Agafonova, PhD · <a href="https://urbantransmission.org" target="_blank" rel="noopener noreferrer">urbantransmission.org</a>',
     footerWorks:'Works offline – your data stays with you.',
