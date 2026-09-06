@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://abagafonova.github.io/codebook/sitemap.xml
+Sitemap: https://codebook.urbantransmission.org/sitemap.xml
