@@ -58,7 +58,7 @@
     {"@type":"Question","name":"На каком языке могут быть мои данные?","acceptedAnswer":{"@type":"Answer","text":"На любом – немецком, иврите, хинди, китайском и других. Содержимое ячеек, пропуски, частоты и описательные статистики обрабатываются корректно независимо от языка."}},
     {"@type":"Question","name":"Для SPSS или для jamovi?","acceptedAnswer":{"@type":"Answer","text":"Для обоих. На выходе – чистый CSV (открывается в jamovi сразу) и синтаксис SPSS с прописанными метками переменных и значений."}},
     {"@type":"Question","name":"Сколько это стоит?","acceptedAnswer":{"@type":"Answer","text":"Бесплатно. Дополнительно к инструменту прилагается шпаргалка «Какой статистический тест выбрать»."}},
-    {"@type":"Question","name":"Зачем нужен кодбук?","acceptedAnswer":{"@type":"Answer","text":"Он документирует каждую переменную – тип, метку, пропуски, – чтобы и спустя месяцы вы помнили, что означает любой столбец, и чтобы данные можно было опубликовать по принципам FAIR."}},
+    {"@type":"Question","name":"Зачем нужен кодбук?","acceptedAnswer":{"@type":"Answer","text":"Он документирует каждую переменную – тип, метку, пропуски, – чтобы и спустя месяцы вы помнили, что означает любой столбец, и чтобы данные можно было опубликовать по принципам FAIR."}}
   ]
 }
 </script>
@@ -610,9 +610,9 @@
         <div data-i18n="warn3"><b>3. Громкие выводы на 15 анкетах.</b> Маленькая выборка → осторожные формулировки.</div>
       </div>
 
-      <div class="course-cta">
+    <!--  <div class="course-cta">
         <p data-i18n="courseCta"><b>Хотите разобраться глубже?</b> Курс «Основы статистики для историков» уже на Stepik. Пошагово: как выбрать метод под свои данные, прочитать вывод SPSS и сформулировать результат для исследования. <a href="https://stepik.org/a/295414" target="_blank" rel="noopener" aria-label="Перейти к курсу «Основы статистики для историков», откроется в новой вкладке">Перейти к курсу →</a></p>
-      </div>
+      </div> -->
 
       <p class="share-note" data-i18n="shareNote">Можно свободно делиться этим файлом с коллегами и студентами.</p>
     </div>
@@ -1020,7 +1020,7 @@ function spssSyntax(headers,profiles,mlog){var L=[
   '* Если появится ошибка "не найден файл" – замените ниже "cleaned_data.csv"',
   '* на полный путь к файлу, например "C:\\Users\\Имя\\Downloads\\cleaned_data.csv".',
   '',
-  'GET DATA /TYPE=TXT /FILE="cleaned_data.csv" /DELIMITERS="," /QUALIFIER=\'"\' /FIRSTCASE=2 /VARIABLES='];for(var i=0;i<headers.length;i++){var p=profiles[i];var t=p.type==='integer'?'F8.0':(p.type==='number'?'F12.3':'A255');L.push('  '+headers[i]+' '+t);}L[L.length-1]=L[L.length-1]+'.';L.push('EXECUTE.','','VARIABLE LABELS');for(var i=0;i<profiles.length;i++){var p=profiles[i];if(p.label)L.push('  '+p.name+' "'+String(p.label).replace(/"/g,"'")+'"');}L[L.length-1]=L[L.length-1]+'.';var scaled=[];for(var i=0;i<profiles.length;i++){if(profiles[i].valueLabels)scaled.push(profiles[i]);}if(scaled.length){L.push('','VALUE LABELS');for(var i=0;i<scaled.length;i++){var p=scaled[i];var codes=Object.keys(p.valueLabels).sort(function(a,b){return Number(a)-Number(b);});var parts=[];for(var c=0;c<codes.length;c++)parts.push(codes[c]+' "'+p.valueLabels[codes[c]].replace(/"/g,"'")+'"');L.puL.push('  '+(i?'/':'')+p.name+' '+parts.join(' '));sh('  '+p.name+' '+parts.join(' '));}L[L.length-1]=L[L.length-1]+'.';}var bin=[];for(var i=0;i<profiles.length;i++){if(profiles[i].name.indexOf('__')>=0&&profiles[i].type==='integer')bin.push(profiles[i].name);}if(bin.length){L.push('','VALUE LABELS');forfor(var i=0;i<bin.length;i++)L.push('  '+(i?'/':'')+bin[i]+' 0 "нет" 1 "да"');(var i=0;i<bin.length;i++)L.push('  '+bin[i]+' 0 "нет" 1 "да"');L[L.length-1]=L[L.length-1]+'.';}L.push('EXECUTE.');return L.join('\n');}
+  'GET DATA /TYPE=TXT /FILE="cleaned_data.csv" /DELIMITERS="," /QUALIFIER=\'"\' /FIRSTCASE=2 /VARIABLES='];for(var i=0;i<headers.length;i++){var p=profiles[i];var t=p.type==='integer'?'F8.0':(p.type==='number'?'F12.3':'A255');L.push('  '+headers[i]+' '+t);}L[L.length-1]=L[L.length-1]+'.';L.push('EXECUTE.','','VARIABLE LABELS');for(var i=0;i<profiles.length;i++){var p=profiles[i];if(p.label)L.push('  '+p.name+' "'+String(p.label).replace(/"/g,"'")+'"');}L[L.length-1]=L[L.length-1]+'.';var scaled=[];for(var i=0;i<profiles.length;i++){if(profiles[i].valueLabels)scaled.push(profiles[i]);}if(scaled.length){L.push('','VALUE LABELS');for(var i=0;i<scaled.length;i++){var p=scaled[i];var codes=Object.keys(p.valueLabels).sort(function(a,b){return Number(a)-Number(b);});var parts=[];for(var c=0;c<codes.length;c++)parts.push(codes[c]+' "'+p.valueLabels[codes[c]].replace(/"/g,"'")+'"');L.push('  '+(i?'/':'')+p.name+' '+parts.join(' '));}L[L.length-1]=L[L.length-1]+'.';}var bin=[];for(var i=0;i<profiles.length;i++){if(profiles[i].name.indexOf('__')>=0&&profiles[i].type==='integer')bin.push(profiles[i].name);}if(bin.length){L.push('','VALUE LABELS');for(var i=0;i<bin.length;i++)L.push('  '+(i?'/':'')+bin[i]+' 0 "нет" 1 "да"');L[L.length-1]=L[L.length-1]+'.';}L.push('EXECUTE.');return L.join('\n');}
 function parseCSV(text){var rows=[],row=[],cur='',q=false;for(var i=0;i<text.length;i++){var c=text[i];if(q){if(c==='"'){if(text[i+1]==='"'){cur+='"';i++;}else q=false;}else cur+=c;}else{if(c==='"')q=true;else if(c===','){row.push(cur);cur='';}else if(c==='\n'){row.push(cur);rows.push(row);row=[];cur='';}else if(c==='\r'){}else cur+=c;}}if(cur!==''||row.length){row.push(cur);rows.push(row);}return rows.filter(function(r){return r.some(function(x){return String(x).trim()!=='';});});}
 
 /* ================= защита от не-табличных файлов ================= */
